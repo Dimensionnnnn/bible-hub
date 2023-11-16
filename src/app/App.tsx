@@ -1,12 +1,13 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
+import {ScrollView, StyleSheet} from 'react-native';
 import {PrimaryButton} from '@shared/ui/buttons/primary-button/primary-button';
 import {ButtonSize} from '@shared/ui/buttons/primary-button/primary-button';
 import {SecondaryButton} from '@shared/ui/buttons/secondary-button/secondary-button';
+import {SubscribeButton} from '@shared/ui/buttons/subscribe-button/subscribe-button';
 
 export const App = () => {
   return (
-    <View style={styles.container}>
+    <ScrollView contentContainerStyle={styles.container}>
       <PrimaryButton
         title="Add"
         size={ButtonSize.large}
@@ -51,13 +52,41 @@ export const App = () => {
         isLoading
         onPress={() => console.log('Pressed')}
       />
-    </View>
+      <SubscribeButton
+        title="Following"
+        isFollow
+        onPress={() => console.log('Pressed')}
+      />
+      <SubscribeButton title="Follow" onPress={() => console.log('Pressed')} />
+      <SubscribeButton
+        title="Follow"
+        isLoading
+        onPress={() => console.log('Pressed')}
+      />
+      <SubscribeButton
+        title="Following"
+        isLoading
+        isFollow
+        onPress={() => console.log('Pressed')}
+      />
+      <SubscribeButton
+        title="Following"
+        isDisabled
+        isFollow
+        onPress={() => console.log('Pressed')}
+      />
+      <SubscribeButton
+        title="Follow"
+        isDisabled
+        onPress={() => console.log('Pressed')}
+      />
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    width: '100%',
     alignItems: 'center',
     gap: 20,
   },
