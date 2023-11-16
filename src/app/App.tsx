@@ -20,6 +20,12 @@ export const App = () => {
       <PrimaryButton
         title="Add"
         size={ButtonSize.large}
+        isLoading
+        onPress={() => console.log('Pressed')}
+      />
+      <PrimaryButton
+        title="Add"
+        size={ButtonSize.large}
         isExit
         onPress={() => console.log('Pressed')}
       />

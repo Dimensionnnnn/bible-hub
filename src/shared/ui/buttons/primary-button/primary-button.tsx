@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {Text, Pressable} from 'react-native';
 import {getStyles} from './styles';
+import {Spinner} from '@shared/ui/spinner/spinner';
 
 export enum ButtonSize {
   small = 'small',
@@ -46,7 +47,14 @@ export const PrimaryButton: React.FC<Props> = ({
       onPress={onPress}
       onPressIn={handlePress}
       onPressOut={handlePress}>
-      <Text style={[styles.fontTitle, styles.titleColor]}>{title}</Text>
+      {isLoading ? (
+        <Spinner
+          color={styles.spinnerColor}
+          stroke={styles.spinnerStrokeColor}
+        />
+      ) : (
+        <Text style={[styles.fontTitle, styles.titleColor]}>{title}</Text>
+      )}
     </Pressable>
   );
 };

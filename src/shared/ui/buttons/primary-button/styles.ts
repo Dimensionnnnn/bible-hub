@@ -15,8 +15,8 @@ const styles = {
       initial: {color: COLORS.grayscale_100},
     },
     spinner: {
-      color: COLORS.grayscale_600,
-      strokeColor: COLORS.grayscale_100,
+      color: COLORS.grayscale_100,
+      strokeColor: COLORS.grayscale_600,
     },
   },
   sizes: {
@@ -67,7 +67,9 @@ export const getStyles = ({
         isDisabled ? 'disabled' : isPressed ? 'pressed' : 'initial'
       ],
     titleColor: styles.colors.title[isExit ? 'exit' : 'initial'],
-    spinnerColor: isLoading && styles.colors.spinner.color,
-    spinnerStrokeColor: isLoading && styles.colors.spinner.strokeColor,
+    ...(isLoading && {
+      spinnerColor: styles.colors.spinner.color,
+      spinnerStrokeColor: styles.colors.spinner.strokeColor,
+    }),
   };
 };
