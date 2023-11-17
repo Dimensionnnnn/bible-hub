@@ -1,45 +1,49 @@
 import React from 'react';
 import {ScrollView, StyleSheet} from 'react-native';
 import {PrimaryButton} from '@shared/ui/buttons/primary-button/primary-button';
-import {ButtonSize} from '@shared/ui/buttons/primary-button/primary-button';
+import {ButtonSize as PrimaryButtonSize} from '@shared/ui/buttons/primary-button/primary-button';
 import {SecondaryButton} from '@shared/ui/buttons/secondary-button/secondary-button';
 import {SubscribeButton} from '@shared/ui/buttons/subscribe-button/subscribe-button';
 import {TextButton} from '@shared/ui/buttons/text-button/text-button';
+import {
+  ButtonSize as DeleteButtonSize,
+  DeleteButton,
+} from '@shared/ui/buttons/delete-button/delete-button';
 
 export const App = () => {
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <PrimaryButton
         title="Add"
-        size={ButtonSize.large}
+        size={PrimaryButtonSize.large}
         onPress={() => console.log('Pressed')}
       />
       <PrimaryButton
         title="Add"
-        size={ButtonSize.large}
+        size={PrimaryButtonSize.large}
         isDisabled
         onPress={() => console.log('Pressed')}
       />
       <PrimaryButton
         title="Add"
-        size={ButtonSize.large}
+        size={PrimaryButtonSize.large}
         isLoading
         onPress={() => console.log('Pressed')}
       />
       <PrimaryButton
         title="Add"
-        size={ButtonSize.large}
+        size={PrimaryButtonSize.large}
         isExit
         onPress={() => console.log('Pressed')}
       />
       <PrimaryButton
         title="Add"
-        size={ButtonSize.medium}
+        size={PrimaryButtonSize.medium}
         onPress={() => console.log('Pressed')}
       />
       <PrimaryButton
         title="Add"
-        size={ButtonSize.small}
+        size={PrimaryButtonSize.small}
         onPress={() => console.log('Pressed')}
       />
       <SecondaryButton title="Add" onPress={() => console.log('Pressed')} />
@@ -85,6 +89,11 @@ export const App = () => {
       <TextButton
         title="Log in"
         isDisabled
+        onPress={() => console.log('Pressed')}
+      />
+      <DeleteButton onPress={() => console.log('Pressed')} />
+      <DeleteButton
+        size={DeleteButtonSize.small}
         onPress={() => console.log('Pressed')}
       />
     </ScrollView>
