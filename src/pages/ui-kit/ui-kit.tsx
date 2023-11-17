@@ -9,6 +9,16 @@ import {
   ButtonSize as DeleteButtonSize,
   DeleteButton,
 } from '@shared/ui/buttons/delete-button/delete-button';
+import {
+  ButtonSize as ButtonIconSize,
+  ButtonIconWithSize,
+} from '@shared/ui/buttons/button-icon-with-size/button-icon-with-size';
+import {SvgPlusIcon} from '@shared/ui/icons/components/svg-plus-icon';
+import {SvgAirplaneIcon} from '@shared/ui/icons/components/svg-airplane-icon';
+import {SvgArmsIcon} from '@shared/ui/icons/components/svg-arms-icon';
+import {ButtonIcon} from '@shared/ui/buttons/button-icon/button-icon';
+import {SvgBackIcon} from '@shared/ui/icons/components/svg-back-icon';
+import {SvgExitIcon} from '@shared/ui/icons/components/svg-exit-icon';
 
 export const UIKit = () => {
   return (
@@ -96,6 +106,69 @@ export const UIKit = () => {
         size={DeleteButtonSize.small}
         onPress={() => console.log('Pressed')}
       />
+      <ButtonIconWithSize
+        size={ButtonIconSize.large}
+        Icon={SvgPlusIcon}
+        onPress={() => console.log('Pressed')}
+      />
+      <ButtonIconWithSize
+        size={ButtonIconSize.large}
+        Icon={SvgPlusIcon}
+        isLoading
+        onPress={() => console.log('Pressed')}
+      />
+      <ButtonIconWithSize
+        size={ButtonIconSize.large}
+        Icon={SvgPlusIcon}
+        isDisabled
+        onPress={() => console.log('Pressed')}
+      />
+      <ButtonIconWithSize
+        size={ButtonIconSize.medium}
+        Icon={SvgAirplaneIcon}
+        onPress={() => console.log('Pressed')}
+      />
+      <ButtonIconWithSize
+        size={ButtonIconSize.medium}
+        Icon={SvgAirplaneIcon}
+        isLoading
+        onPress={() => console.log('Pressed')}
+      />
+      <ButtonIconWithSize
+        size={ButtonIconSize.medium}
+        Icon={SvgAirplaneIcon}
+        isDisabled
+        onPress={() => console.log('Pressed')}
+      />
+      <ButtonIconWithSize
+        size={ButtonIconSize.small}
+        Icon={SvgArmsIcon}
+        onPress={() => console.log('Pressed')}
+      />
+      <ButtonIconWithSize
+        size={ButtonIconSize.small}
+        Icon={SvgArmsIcon}
+        isLoading
+        onPress={() => console.log('Pressed')}
+      />
+      <ButtonIconWithSize
+        size={ButtonIconSize.small}
+        Icon={SvgArmsIcon}
+        isDisabled
+        onPress={() => console.log('Pressed')}
+      />
+      <ButtonIcon Icon={SvgBackIcon} onPress={() => console.log('Pressed')} />
+      <ButtonIcon
+        Icon={SvgBackIcon}
+        isLoading
+        onPress={() => console.log('Pressed')}
+      />
+      <ButtonIcon
+        Icon={SvgBackIcon}
+        isDisabled
+        onPress={() => console.log('Pressed')}
+      />
+      <ButtonIcon Icon={SvgExitIcon} onPress={() => console.log('Pressed')} />
     </ScrollView>
   );
 };
