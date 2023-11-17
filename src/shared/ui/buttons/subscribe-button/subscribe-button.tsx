@@ -44,13 +44,12 @@ export const SubscribeButton: React.FC<Props> = ({
       onPress={onPress}
       onPressIn={handlePress}
       onPressOut={handlePress}>
-      {isLoading && (
+      {isLoading ? (
         <Spinner
           color={styles.spinnerColor}
           stroke={styles.spinnerStrokeColor}
         />
-      )}
-      {!isLoading && (
+      ) : (
         <Text style={[styles.fontTitle, styles.titleColor]}>{title}</Text>
       )}
       {!isLoading && isFollow && (

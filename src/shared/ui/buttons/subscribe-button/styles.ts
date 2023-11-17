@@ -56,6 +56,25 @@ const styles = {
   }),
 };
 
+enum ElementStatus {
+  disabled = 'disabled',
+  pressed = 'pressed',
+  loading = 'loading',
+  initial = 'initial',
+}
+
+const getButtonStatus = (isLoading?: boolean, isPressed?: boolean) => {
+  return isLoading
+    ? ElementStatus.loading
+    : isPressed
+    ? ElementStatus.pressed
+    : ElementStatus.initial;
+};
+
+const getContentStatus = (isDisabled?: boolean) => {
+  return isDisabled ? ElementStatus.disabled : ElementStatus.initial;
+};
+
 interface Props {
   isFollow?: boolean;
   isDisabled?: boolean;
@@ -69,20 +88,18 @@ export const getStyles = ({
   isLoading,
   isPressed,
 }: Props) => {
+  const buttonStatus = getButtonStatus(isLoading, isPressed);
+  const contentStatus = getContentStatus(isDisabled);
   return {
     container: styles.root.container,
     containerUnfollowed: isFollow && styles.root.containerUnfollowed,
     containerLoading: isLoading && styles.root.containerLoading,
     containerColor: isFollow
-      ? styles.colors.button.followed[
-          isPressed ? 'pressed' : isLoading ? 'loading' : 'initial'
-        ]
-      : styles.colors.button.unFollowed[
-          isPressed ? 'pressed' : isLoading ? 'loading' : 'initial'
-        ],
+      ? styles.colors.button.followed[buttonStatus]
+      : styles.colors.button.unFollowed[buttonStatus],
     fontTitle: styles.root.fontTitle,
-    titleColor: styles.colors.title[isDisabled ? 'disabled' : 'initial'],
-    iconColor: styles.colors.icon[isDisabled ? 'disabled' : 'initial'],
+    titleColor: styles.colors.title[contentStatus],
+    iconColor: styles.colors.icon[contentStatus],
     iconSize: styles.root.iconSize,
     ...(isLoading && {
       spinnerColor: styles.colors.spinner.color,
