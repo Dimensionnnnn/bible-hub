@@ -4,6 +4,7 @@ import {PrimaryButton} from '@shared/ui/buttons/primary-button/primary-button';
 import {ButtonSize} from '@shared/ui/buttons/primary-button/primary-button';
 import {SecondaryButton} from '@shared/ui/buttons/secondary-button/secondary-button';
 import {SubscribeButton} from '@shared/ui/buttons/subscribe-button/subscribe-button';
+import {TextButton} from '@shared/ui/buttons/text-button/text-button';
 
 export const App = () => {
   return (
@@ -77,6 +78,12 @@ export const App = () => {
       />
       <SubscribeButton
         title="Follow"
+        isDisabled
+        onPress={() => console.log('Pressed')}
+      />
+      <TextButton title="Log in" onPress={() => console.log('Pressed')} />
+      <TextButton
+        title="Log in"
         isDisabled
         onPress={() => console.log('Pressed')}
       />
