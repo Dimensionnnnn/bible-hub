@@ -2,6 +2,7 @@ import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import {PrimaryButton} from '@shared/ui/buttons/primary-button/primary-button';
 import {ButtonSize} from '@shared/ui/buttons/primary-button/primary-button';
+import {SecondaryButton} from '@shared/ui/buttons/secondary-button/secondary-button';
 
 export const App = () => {
   return (
@@ -37,6 +38,17 @@ export const App = () => {
       <PrimaryButton
         title="Add"
         size={ButtonSize.small}
+        onPress={() => console.log('Pressed')}
+      />
+      <SecondaryButton title="Add" onPress={() => console.log('Pressed')} />
+      <SecondaryButton
+        title="Add"
+        isDisabled
+        onPress={() => console.log('Pressed')}
+      />
+      <SecondaryButton
+        title="Add"
+        isLoading
         onPress={() => console.log('Pressed')}
       />
     </View>
