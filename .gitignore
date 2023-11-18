@@ -66,3 +66,4 @@ yarn-error.log
 /coverage
 
 src/api/generated
+package-lock.json
