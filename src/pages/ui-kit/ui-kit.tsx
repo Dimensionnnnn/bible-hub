@@ -191,7 +191,7 @@ export const UIKit = () => {
         onPress={() => console.log('Pressed')}
       />
       <UILabelInput placeholder="Placeholder" label="Label" />
-      <UIDefaultInput placeholder="Placeholder" />
+      <UILabelInput placeholder="Placeholder" label="Label" isDisabled />
     </ScrollView>
   );
 };

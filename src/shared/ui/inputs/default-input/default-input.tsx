@@ -35,7 +35,7 @@ function UIDefaultInput({
     <>
       <StyledInput
         rootStyle={rootStyle}
-        isDisabled={isDisabled}
+        editable={!isDisabled}
         isFocused={isFocused}
         isFilled={isFilled}
         onFocus={handleFocus}
