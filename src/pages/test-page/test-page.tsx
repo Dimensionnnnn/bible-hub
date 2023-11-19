@@ -1,10 +1,22 @@
+import LabelFormInput from '@shared/form-components/inputs/label-input/label-input';
 import React from 'react';
-import {Text, View} from 'react-native';
+import {FormProvider, useForm} from 'react-hook-form';
+import {View} from 'react-native';
 
 export const Page = () => {
+  const methods = useForm();
+
   return (
     <View>
-      <Text>Hello</Text>
+      <FormProvider {...methods}>
+        <LabelFormInput
+          name="firstName"
+          control={methods.control}
+          label="First name"
+          placeholder="Enter first name"
+          isPassword
+        />
+      </FormProvider>
     </View>
   );
 };

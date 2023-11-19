@@ -14,6 +14,7 @@ export interface UIDefaultInputProps extends TextInputProps {
   errorMessage?: string;
   isError?: boolean;
   isPassword?: boolean;
+  iconColor?: string;
   rootStyle?: CSSProp;
 }
 
@@ -24,6 +25,7 @@ function UILabelInput({
   errorMessage,
   isError,
   isPassword,
+  iconColor,
   rootStyle,
   ...props
 }: UIDefaultInputProps) {
@@ -37,7 +39,7 @@ function UILabelInput({
     <StyledContainer>
       <StyledLabel>{label}</StyledLabel>
       <UIDefaultInput
-        rootStyle={getInputStyles({isSuccess, isError, rootStyle})}
+        rootStyle={rootStyle}
         isDisabled={isDisabled}
         secureTextEntry={isPassword && isPasswordHidden}
         {...props}>
@@ -49,9 +51,9 @@ function UILabelInput({
         {!isSuccess && isPassword && (
           <StyledIconPressable onPress={handlePasswordHide}>
             {isPasswordHidden ? (
-              <SvgPasswordHiddenIcon color="black" />
+              <SvgPasswordHiddenIcon color={iconColor} />
             ) : (
-              <SvgPasswordShowedIcon color="black" />
+              <SvgPasswordShowedIcon color={iconColor} />
             )}
           </StyledIconPressable>
         )}
@@ -81,6 +83,9 @@ const iconContainerStyles = css`
 
 const StyledIconPressable = styled.Pressable`
   ${iconContainerStyles};
+  > svg {
+    color: ${props => props.theme.default.colors.additional_error};
+  }
 `;
 
 const StyledIconContainer = styled.View`
@@ -91,34 +96,6 @@ const StyledErrorMessage = styled.Text`
   ${props => props.theme.default.typography.bodyRegular_14};
   color: ${props => props.theme.default.colors.additional_error};
   padding: 4px 0 4px;
-`;
-
-const getInputStyles = ({
-  isSuccess,
-  isError,
-  rootStyle,
-}: {
-  isSuccess?: boolean;
-  isError?: boolean;
-  rootStyle?: CSSProp;
-}) => css`
-  ${props => {
-    if (isSuccess) {
-      return css`
-        color: ${props.theme.default.colors.additional_success};
-        border-bottom-color: ${props.theme.default.colors.additional_success};
-      `;
-    }
-
-    if (isError) {
-      return css`
-        color: ${props.theme.default.colors.additional_error};
-        border-bottom-color: ${props.theme.default.colors.additional_error};
-      `;
-    }
-  }}
-
-  ${rootStyle};
 `;
 
 export default UILabelInput;

@@ -36,8 +36,6 @@ function UICommentInput({
     setIsFilled(!!text);
   };
 
-  console.log(isDisabled);
-
   return (
     <StyledContainer>
       <StyledInput
