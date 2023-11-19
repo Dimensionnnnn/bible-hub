@@ -181,6 +181,7 @@ export const UIKit = () => {
         errorMessage="Error"
       />
       <UILabelInput placeholder="Placeholder" label="Label" />
+      <UILabelInput placeholder="Placeholder" label="Label" isDisabled />
     </ScrollView>
   );
 };
