@@ -21,6 +21,7 @@ import {SvgBackIcon} from '@shared/ui/icons/components/svg-back-icon';
 import {SvgExitIcon} from '@shared/ui/icons/components/svg-exit-icon';
 import UIDefaultInput from '@shared/ui/inputs/default-input/default-input';
 import UILabelInput from '@shared/ui/inputs/label-input/label-input';
+import UICommentInput from '@shared/ui/inputs/comment-input/comment-input';
 
 export const UIKit = () => {
   return (
@@ -180,7 +181,17 @@ export const UIKit = () => {
         isError
         errorMessage="Error"
       />
+      <UICommentInput
+        placeholder="Placeholder"
+        onPress={() => console.log('Pressed')}
+      />
+      <UICommentInput
+        placeholder="Placeholder"
+        isDisabled
+        onPress={() => console.log('Pressed')}
+      />
       <UILabelInput placeholder="Placeholder" label="Label" />
+      <UIDefaultInput placeholder="Placeholder" />
     </ScrollView>
   );
 };
