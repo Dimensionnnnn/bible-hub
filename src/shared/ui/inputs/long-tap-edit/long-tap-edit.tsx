@@ -6,7 +6,7 @@ import {
   TextInputFocusEventData,
   TextInputProps,
 } from 'react-native';
-import UISkeleton from '@shared/ui/skeleton';
+import {UISkeleton} from '@shared/ui/skeleton';
 
 interface Props extends TextInputProps {
   isDisabled?: boolean;

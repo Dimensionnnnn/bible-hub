@@ -1,8 +1,8 @@
 import React from 'react';
 import styled, {css} from 'styled-components/native';
 import {CSSProp} from 'styled-components/native/dist/types';
-import UISkeleton from '../skeleton';
-import UIColorMark from '../color-mark';
+import {UISkeleton} from '../skeleton';
+import {UIColorMark} from '../color-mark';
 import {
   ButtonIconWithSize,
   ButtonSize,

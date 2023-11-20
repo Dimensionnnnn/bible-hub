@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import styled, {css} from 'styled-components/native';
 import {CSSProp, Interpolation} from 'styled-components/native/dist/types';
-import UISkeleton from '../skeleton';
+import {UISkeleton} from '../skeleton';
 
 interface Props {
   title?: string;
@@ -13,8 +13,17 @@ interface Props {
 
 export function UIDeskCard({title, isLoading, isDisabled, onPress}: Props) {
   const [isPressed, setIsPressed] = useState(false);
-  const cardColors = getCardColors(isDisabled, isPressed);
-  const textColors = getTextColor(isDisabled);
+
+  const deskState: DeskState | null = isDisabled
+    ? DeskState.DISABLED
+    : isPressed
+    ? DeskState.PRESSED
+    : null;
+
+  const textState: DeskState | null = isDisabled ? DeskState.DISABLED : null;
+
+  const cardColors = deskState !== null ? deskCardStyles[deskState] : null;
+  const textColors = textState !== null ? deskTextCardStyles[textState] : null;
 
   const handlePress = () => {
     setIsPressed(prevPressed => !prevPressed);
@@ -54,22 +63,6 @@ const deskTextCardStyles = {
     color: ${props => props.theme.colors.grayscale_400};
   `,
 } as Readonly<Record<DeskState, Interpolation<typeof DeskState>>>;
-
-const getCardColors = (isDisabled?: boolean, isPressed?: boolean) => {
-  if (isDisabled) {
-    return deskCardStyles[DeskState.DISABLED];
-  }
-
-  if (isPressed) {
-    return deskCardStyles[DeskState.PRESSED];
-  }
-};
-
-const getTextColor = (isDisabled?: boolean) => {
-  if (isDisabled) {
-    return deskTextCardStyles[DeskState.DISABLED];
-  }
-};
 
 const StyledPressable = styled.Pressable<{rootStyle?: CSSProp}>`
   width: 100%;

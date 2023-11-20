@@ -1,4 +1,1 @@
-import {UISkeleton} from './skeleton';
-
-export * from './skeleton';
-export default UISkeleton;
+export {UISkeleton} from './skeleton';

@@ -22,9 +22,9 @@ import {SvgExitIcon} from '@shared/ui/icons/components/svg-exit-icon';
 import {UIDefaultInput} from '@shared/ui/inputs/default-input';
 import {UILabelInput} from '@shared/ui/inputs/label-input';
 import {UICommentInput} from '@shared/ui/inputs/comment-input';
-import UILongTapEdit from '@shared/ui/inputs/long-tap-edit';
-import UIDeskCard from '@shared/ui/desk-card';
-import UIPrayerCard from '@shared/ui/prayer-card';
+import {UILongTapEdit} from '@shared/ui/inputs/long-tap-edit';
+import {UIDeskCard} from '@shared/ui/desk-card';
+import {UIPrayerCard} from '@shared/ui/prayer-card';
 
 export const UIKit = () => {
   return (
