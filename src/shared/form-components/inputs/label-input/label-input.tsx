@@ -1,110 +1,109 @@
-import UILabelInput from '@shared/ui/inputs/label-input/label-input';
-import React from 'react';
-import {Controller, Control, useFormContext} from 'react-hook-form';
+import React, {forwardRef} from 'react';
+import {UILabelInput} from '@shared/ui/inputs/label-input';
+import {ControllerRenderProps, FormState} from 'react-hook-form';
 import {TextInputProps} from 'react-native';
 import {DefaultTheme, css, useTheme} from 'styled-components/native';
+import {Interpolation} from 'styled-components/native/dist/types';
 
 interface Props extends TextInputProps {
-  name: string;
-  control: Control<any>;
+  field: ControllerRenderProps<any, any>;
+  formState: FormState<any>;
   label?: string;
   isPassword?: boolean;
   isDisabled?: boolean;
 }
 
-function LabelFormInput({
-  name,
-  control,
-  label,
-  isPassword,
-  isDisabled,
-  ...props
-}: Props) {
-  const {formState} = useFormContext();
-  const {isDirty, errors, isSubmitSuccessful} = formState;
-  const theme = useTheme();
+export const LabelFormInput = forwardRef<HTMLInputElement, Props>(
+  ({field, formState, label, isPassword, isDisabled, ...props}: Props, ref) => {
+    const {errors, isSubmitSuccessful, dirtyFields} = formState;
+    const {name, value, onChange, onBlur} = field;
+    const theme = useTheme();
 
-  const inputColors = getInputColors(
-    isDisabled,
-    isDirty,
-    isSubmitSuccessful,
-    !!errors.root,
-  );
+    const isDirty = dirtyFields?.[name];
 
-  const iconColor = getIconColor(
-    theme,
-    isDisabled,
-    isDirty,
-    isSubmitSuccessful,
-    !!errors.root,
-  );
+    const inputColors = getInputColors(
+      isDisabled,
+      isDirty,
+      isSubmitSuccessful,
+      !!errors.root,
+    );
 
-  return (
-    <Controller
-      control={control}
-      name={name}
-      rules={{
-        required: {
-          value: true,
-          message: 'This field is required',
-        },
-      }}
-      render={({field: {onChange, onBlur, value}}) => (
-        <UILabelInput
-          label={label}
-          value={value}
-          errorMessage={errors.root?.message}
-          isError={!!errors.root}
-          isSuccess={isSubmitSuccessful}
-          isPassword={isPassword}
-          isDisabled={isDisabled}
-          onBlur={onBlur}
-          onChangeText={onChange}
-          iconColor={iconColor}
-          rootStyle={inputColors}
-          {...props}
-        />
-      )}
-    />
-  );
+    const iconColor = getIconColor(
+      theme,
+      isDisabled,
+      isDirty,
+      isSubmitSuccessful,
+      !!errors.root,
+    );
+
+    return (
+      <UILabelInput
+        label={label}
+        errorMessage={errors.root?.message}
+        isError={!!errors.root}
+        isSuccess={isSubmitSuccessful}
+        isPassword={isPassword}
+        isDisabled={isDisabled}
+        iconColor={iconColor}
+        rootStyle={inputColors}
+        value={value}
+        onChangeText={onChange}
+        onBlur={onBlur}
+        ref={ref}
+        {...props}
+      />
+    );
+  },
+);
+
+enum InputState {
+  DISABLED = 'isDisabled',
+  DIRTY = 'isDirty',
+  SUCCESS = 'isSuccess',
+  ERROR = 'isError',
 }
+
+const labelInputStyles = {
+  [InputState.DISABLED]: css`
+    color: ${props => props.theme.colors.grayscale_500};
+    border-bottom-color: ${props => props.theme.colors.grayscale_500};
+  `,
+  [InputState.DIRTY]: css`
+    color: ${props => props.theme.colors.grayscale_800};
+    border-bottom-color: ${props => props.theme.colors.grayscale_800};
+  `,
+  [InputState.SUCCESS]: css`
+    color: ${props => props.theme.colors.additional_success};
+    border-bottom-color: ${props => props.theme.colors.additional_success};
+  `,
+  [InputState.ERROR]: css`
+    color: ${props => props.theme.colors.additional_error};
+    border-bottom-color: ${props => props.theme.colors.additional_error};
+  `,
+} as Readonly<Record<InputState, Interpolation<typeof InputState>>>;
 
 const getInputColors = (
   isDisabled?: boolean,
   isDirty?: boolean,
   isSuccess?: boolean,
   isError?: boolean,
-) => css`
-  ${props => {
-    if (isDisabled) {
-      return css`
-        color: ${props.theme.default.colors.grayscale_500};
-        border-bottom-color: ${props.theme.default.colors.grayscale_500};
-      `;
-    }
+) => {
+  if (isDisabled) {
+    return labelInputStyles[InputState.DISABLED];
+  }
 
-    if (isDirty) {
-      return css`
-        color: ${props.theme.default.colors.grayscale_800};
-        border-bottom-color: ${props.theme.default.colors.grayscale_800};
-      `;
-    }
+  if (isDirty) {
+    return labelInputStyles[InputState.DIRTY];
+  }
 
-    if (isSuccess) {
-      return css`
-        color: ${props.theme.default.colors.additional_success};
-        border-bottom-color: ${props.theme.default.colors.additional_success};
-      `;
-    }
+  if (isSuccess) {
+    return labelInputStyles[InputState.SUCCESS];
+  }
 
-    if (isError) {
-      return css`
-        color: ${props.theme.default.colors.additional_error};
-        border-bottom-color: ${props.theme.default.colors.additional_error};
-      `;
-    }
-  }}
-`;
+  if (isError) {
+    return labelInputStyles[InputState.ERROR];
+  }
+};
 
 const getIconColor = (
   theme: DefaultTheme,
@@ -114,22 +113,20 @@ const getIconColor = (
   isError?: boolean,
 ) => {
   if (isDisabled) {
-    return theme.default.colors.grayscale_500;
+    return theme.colors.grayscale_500;
   }
 
   if (isDirty) {
-    return theme.default.colors.grayscale_800;
+    return theme.colors.grayscale_800;
   }
 
   if (isSuccess) {
-    return theme.default.colors.additional_success;
+    return theme.colors.additional_success;
   }
 
   if (isError) {
-    return theme.default.colors.additional_error;
+    return theme.colors.additional_error;
   }
 
-  return theme.default.colors.grayscale_600;
+  return theme.colors.grayscale_600;
 };
-
-export default LabelFormInput;

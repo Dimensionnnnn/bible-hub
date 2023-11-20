@@ -1,55 +1,60 @@
-import UIDefaultInput from '@shared/ui/inputs/default-input/default-input';
-import React from 'react';
-import {Controller, Control, useFormContext} from 'react-hook-form';
+import React, {forwardRef} from 'react';
+import {UIDefaultInput} from '@shared/ui/inputs/default-input';
+import {ControllerRenderProps, FormState} from 'react-hook-form';
 import {TextInputProps} from 'react-native';
 import {css} from 'styled-components/native';
+import {Interpolation} from 'styled-components/native/dist/types';
 
 interface Props extends TextInputProps {
-  name: string;
-  control: Control;
+  field: ControllerRenderProps<any, any>;
+  formState: FormState<any>;
   isDisabled?: boolean;
 }
 
-function DefaultFormInput({name, control, isDisabled, ...props}: Props) {
-  const {formState} = useFormContext();
-  const {isDirty} = formState || {};
+export const DefaultFormInput = forwardRef<HTMLInputElement, Props>(
+  ({field, formState, isDisabled, ...props}: Props, ref) => {
+    const {dirtyFields} = formState;
+    const {name, value, onChange, onBlur} = field;
 
-  const colors = getInputColors(isDisabled, isDirty);
+    const isDirty = dirtyFields?.[name];
+    const colors = getInputColors(isDisabled, isDirty);
 
-  return (
-    <Controller
-      control={control}
-      name={name}
-      render={({field: {onChange, onBlur, value}}) => (
-        <UIDefaultInput
-          onBlur={onBlur}
-          onChangeText={onChange}
-          value={value}
-          isDisabled={isDisabled}
-          rootStyle={colors}
-          {...props}
-        />
-      )}
-    />
-  );
+    return (
+      <UIDefaultInput
+        isDisabled={isDisabled}
+        rootStyle={colors}
+        value={value}
+        onChangeText={onChange}
+        onBlur={onBlur}
+        ref={ref}
+        {...props}
+      />
+    );
+  },
+);
+
+enum InputState {
+  DISABLED = 'isDisabled',
+  DIRTY = 'isDirty',
 }
 
-const getInputColors = (isDisabled?: boolean, isDirty?: boolean) => css`
-  ${props => {
-    if (isDisabled) {
-      return css`
-        color: ${props.theme.default.colors.grayscale_500};
-        border-bottom-color: ${props.theme.default.colors.grayscale_500};
-      `;
-    }
+const defaultInputStyles = {
+  [InputState.DISABLED]: css`
+    color: ${props => props.theme.colors.grayscale_500};
+    border-bottom-color: ${props => props.theme.colors.grayscale_500};
+  `,
+  [InputState.DIRTY]: css`
+    color: ${props => props.theme.colors.grayscale_800};
+    border-bottom-color: ${props => props.theme.colors.grayscale_800};
+  `,
+} as Readonly<Record<InputState, Interpolation<typeof InputState>>>;
 
-    if (isDirty) {
-      return css`
-        color: ${props.theme.default.colors.grayscale_800};
-        border-bottom-color: ${props.theme.default.colors.grayscale_800};
-      `;
-    }
-  }}
-`;
+const getInputColors = (isDisabled?: boolean, isDirty?: boolean) => {
+  if (isDisabled) {
+    return defaultInputStyles[InputState.DISABLED];
+  }
 
-export default DefaultFormInput;
+  if (isDirty) {
+    return defaultInputStyles[InputState.DIRTY];
+  }
+};

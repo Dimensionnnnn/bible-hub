@@ -14,14 +14,14 @@ interface UICommentInputProps extends TextInputProps {
   onPress: () => void;
 }
 
-function UICommentInput({
+export function UICommentInput({
   isDisabled,
   onPress,
   rootStyle,
   ...props
 }: UICommentInputProps) {
   const [isFocused, setIsFocused] = useState(false);
-  const [isFilled, setIsFilled] = useState(false);
+  const isFilled = props?.value ? !!props.value.length : false;
 
   const handleFocus = () => {
     setIsFocused(true);
@@ -29,11 +29,6 @@ function UICommentInput({
 
   const handleBlur = () => {
     setIsFocused(false);
-    setIsFilled(!!props.value);
-  };
-
-  const handleChangeText = (text: string) => {
-    setIsFilled(!!text);
   };
 
   return (
@@ -44,7 +39,6 @@ function UICommentInput({
         isFilled={isFilled}
         onFocus={handleFocus}
         onBlur={handleBlur}
-        onChangeText={handleChangeText}
         editable={!isDisabled}
         {...props}
       />
@@ -73,11 +67,11 @@ const StyledContainer = styled.View<{isDisabled?: boolean}>`
   ${props => {
     if (props.isDisabled) {
       return css`
-        background-color: ${props.theme.default.colors.grayscale_200};
+        background-color: ${props.theme.colors.grayscale_200};
       `;
     }
     return css`
-      background-color: ${props.theme.default.colors.grayscale_300};
+      background-color: ${props.theme.colors.grayscale_300};
     `;
   }}
 `;
@@ -88,23 +82,23 @@ const StyledInput = styled.TextInput<{
   isDisabled?: boolean;
   rootStyle?: CSSProp;
 }>`
-  ${props => props.theme.default.typography.bodyRegular_16};
+  ${props => props.theme.typography.bodyRegular_16};
 
   ${props => {
     if (props.isDisabled) {
       return css`
-        color: ${props.theme.default.colors.grayscale_400};
+        color: ${props.theme.colors.grayscale_400};
       `;
     }
 
     if (props.isFocused || props.isFilled) {
       return css`
-        color: ${props.theme.default.colors.grayscale_800};
+        color: ${props.theme.colors.grayscale_800};
       `;
     }
 
     return css`
-      color: ${props.theme.default.colors.grayscale_600};
+      color: ${props.theme.colors.grayscale_600};
     `;
   }}
 
@@ -114,5 +108,3 @@ const StyledInput = styled.TextInput<{
 
   ${({rootStyle}) => rootStyle};
 `;
-
-export default UICommentInput;

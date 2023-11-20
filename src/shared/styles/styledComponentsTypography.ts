@@ -5,7 +5,7 @@ enum fonts {
   OUTFIT_MEDIUM = 'outfit-medium',
 }
 
-export const styledTypography = {
+export const styledComponentsTypography = {
   titleBold_28: {
     fontFamily: fonts.OUTFIT_BOLD,
     fontSize: '28px',

@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import styled, {css} from 'styled-components/native';
 import {TextInputProps} from 'react-native';
 import {CSSProp} from 'styled-components/native/dist/types';
-import UIDefaultInput from '../default-input/default-input';
+import {UIDefaultInput} from '../default-input';
 import {SvgCheckIcon} from '@shared/ui/icons/components/svg-check-icon';
 import {SvgPasswordHiddenIcon} from '@shared/ui/icons/components/svg-password-hidden-icon';
 import {SvgPasswordShowedIcon} from '@shared/ui/icons/components/svg-password-showed-icon';
@@ -16,9 +16,10 @@ export interface UIDefaultInputProps extends TextInputProps {
   isPassword?: boolean;
   iconColor?: string;
   rootStyle?: CSSProp;
+  ref?: React.Ref<HTMLInputElement>;
 }
 
-function UILabelInput({
+export function UILabelInput({
   label,
   isDisabled,
   isSuccess,
@@ -64,8 +65,8 @@ function UILabelInput({
 }
 
 const StyledLabel = styled.Text`
-  ${props => props.theme.default.typography.headlineSemibold_16};
-  color: ${props => props.theme.default.colors.grayscale_700};
+  ${props => props.theme.typography.headlineSemibold_16};
+  color: ${props => props.theme.colors.grayscale_700};
 `;
 
 const StyledContainer = styled.View`
@@ -84,7 +85,7 @@ const iconContainerStyles = css`
 const StyledIconPressable = styled.Pressable`
   ${iconContainerStyles};
   > svg {
-    color: ${props => props.theme.default.colors.additional_error};
+    color: ${props => props.theme.colors.additional_error};
   }
 `;
 
@@ -93,9 +94,7 @@ const StyledIconContainer = styled.View`
 `;
 
 const StyledErrorMessage = styled.Text`
-  ${props => props.theme.default.typography.bodyRegular_14};
-  color: ${props => props.theme.default.colors.additional_error};
+  ${props => props.theme.typography.bodyRegular_14};
+  color: ${props => props.theme.colors.additional_error};
   padding: 4px 0 4px;
 `;
-
-export default UILabelInput;

@@ -7,9 +7,10 @@ export interface UIDefaultInputProps extends TextInputProps {
   isDisabled?: boolean;
   rootStyle?: CSSProp;
   children?: React.ReactNode;
+  ref?: React.Ref<HTMLInputElement>;
 }
 
-function UIDefaultInput({
+export function UIDefaultInput({
   isDisabled,
   rootStyle,
   children,
@@ -28,9 +29,9 @@ const StyledInput = styled.TextInput<{
 }>`
   ${props => {
     return css`
-      ${props.theme.default.typography.bodyRegular_16};
-      color: ${props.theme.default.colors.grayscale_600};
-      border-bottom-color: ${props.theme.default.colors.grayscale_600};
+      ${props.theme.typography.bodyRegular_16};
+      color: ${props.theme.colors.grayscale_600};
+      border-bottom-color: ${props.theme.colors.grayscale_600};
     `;
   }};
 
@@ -40,5 +41,3 @@ const StyledInput = styled.TextInput<{
 
   ${({rootStyle}) => rootStyle};
 `;
-
-export default UIDefaultInput;

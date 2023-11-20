@@ -8,6 +8,7 @@ module.exports = {
         alias: {
           '@app': './src/app',
           '@pages': './src/pages',
+          '@processes': './src/processes',
           '@widgets': './src/widgets',
           '@features': './src/features',
           '@entities': './src/entities',
