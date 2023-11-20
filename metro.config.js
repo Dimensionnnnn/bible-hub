@@ -11,7 +11,6 @@ const config = {
   watchFolders: [
     path.resolve(__dirname, './src/app'),
     path.resolve(__dirname, './src/pages'),
-    path.resolve(__dirname, './src/processes'),
     path.resolve(__dirname, './src/widgets'),
     path.resolve(__dirname, './src/features'),
     path.resolve(__dirname, './src/entities'),

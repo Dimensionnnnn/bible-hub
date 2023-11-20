@@ -2,7 +2,7 @@ import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {ThemeProvider} from 'styled-components/native';
 import {themes} from '@shared/ui/styles/themes';
-import {BottomTab} from '@processes/navigation/navigators/bottom-tab/bottom-tab';
+import {BottomTab} from './navigation/navigators/bottom-tab/bottom-tab';
 
 export const App = () => {
   return (
