@@ -21,12 +21,18 @@ export const LabelFormInput = forwardRef<HTMLInputElement, Props>(
 
     const isDirty = dirtyFields?.[name];
 
-    const inputColors = getInputColors(
-      isDisabled,
-      isDirty,
-      isSubmitSuccessful,
-      !!errors.root,
-    );
+    const inputState: InputState | null = isDirty
+      ? InputState.DIRTY
+      : isDisabled
+      ? InputState.DISABLED
+      : isSubmitSuccessful
+      ? InputState.SUCCESS
+      : errors.root
+      ? InputState.ERROR
+      : null;
+
+    const inputColors =
+      inputState !== null ? labelInputStyles[inputState] : null;
 
     const iconColor = getIconColor(
       theme,
@@ -81,29 +87,6 @@ const labelInputStyles = {
     border-bottom-color: ${props => props.theme.colors.additional_error};
   `,
 } as Readonly<Record<InputState, Interpolation<typeof InputState>>>;
-
-const getInputColors = (
-  isDisabled?: boolean,
-  isDirty?: boolean,
-  isSuccess?: boolean,
-  isError?: boolean,
-) => {
-  if (isDisabled) {
-    return labelInputStyles[InputState.DISABLED];
-  }
-
-  if (isDirty) {
-    return labelInputStyles[InputState.DIRTY];
-  }
-
-  if (isSuccess) {
-    return labelInputStyles[InputState.SUCCESS];
-  }
-
-  if (isError) {
-    return labelInputStyles[InputState.ERROR];
-  }
-};
 
 const getIconColor = (
   theme: DefaultTheme,
