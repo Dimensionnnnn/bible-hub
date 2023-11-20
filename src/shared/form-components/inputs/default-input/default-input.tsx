@@ -17,7 +17,14 @@ export const DefaultFormInput = forwardRef<HTMLInputElement, Props>(
     const {name, value, onChange, onBlur} = field;
 
     const isDirty = dirtyFields?.[name];
-    const colors = getInputColors(isDisabled, isDirty);
+
+    const inputState: InputState | null = isDirty
+      ? InputState.DIRTY
+      : isDisabled
+      ? InputState.DISABLED
+      : null;
+
+    const colors = inputState !== null ? defaultInputStyles[inputState] : null;
 
     return (
       <UIDefaultInput
@@ -48,13 +55,3 @@ const defaultInputStyles = {
     border-bottom-color: ${props => props.theme.colors.grayscale_800};
   `,
 } as Readonly<Record<InputState, Interpolation<typeof InputState>>>;
-
-const getInputColors = (isDisabled?: boolean, isDirty?: boolean) => {
-  if (isDisabled) {
-    return defaultInputStyles[InputState.DISABLED];
-  }
-
-  if (isDirty) {
-    return defaultInputStyles[InputState.DIRTY];
-  }
-};
