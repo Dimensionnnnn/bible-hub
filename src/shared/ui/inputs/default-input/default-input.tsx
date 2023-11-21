@@ -1,4 +1,3 @@
-import React from 'react';
 import styled, {css} from 'styled-components/native';
 import {TextInputProps} from 'react-native';
 import {CSSProp} from 'styled-components/native/dist/types';

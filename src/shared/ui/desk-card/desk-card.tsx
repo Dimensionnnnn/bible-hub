@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import {useState} from 'react';
 import styled, {css} from 'styled-components/native';
 import {CSSProp, Interpolation} from 'styled-components/native/dist/types';
 import {UISkeleton} from '../skeleton';

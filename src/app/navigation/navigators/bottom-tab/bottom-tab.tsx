@@ -5,7 +5,6 @@ import {
   getTabBarIcon,
 } from '@shared/helpers/tab-bar-icons/tab-bar-icon';
 import {BottomTabBar, Tab} from '@shared/ui/bottom-tabbar/bottom-tabbar';
-import React from 'react';
 
 export const BottomTab = () => {
   return (

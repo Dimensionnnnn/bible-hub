@@ -1,4 +1,3 @@
-import React from 'react';
 import {ScrollView, StyleSheet} from 'react-native';
 import {PrimaryButton} from '@shared/ui/buttons/primary-button/primary-button';
 import {ButtonSize as PrimaryButtonSize} from '@shared/ui/buttons/primary-button/primary-button';

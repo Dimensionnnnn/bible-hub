@@ -1,4 +1,4 @@
-import React, {forwardRef} from 'react';
+import {forwardRef} from 'react';
 import {UILabelInput} from '@shared/ui/inputs/label-input';
 import {ControllerRenderProps, FormState} from 'react-hook-form';
 import {TextInputProps} from 'react-native';
@@ -11,15 +11,17 @@ interface Props extends TextInputProps {
   label?: string;
   isPassword?: boolean;
   isDisabled?: boolean;
+  isDirty?: boolean;
 }
 
 export const LabelFormInput = forwardRef<HTMLInputElement, Props>(
-  ({field, formState, label, isPassword, isDisabled, ...props}: Props, ref) => {
-    const {errors, isSubmitSuccessful, dirtyFields} = formState;
-    const {name, value, onChange, onBlur} = field;
+  (
+    {field, formState, label, isPassword, isDisabled, isDirty, ...props}: Props,
+    ref,
+  ) => {
+    const {errors, isSubmitSuccessful} = formState;
+    const {value, onChange, onBlur} = field;
     const theme = useTheme();
-
-    const isDirty = dirtyFields?.[name];
 
     const inputState: InputState | null = isDirty
       ? InputState.DIRTY

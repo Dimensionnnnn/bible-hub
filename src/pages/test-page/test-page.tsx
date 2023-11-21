@@ -1,6 +1,5 @@
 import {DefaultFormInput} from '@shared/form-components/inputs/default-input';
 import {LabelFormInput} from '@shared/form-components/inputs/label-input';
-import React from 'react';
 import {Controller, useForm} from 'react-hook-form';
 import {View} from 'react-native';
 import {yupResolver} from '@hookform/resolvers/yup';
@@ -36,6 +35,7 @@ export const Page = () => {
             field={field}
             label="Label"
             formState={formState}
+            isDirty={formState.dirtyFields.firstName}
             isPassword
           />
         )}
@@ -45,7 +45,10 @@ export const Page = () => {
         name="lastName"
         rules={{required: true}}
         render={({field}) => (
-          <DefaultFormInput field={field} formState={formState} />
+          <DefaultFormInput
+            field={field}
+            isDirty={formState.dirtyFields.lastName}
+          />
         )}
       />
       <Controller
