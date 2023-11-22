@@ -4,6 +4,7 @@ import {ControllerRenderProps, FormState} from 'react-hook-form';
 import {TextInputProps} from 'react-native';
 import {DefaultTheme, css, useTheme} from 'styled-components/native';
 import {Interpolation} from 'styled-components/native/dist/types';
+import {UIPasswordInput} from '@shared/ui/inputs/password-input';
 
 interface Props extends TextInputProps {
   field: ControllerRenderProps<any, any>;
@@ -14,7 +15,7 @@ interface Props extends TextInputProps {
   isDirty?: boolean;
 }
 
-export const LabelFormInput = forwardRef<HTMLInputElement, Props>(
+export const FormInput = forwardRef<TextInputProps, Props>(
   (
     {field, formState, label, isPassword, isDisabled, isDirty, ...props}: Props,
     ref,
@@ -31,36 +32,46 @@ export const LabelFormInput = forwardRef<HTMLInputElement, Props>(
       ? InputState.SUCCESS
       : errors.root
       ? InputState.ERROR
-      : null;
+      : InputState.DEFAULT;
 
-    const inputColors =
-      inputState !== null ? labelInputStyles[inputState] : null;
+    const inputColors = labelInputStyles[inputState];
 
-    const iconColor = getIconColor(
-      theme,
-      isDisabled,
-      isDirty,
-      isSubmitSuccessful,
-      !!errors.root,
-    );
+    const iconColor = iconColors(theme)[inputState];
 
-    return (
-      <UILabelInput
-        label={label}
-        errorMessage={errors.root?.message}
-        isError={!!errors.root}
-        isSuccess={isSubmitSuccessful}
-        isPassword={isPassword}
-        isDisabled={isDisabled}
-        iconColor={iconColor}
-        rootStyle={inputColors}
-        value={value}
-        onChangeText={onChange}
-        onBlur={onBlur}
-        ref={ref}
-        {...props}
-      />
-    );
+    if (isPassword) {
+      return (
+        <UIPasswordInput
+          label={label}
+          errorMessage={errors.root?.message}
+          isError={!!errors.root}
+          isSuccess={isSubmitSuccessful}
+          isDisabled={isDisabled}
+          iconColor={iconColor}
+          rootStyle={inputColors}
+          value={value}
+          onChangeText={onChange}
+          onBlur={onBlur}
+          ref={ref}
+          {...props}
+        />
+      );
+    } else {
+      return (
+        <UILabelInput
+          label={label}
+          errorMessage={errors.root?.message}
+          isError={!!errors.root}
+          isSuccess={isSubmitSuccessful}
+          isDisabled={isDisabled}
+          rootStyle={inputColors}
+          value={value}
+          onChangeText={onChange}
+          onBlur={onBlur}
+          ref={ref}
+          {...props}
+        />
+      );
+    }
   },
 );
 
@@ -69,6 +80,7 @@ enum InputState {
   DIRTY = 'isDirty',
   SUCCESS = 'isSuccess',
   ERROR = 'isError',
+  DEFAULT = 'isDefault',
 }
 
 const labelInputStyles = {
@@ -90,28 +102,11 @@ const labelInputStyles = {
   `,
 } as Readonly<Record<InputState, Interpolation<typeof InputState>>>;
 
-const getIconColor = (
-  theme: DefaultTheme,
-  isDisabled?: boolean,
-  isDirty?: boolean,
-  isSuccess?: boolean,
-  isError?: boolean,
-) => {
-  if (isDisabled) {
-    return theme.colors.grayscale_500;
-  }
-
-  if (isDirty) {
-    return theme.colors.grayscale_800;
-  }
-
-  if (isSuccess) {
-    return theme.colors.additional_success;
-  }
-
-  if (isError) {
-    return theme.colors.additional_error;
-  }
-
-  return theme.colors.grayscale_600;
-};
+const iconColors = (theme: DefaultTheme) =>
+  ({
+    [InputState.DISABLED]: theme.colors.grayscale_500,
+    [InputState.DIRTY]: theme.colors.grayscale_800,
+    [InputState.SUCCESS]: theme.colors.additional_success,
+    [InputState.ERROR]: theme.colors.additional_error,
+    [InputState.DEFAULT]: theme.colors.grayscale_600,
+  } as Readonly<Record<InputState, string>>);

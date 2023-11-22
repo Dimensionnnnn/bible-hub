@@ -1,6 +1,5 @@
 import styled, {css} from 'styled-components/native';
 import {CSSProp} from 'styled-components/native/dist/types';
-import {UISkeleton} from '../skeleton';
 import {UIColorMark} from '../color-mark';
 import {
   ButtonIconWithSize,
@@ -8,6 +7,7 @@ import {
 } from '../buttons/button-icon-with-size/button-icon-with-size';
 import {SvgArmsIcon} from '../icons/components/svg-arms-icon';
 import {getColorByDate} from '@shared/helpers/color-by-date/color-by-date';
+import {UICardLoadingWrapper} from './prayer-card-wrapper';
 
 interface Props {
   title?: string;
@@ -41,9 +41,7 @@ export function UIPrayerCard({
 
   return (
     <StyledPressable onPress={onCardPress}>
-      {isLoading ? (
-        <UISkeleton />
-      ) : (
+      <UICardLoadingWrapper isLoading={isLoading}>
         <>
           <UIColorMark color={markColor} />
 
@@ -69,7 +67,7 @@ export function UIPrayerCard({
             onPress={onCompletePress}
           />
         </>
-      )}
+      </UICardLoadingWrapper>
     </StyledPressable>
   );
 }

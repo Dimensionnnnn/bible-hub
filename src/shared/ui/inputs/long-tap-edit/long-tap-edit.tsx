@@ -1,30 +1,31 @@
-import React, {useState} from 'react';
 import {CSSProp} from 'styled-components/native/dist/types';
 import styled, {css} from 'styled-components/native';
 import {
   NativeSyntheticEvent,
+  TextInput,
   TextInputFocusEventData,
   TextInputProps,
 } from 'react-native';
 import {UISkeleton} from '@shared/ui/skeleton';
+import {useToggle} from '@shared/helpers/hooks/useToggle';
 
 interface Props extends TextInputProps {
   isDisabled?: boolean;
   isLoading?: boolean;
   rootPressableStyle?: CSSProp;
   rootTextStyle?: CSSProp;
-  ref?: React.Ref<HTMLInputElement>;
+  ref?: React.Ref<TextInputProps>;
 }
 
 export function UILongTapEdit({isDisabled, isLoading, ...props}: Props) {
-  const [isLongPressed, setIsLongPressed] = useState(false);
+  const {isOpened: isLongPressed, onToggle: setIsLongPressed} = useToggle();
 
   const handleLongPress = () => {
-    setIsLongPressed(true);
+    setIsLongPressed();
   };
 
   const handleBlur = (event: NativeSyntheticEvent<TextInputFocusEventData>) => {
-    setIsLongPressed(false);
+    setIsLongPressed();
     props.onBlur && props.onBlur(event);
   };
 
@@ -34,6 +35,7 @@ export function UILongTapEdit({isDisabled, isLoading, ...props}: Props) {
         <UISkeleton />
       ) : (
         <>
+          <TextInput />
           {isLongPressed && !isDisabled ? (
             <StyledInput {...props} onBlur={handleBlur} />
           ) : (

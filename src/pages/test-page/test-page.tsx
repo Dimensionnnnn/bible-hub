@@ -1,5 +1,5 @@
 import {DefaultFormInput} from '@shared/form-components/inputs/default-input';
-import {LabelFormInput} from '@shared/form-components/inputs/label-input';
+import {FormInput} from '@shared/form-components/inputs/form-input';
 import {Controller, useForm} from 'react-hook-form';
 import {View} from 'react-native';
 import {yupResolver} from '@hookform/resolvers/yup';
@@ -31,7 +31,7 @@ export const Page = () => {
         name="firstName"
         rules={{required: true}}
         render={({field}) => (
-          <LabelFormInput
+          <FormInput
             field={field}
             label="Label"
             formState={formState}
