@@ -9,7 +9,7 @@ interface Props extends TextInputProps {
   isDisabled?: boolean;
 }
 
-export const LongTapFormEdit = forwardRef<HTMLInputElement, Props>(
+export const LongTapFormEdit = forwardRef<TextInputProps, Props>(
   ({field, isDisabled, formState, ...props}: Props, ref) => {
     const {isLoading} = formState;
     const {value, onChange, onBlur} = field;
