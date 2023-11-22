@@ -1,6 +1,6 @@
 import styled, {css} from 'styled-components/native';
 import {Controller, useForm} from 'react-hook-form';
-import {LabelFormInput} from '@shared/form-components/inputs/label-input';
+import {FormInput} from '@shared/form-components/inputs/form-input';
 import {schema} from '@features/auth/sign-up/schema';
 import {yupResolver} from '@hookform/resolvers/yup';
 import {
@@ -10,6 +10,8 @@ import {
 import {TextButton} from '@shared/ui/buttons/text-button/text-button';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {RootStackParamList} from '@app/navigation/navigators/root/root';
+
+const backgroundImageUrl = require('@shared/ui/assets/images/background-gradient.png');
 
 interface SubmitProps {
   name: string;
@@ -23,7 +25,6 @@ interface SignUpScreenProps {
 }
 
 export const SignUpPage = ({navigation}: SignUpScreenProps) => {
-  const backgroundImageUrl = require('@shared/ui/assets/images/background-gradient.png');
   const {control, handleSubmit, formState} = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
@@ -54,54 +55,32 @@ export const SignUpPage = ({navigation}: SignUpScreenProps) => {
             <Controller
               control={control}
               name="name"
-              rules={{required: true}}
-              render={({field}) => (
-                <LabelFormInput
-                  field={field}
-                  label="Name"
-                  formState={formState}
-                  isDirty={formState.dirtyFields.name}
-                />
+              render={renderProps => (
+                <FormInput label="Name" {...renderProps} />
               )}
             />
             <Controller
               control={control}
               name="email"
-              rules={{required: true}}
-              render={({field}) => (
-                <LabelFormInput
-                  field={field}
-                  label="Email"
-                  formState={formState}
-                  isDirty={formState.dirtyFields.email}
-                />
+              render={renderProps => (
+                <FormInput label="Email" {...renderProps} />
               )}
             />
             <Controller
               control={control}
               name="password"
-              rules={{required: true}}
-              render={({field}) => (
-                <LabelFormInput
-                  field={field}
-                  label="Password"
-                  formState={formState}
-                  isDirty={formState.dirtyFields.password}
-                  isPassword
-                />
+              render={renderProps => (
+                <FormInput label="Password" isPassword {...renderProps} />
               )}
             />
             <Controller
               control={control}
               name="confirmPassword"
-              rules={{required: true}}
-              render={({field}) => (
-                <LabelFormInput
-                  field={field}
+              render={renderProps => (
+                <FormInput
                   label="Confirm password"
-                  formState={formState}
-                  isDirty={formState.dirtyFields.confirmPassword}
                   isPassword
+                  {...renderProps}
                 />
               )}
             />
