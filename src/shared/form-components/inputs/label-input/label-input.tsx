@@ -23,13 +23,16 @@ export const LabelFormInput = forwardRef<HTMLInputElement, Props>(
     const {value, onChange, onBlur} = field;
     const theme = useTheme();
 
+    const name = field?.name;
+    const errorMessage = errors[name]?.message?.toString() || '';
+
     const inputState: InputState | null = isDirty
       ? InputState.DIRTY
       : isDisabled
       ? InputState.DISABLED
       : isSubmitSuccessful
       ? InputState.SUCCESS
-      : errors.root
+      : errors[name]
       ? InputState.ERROR
       : null;
 
@@ -41,14 +44,14 @@ export const LabelFormInput = forwardRef<HTMLInputElement, Props>(
       isDisabled,
       isDirty,
       isSubmitSuccessful,
-      !!errors.root,
+      !!errors[name],
     );
 
     return (
       <UILabelInput
         label={label}
-        errorMessage={errors.root?.message}
-        isError={!!errors.root}
+        errorMessage={errorMessage}
+        isError={!!errors[name]}
         isSuccess={isSubmitSuccessful}
         isPassword={isPassword}
         isDisabled={isDisabled}
