@@ -50,7 +50,6 @@ const StyledContainer = styled.View`
   flex-direction: column;
   position: relative;
   width: 100%;
-  max-width: 327px;
 `;
 
 const StyledIconContainer = styled.View`

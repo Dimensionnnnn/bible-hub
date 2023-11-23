@@ -1,28 +1,44 @@
 import {forwardRef} from 'react';
 import {UILabelInput} from '@shared/ui/inputs/label-input';
-import {ControllerRenderProps, FormState} from 'react-hook-form';
+import {
+  ControllerFieldState,
+  ControllerRenderProps,
+  FormState,
+} from 'react-hook-form';
 import {TextInputProps} from 'react-native';
 import {DefaultTheme, css, useTheme} from 'styled-components/native';
 import {Interpolation} from 'styled-components/native/dist/types';
 import {UIPasswordInput} from '@shared/ui/inputs/password-input';
 
 interface Props extends TextInputProps {
+  fieldState: ControllerFieldState;
   field: ControllerRenderProps<any, any>;
   formState: FormState<any>;
   label?: string;
   isPassword?: boolean;
   isDisabled?: boolean;
-  isDirty?: boolean;
 }
 
 export const FormInput = forwardRef<TextInputProps, Props>(
   (
-    {field, formState, label, isPassword, isDisabled, isDirty, ...props}: Props,
+    {
+      field,
+      formState,
+      fieldState,
+      label,
+      isPassword,
+      isDisabled,
+      ...props
+    }: Props,
     ref,
   ) => {
-    const {errors, isSubmitSuccessful} = formState;
+    const {isSubmitSuccessful} = formState;
     const {value, onChange, onBlur} = field;
     const theme = useTheme();
+
+    const errorMessage = fieldState.error?.message;
+    const isError = !!fieldState.error?.message;
+    const isDirty = fieldState.isDirty;
 
     const inputState: InputState | null = isDirty
       ? InputState.DIRTY
@@ -30,7 +46,7 @@ export const FormInput = forwardRef<TextInputProps, Props>(
       ? InputState.DISABLED
       : isSubmitSuccessful
       ? InputState.SUCCESS
-      : errors.root
+      : isError
       ? InputState.ERROR
       : InputState.DEFAULT;
 
@@ -42,8 +58,8 @@ export const FormInput = forwardRef<TextInputProps, Props>(
       return (
         <UIPasswordInput
           label={label}
-          errorMessage={errors.root?.message}
-          isError={!!errors.root}
+          errorMessage={errorMessage}
+          isError={isError}
           isSuccess={isSubmitSuccessful}
           isDisabled={isDisabled}
           iconColor={iconColor}
@@ -59,8 +75,8 @@ export const FormInput = forwardRef<TextInputProps, Props>(
       return (
         <UILabelInput
           label={label}
-          errorMessage={errors.root?.message}
-          isError={!!errors.root}
+          errorMessage={errorMessage}
+          isError={isError}
           isSuccess={isSubmitSuccessful}
           isDisabled={isDisabled}
           rootStyle={inputColors}

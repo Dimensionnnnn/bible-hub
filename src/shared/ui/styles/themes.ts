@@ -6,6 +6,6 @@ export const themes = {
   default: {
     colors: {...COLORS},
     effects: {...EFFECTS},
-    typography: {styledComponentsTypography},
+    typography: {...styledComponentsTypography},
   },
 };
