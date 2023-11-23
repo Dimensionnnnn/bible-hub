@@ -10,6 +10,8 @@ import {
 import {TextButton} from '@shared/ui/buttons/text-button/text-button';
 import {RootStackParamList} from '@app/navigation/navigators/root/root';
 import {StackNavigationProp} from '@react-navigation/stack';
+import {useAppDispatch} from '@shared/store/ducks/hooks/hooks';
+import {fetchAuthSignIn} from '@shared/store/ducks/slices/auth-slice';
 
 const backgroundImageUrl = require('@shared/ui/assets/images/background-gradient.png');
 
@@ -31,10 +33,12 @@ export const SignInPage = ({navigation}: SignInScreenProps) => {
     },
   });
 
+  const dispatch = useAppDispatch();
+
   const {isValid} = formState;
 
   const onSubmit = (dataSubmit: SubmitProps) => {
-    console.log(dataSubmit);
+    dispatch(fetchAuthSignIn(dataSubmit));
   };
 
   const handleSignUpNavigate = () => {

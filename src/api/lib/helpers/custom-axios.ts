@@ -4,7 +4,12 @@ export class CustomAxios {
   private instance: AxiosInstance;
 
   constructor(baseURL: string) {
-    this.instance = axios.create({baseURL});
+    this.instance = axios.create({
+      baseURL,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
   }
 
   getBaseUrl() {
