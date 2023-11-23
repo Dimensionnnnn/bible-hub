@@ -19,6 +19,7 @@ export const BottomTabBar: React.FC<Props> = ({children}) => {
         tabBarInactiveTintColor: styles.inconColors.inactive,
         tabBarStyle: [styles.containerColor, styles.container],
         tabBarLabelStyle: styles.fontLabel,
+        tabBarHideOnKeyboard: true,
       }}>
       <Tab.Group>{children}</Tab.Group>
     </Tab.Navigator>

@@ -1,9 +1,9 @@
 import {COLORS} from '@shared/ui/styles/colors';
-import {styledTypography} from './styledTypography';
+import {styledComponentsTypography} from '../../styles/styledComponentsTypography';
 
 export const themes = {
   default: {
     colors: {...COLORS},
-    typography: {styledTypography},
+    typography: {styledComponentsTypography},
   },
 };

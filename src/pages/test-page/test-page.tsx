@@ -1,10 +1,50 @@
+import {DefaultFormInput} from '@shared/form-components/inputs/default-input';
+import {LabelFormInput} from '@shared/form-components/inputs/label-input';
 import React from 'react';
-import {Text, View} from 'react-native';
+import {Controller, useForm} from 'react-hook-form';
+import {View} from 'react-native';
+import {yupResolver} from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+
+const schema = yup
+  .object({
+    firstName: yup.string().required(),
+    lastName: yup.string().required(),
+  })
+  .required();
 
 export const Page = () => {
+  const {control, handleSubmit, formState} = useForm({
+    defaultValues: {
+      firstName: '',
+      lastName: '',
+    },
+    resolver: yupResolver(schema),
+  });
+
   return (
     <View>
-      <Text>Hello</Text>
+      <Controller
+        control={control}
+        name="firstName"
+        rules={{required: true}}
+        render={({field}) => (
+          <LabelFormInput
+            field={field}
+            label="Label"
+            formState={formState}
+            isPassword
+          />
+        )}
+      />
+      <Controller
+        control={control}
+        name="lastName"
+        rules={{required: true}}
+        render={({field}) => (
+          <DefaultFormInput field={field} formState={formState} />
+        )}
+      />
     </View>
   );
 };

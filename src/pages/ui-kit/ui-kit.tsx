@@ -19,8 +19,9 @@ import {SvgArmsIcon} from '@shared/ui/icons/components/svg-arms-icon';
 import {ButtonIcon} from '@shared/ui/buttons/button-icon/button-icon';
 import {SvgBackIcon} from '@shared/ui/icons/components/svg-back-icon';
 import {SvgExitIcon} from '@shared/ui/icons/components/svg-exit-icon';
-import UIDefaultInput from '@shared/ui/inputs/default-input/default-input';
-import UILabelInput from '@shared/ui/inputs/label-input/label-input';
+import {UIDefaultInput} from '@shared/ui/inputs/default-input';
+import {UILabelInput} from '@shared/ui/inputs/label-input';
+import {UICommentInput} from '@shared/ui/inputs/comment-input';
 
 export const UIKit = () => {
   return (
@@ -179,6 +180,15 @@ export const UIKit = () => {
         label="Label"
         isError
         errorMessage="Error"
+      />
+      <UICommentInput
+        placeholder="Placeholder"
+        onPress={() => console.log('Pressed')}
+      />
+      <UICommentInput
+        placeholder="Placeholder"
+        isDisabled
+        onPress={() => console.log('Pressed')}
       />
       <UILabelInput placeholder="Placeholder" label="Label" />
       <UILabelInput placeholder="Placeholder" label="Label" isDisabled />
