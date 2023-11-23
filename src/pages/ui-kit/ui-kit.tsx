@@ -19,6 +19,8 @@ import {SvgArmsIcon} from '@shared/ui/icons/components/svg-arms-icon';
 import {ButtonIcon} from '@shared/ui/buttons/button-icon/button-icon';
 import {SvgBackIcon} from '@shared/ui/icons/components/svg-back-icon';
 import {SvgExitIcon} from '@shared/ui/icons/components/svg-exit-icon';
+import UIDefaultInput from '@shared/ui/inputs/default-input/default-input';
+import UILabelInput from '@shared/ui/inputs/label-input/label-input';
 
 export const UIKit = () => {
   return (
@@ -169,6 +171,17 @@ export const UIKit = () => {
         onPress={() => console.log('Pressed')}
       />
       <ButtonIcon Icon={SvgExitIcon} onPress={() => console.log('Pressed')} />
+      <UIDefaultInput placeholder="Placeholder" />
+      <UILabelInput placeholder="Placeholder" label="Label" isSuccess />
+      <UILabelInput placeholder="Placeholder" label="Label" isPassword />
+      <UILabelInput
+        placeholder="Placeholder"
+        label="Label"
+        isError
+        errorMessage="Error"
+      />
+      <UILabelInput placeholder="Placeholder" label="Label" />
+      <UILabelInput placeholder="Placeholder" label="Label" isDisabled />
     </ScrollView>
   );
 };
