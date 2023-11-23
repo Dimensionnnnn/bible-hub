@@ -1,4 +1,3 @@
-import React from 'react';
 import {SvgFollowedIcon} from '@shared/ui/icons/components/svg-followed-icon';
 import {SvgMyDeskIcon} from '@shared/ui/icons/components/svg-my-desk-icon';
 import {SvgUsersDesksIcon} from '@shared/ui/icons/components/svg-users-desks-icon';

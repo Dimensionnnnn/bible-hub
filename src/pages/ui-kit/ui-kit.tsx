@@ -1,4 +1,3 @@
-import React from 'react';
 import {ScrollView, StyleSheet} from 'react-native';
 import {PrimaryButton} from '@shared/ui/buttons/primary-button/primary-button';
 import {ButtonSize as PrimaryButtonSize} from '@shared/ui/buttons/primary-button/primary-button';
@@ -22,10 +21,14 @@ import {SvgExitIcon} from '@shared/ui/icons/components/svg-exit-icon';
 import {UIDefaultInput} from '@shared/ui/inputs/default-input';
 import {UILabelInput} from '@shared/ui/inputs/label-input';
 import {UICommentInput} from '@shared/ui/inputs/comment-input';
+import {UILongTapEdit} from '@shared/ui/inputs/long-tap-edit';
+import {UIDeskCard} from '@shared/ui/desk-card';
+import {UIPrayerCard} from '@shared/ui/prayer-card';
 
 export const UIKit = () => {
   return (
     <ScrollView contentContainerStyle={styles.container}>
+      <UILongTapEdit placeholder="Placeholder" />
       <PrimaryButton
         title="Add"
         size={PrimaryButtonSize.large}
@@ -192,6 +195,22 @@ export const UIKit = () => {
       />
       <UILabelInput placeholder="Placeholder" label="Label" />
       <UILabelInput placeholder="Placeholder" label="Label" isDisabled />
+      <UIDeskCard title="Title" />
+      <UIDeskCard title="Title" isDisabled />
+      <UIDeskCard title="Title" isLoading />
+      <UIPrayerCard
+        title="Title"
+        membersCount={32}
+        completedCount={120}
+        onCardPress={() => console.log('Pressed card')}
+        onCompletePress={() => console.log('Pressed complete')}
+      />
+      <UIPrayerCard
+        title="Title"
+        isLoading
+        onCardPress={() => console.log('Pressed card')}
+        onCompletePress={() => console.log('Pressed complete')}
+      />
     </ScrollView>
   );
 };

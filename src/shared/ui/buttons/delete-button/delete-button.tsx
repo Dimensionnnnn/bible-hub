@@ -1,4 +1,3 @@
-import React from 'react';
 import {Pressable} from 'react-native';
 import {getStyles} from './styles';
 import {SvgTrashIcon} from '@shared/ui/icons/components/svg-trash-icon';

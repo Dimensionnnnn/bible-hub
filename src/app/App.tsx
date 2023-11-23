@@ -1,4 +1,3 @@
-import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {ThemeProvider} from 'styled-components/native';
 import {themes} from '@shared/ui/styles/themes';

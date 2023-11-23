@@ -1,4 +1,3 @@
-import React from 'react';
 import {Animated, Easing} from 'react-native';
 import {SvgSpinnerIcon} from '@shared/ui/icons/components/svg-spinner-icon';
 

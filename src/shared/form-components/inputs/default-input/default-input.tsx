@@ -1,22 +1,19 @@
-import React, {forwardRef} from 'react';
+import {forwardRef} from 'react';
 import {UIDefaultInput} from '@shared/ui/inputs/default-input';
-import {ControllerRenderProps, FormState} from 'react-hook-form';
+import {ControllerRenderProps} from 'react-hook-form';
 import {TextInputProps} from 'react-native';
 import {css} from 'styled-components/native';
 import {Interpolation} from 'styled-components/native/dist/types';
 
 interface Props extends TextInputProps {
   field: ControllerRenderProps<any, any>;
-  formState: FormState<any>;
   isDisabled?: boolean;
+  isDirty?: boolean;
 }
 
 export const DefaultFormInput = forwardRef<HTMLInputElement, Props>(
-  ({field, formState, isDisabled, ...props}: Props, ref) => {
-    const {dirtyFields} = formState;
-    const {name, value, onChange, onBlur} = field;
-
-    const isDirty = dirtyFields?.[name];
+  ({field, isDisabled, isDirty, ...props}: Props, ref) => {
+    const {value, onChange, onBlur} = field;
 
     const inputState: InputState | null = isDirty
       ? InputState.DIRTY

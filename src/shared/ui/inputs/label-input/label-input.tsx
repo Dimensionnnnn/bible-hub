@@ -1,22 +1,18 @@
-import React, {useState} from 'react';
-import styled, {css} from 'styled-components/native';
+import styled from 'styled-components/native';
 import {TextInputProps} from 'react-native';
 import {CSSProp} from 'styled-components/native/dist/types';
 import {UIDefaultInput} from '../default-input';
 import {SvgCheckIcon} from '@shared/ui/icons/components/svg-check-icon';
-import {SvgPasswordHiddenIcon} from '@shared/ui/icons/components/svg-password-hidden-icon';
-import {SvgPasswordShowedIcon} from '@shared/ui/icons/components/svg-password-showed-icon';
 
-export interface UIDefaultInputProps extends TextInputProps {
+export interface UILabelInputProps extends TextInputProps {
   label?: string;
   isDisabled?: boolean;
   isSuccess?: boolean;
   errorMessage?: string;
   isError?: boolean;
-  isPassword?: boolean;
-  iconColor?: string;
   rootStyle?: CSSProp;
-  ref?: React.Ref<HTMLInputElement>;
+  ref?: React.Ref<TextInputProps>;
+  children?: React.ReactNode;
 }
 
 export function UILabelInput({
@@ -25,39 +21,20 @@ export function UILabelInput({
   isSuccess,
   errorMessage,
   isError,
-  isPassword,
-  iconColor,
   rootStyle,
+  children,
   ...props
-}: UIDefaultInputProps) {
-  const [isPasswordHidden, setIsPasswordHidden] = useState(true);
-
-  const handlePasswordHide = () => {
-    setIsPasswordHidden(!isPasswordHidden);
-  };
-
+}: UILabelInputProps) {
   return (
     <StyledContainer>
       <StyledLabel>{label}</StyledLabel>
-      <UIDefaultInput
-        rootStyle={rootStyle}
-        isDisabled={isDisabled}
-        secureTextEntry={isPassword && isPasswordHidden}
-        {...props}>
+      <UIDefaultInput rootStyle={rootStyle} isDisabled={isDisabled} {...props}>
         {isSuccess && (
           <StyledIconContainer>
             <SvgCheckIcon />
           </StyledIconContainer>
         )}
-        {!isSuccess && isPassword && (
-          <StyledIconPressable onPress={handlePasswordHide}>
-            {isPasswordHidden ? (
-              <SvgPasswordHiddenIcon color={iconColor} />
-            ) : (
-              <SvgPasswordShowedIcon color={iconColor} />
-            )}
-          </StyledIconPressable>
-        )}
+        {children}
         {isError && <StyledErrorMessage>{errorMessage}</StyledErrorMessage>}
       </UIDefaultInput>
     </StyledContainer>
@@ -76,21 +53,10 @@ const StyledContainer = styled.View`
   max-width: 327px;
 `;
 
-const iconContainerStyles = css`
+const StyledIconContainer = styled.View`
   position: absolute;
   right: 0;
   top: 32px;
-`;
-
-const StyledIconPressable = styled.Pressable`
-  ${iconContainerStyles};
-  > svg {
-    color: ${props => props.theme.colors.additional_error};
-  }
-`;
-
-const StyledIconContainer = styled.View`
-  ${iconContainerStyles};
 `;
 
 const StyledErrorMessage = styled.Text`

@@ -13,5 +13,5 @@ export const COLORS = {
 
   indicator_orange: '#DE6352',
   indicator_blue: '#4757B0',
-  indicator_yeallow: '#E8CC3E',
+  indicator_yellow: '#E8CC3E',
 };
