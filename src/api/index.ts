@@ -1,8 +1,8 @@
-import {axiosApi} from '../lib/api';
-import {V1AdminsApi} from './generated';
+import {authInstance} from './lib/api';
+import {AuthenticationApi} from './generated';
 
-export const Admins = new V1AdminsApi(
+export const Auth = new AuthenticationApi(
   undefined,
-  axiosApi.getBaseUrl(),
-  axiosApi.getInstance(),
+  authInstance.getBaseUrl(),
+  authInstance.getInstance(),
 );

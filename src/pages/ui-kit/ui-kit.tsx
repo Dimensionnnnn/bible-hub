@@ -177,7 +177,7 @@ export const UIKit = () => {
       <ButtonIcon Icon={SvgExitIcon} onPress={() => console.log('Pressed')} />
       <UIDefaultInput placeholder="Placeholder" />
       <UILabelInput placeholder="Placeholder" label="Label" isSuccess />
-      <UILabelInput placeholder="Placeholder" label="Label" isPassword />
+      <UILabelInput placeholder="Placeholder" label="Label" />
       <UILabelInput
         placeholder="Placeholder"
         label="Label"
