@@ -26,7 +26,13 @@ const userSlice = createSlice({
     currentUser: null as Users | null,
     isAuthenticated: false,
   },
-  reducers: {},
+  reducers: {
+    logout: state => {
+      state.loading = false;
+      state.currentUser = null;
+      state.isAuthenticated = false;
+    },
+  },
   extraReducers: builder => {
     builder.addMatcher(isPending(fetchAuthSignIn, fetchAuthSignUp), state => {
       state.loading = true;
@@ -47,4 +53,5 @@ const userSlice = createSlice({
   },
 });
 
+export const {logout} = userSlice.actions;
 export default userSlice.reducer;

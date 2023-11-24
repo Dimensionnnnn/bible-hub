@@ -1,34 +1,47 @@
-import {SignInPage} from '@pages/auth/sign-in';
-import {SignUpPage} from '@pages/auth/sign-up/sign-up';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {UIKit} from '@pages/ui-kit/ui-kit';
+import {SelfDeskPage} from '@pages/self-desk/self-desk';
+import {
+  TabBarIconsNames,
+  getTabBarIcon,
+} from '@shared/helpers/tab-bar-icons/tab-bar-icon';
+import {BottomTabBar, Tab} from '@shared/ui/bottom-tabbar/bottom-tabbar';
+import {UsersDeskPage} from '@pages/users-desks/users-desks/users-desks';
 
-const Stack = createNativeStackNavigator();
-
-export type RootStackParamList = {
-  SignIn: undefined;
-  SignUp: undefined;
-};
-
-export enum RouteNames {
-  SIGNIN = 'SignIn',
-  SIGNUP = 'SignUp',
-}
-
-export const RootNavigation = () => {
+export const RootNavigator = () => {
   return (
-    <Stack.Navigator>
-      <Stack.Group>
-        <Stack.Screen
-          name={RouteNames.SIGNUP}
-          component={SignUpPage}
-          options={{headerShown: false}}
-        />
-        <Stack.Screen
-          name={RouteNames.SIGNIN}
-          component={SignInPage}
-          options={{headerShown: false}}
-        />
-      </Stack.Group>
-    </Stack.Navigator>
+    <BottomTabBar>
+      <Tab.Screen
+        name={TabBarIconsNames.MY_DESK}
+        component={SelfDeskPage}
+        options={({route}) => ({
+          tabBarLabel: TabBarIconsNames.MY_DESK,
+          tabBarIcon: ({color}) => getTabBarIcon(route.name, color),
+        })}
+      />
+      <Tab.Screen
+        name={TabBarIconsNames.USERS_DESKS}
+        component={UsersDeskPage}
+        options={({route}) => ({
+          tabBarLabel: TabBarIconsNames.USERS_DESKS,
+          tabBarIcon: ({color}) => getTabBarIcon(route.name, color),
+        })}
+      />
+      <Tab.Screen
+        name={TabBarIconsNames.FOLLOWED}
+        component={SelfDeskPage}
+        options={({route}) => ({
+          tabBarLabel: TabBarIconsNames.FOLLOWED,
+          tabBarIcon: ({color}) => getTabBarIcon(route.name, color),
+        })}
+      />
+      <Tab.Screen
+        name={TabBarIconsNames.UI_KIT}
+        component={UIKit}
+        options={({route}) => ({
+          tabBarLabel: TabBarIconsNames.UI_KIT,
+          tabBarIcon: ({color}) => getTabBarIcon(route.name, color),
+        })}
+      />
+    </BottomTabBar>
   );
 };

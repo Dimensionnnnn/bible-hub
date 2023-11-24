@@ -8,7 +8,7 @@ import {
   PrimaryButton,
 } from '@shared/ui/buttons/primary-button/primary-button';
 import {TextButton} from '@shared/ui/buttons/text-button/text-button';
-import {RootStackParamList} from '@app/navigation/navigators/root/root';
+import {GuestStackParamList} from '@app/navigation/navigators/guest/guest';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {useAppDispatch} from '@shared/store/ducks/hooks/hooks';
 import {fetchAuthSignIn} from '@shared/store/ducks/slices/auth-slice';
@@ -21,7 +21,7 @@ interface SubmitProps {
 }
 
 interface SignInScreenProps {
-  navigation: StackNavigationProp<RootStackParamList, 'SignIn'>;
+  navigation: StackNavigationProp<GuestStackParamList, 'SignIn'>;
 }
 
 export const SignInPage = ({navigation}: SignInScreenProps) => {

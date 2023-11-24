@@ -9,7 +9,7 @@ import {
 } from '@shared/ui/buttons/primary-button/primary-button';
 import {TextButton} from '@shared/ui/buttons/text-button/text-button';
 import {StackNavigationProp} from '@react-navigation/stack';
-import {RootStackParamList} from '@app/navigation/navigators/root/root';
+import {GuestStackParamList} from '@app/navigation/navigators/guest/guest';
 import {fetchAuthSignUp} from '@shared/store/ducks/slices/auth-slice';
 import {useAppDispatch} from '@shared/store/ducks/hooks/hooks';
 
@@ -23,7 +23,7 @@ interface SubmitProps {
 }
 
 interface SignUpScreenProps {
-  navigation: StackNavigationProp<RootStackParamList, 'SignUp'>;
+  navigation: StackNavigationProp<GuestStackParamList, 'SignUp'>;
 }
 
 export const SignUpPage = ({navigation}: SignUpScreenProps) => {
