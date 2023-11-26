@@ -1,13 +1,19 @@
-import {useUsersDesksData} from '@features/auth/desks/hooks/use-desks-data';
-import {useAppDispatch} from '@shared/store/ducks/hooks/hooks';
+import {useAppDispatch, useAppSelector} from '@shared/store/ducks/hooks/hooks';
+import {
+  getUsersAfterCursor,
+  getUsersDesks,
+} from '@shared/store/ducks/selectors/desks-selectors';
 import {logout} from '@shared/store/ducks/slices/auth-slice';
+import {fetchUsersDesks} from '@shared/store/ducks/slices/users-desks-slice';
 import {UIDesksList} from '@shared/ui/desks-list';
 import {PrimaryHeader} from '@shared/ui/primary-header';
+import {useEffect} from 'react';
 import styled from 'styled-components/native';
 
 export const UsersDeskPage = () => {
   const dispatch = useAppDispatch();
-  const {isLoading, usersDesks, fetchMore} = useUsersDesksData();
+  const afterCursor = useAppSelector(getUsersAfterCursor);
+  const usersDesks = useAppSelector(getUsersDesks);
 
   const handleLogout = () => {
     dispatch(logout());
@@ -17,6 +23,18 @@ export const UsersDeskPage = () => {
     console.log(id);
   };
 
+  const handleUsersDesks = (cursor?: string) => {
+    if (cursor !== null) {
+      dispatch(fetchUsersDesks(cursor || ''));
+    }
+  };
+
+  useEffect(() => {
+    if (usersDesks?.length === 0) {
+      handleUsersDesks();
+    }
+  });
+
   return (
     <StyledContainer>
       <PrimaryHeader title="Users desks" onLogout={handleLogout} />
@@ -24,7 +42,7 @@ export const UsersDeskPage = () => {
         <UIDesksList
           data={usersDesks}
           onPress={handleNavigate}
-          fetchMore={fetchMore}
+          fetchMore={() => handleUsersDesks(afterCursor)}
         />
       </StyledContentContainer>
     </StyledContainer>

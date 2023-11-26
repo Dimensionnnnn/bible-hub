@@ -1,7 +1,7 @@
-import {Desks} from '@api/generated';
-import {getMyDesks} from '@features/auth/desks/get-my-desks';
-import {useAppDispatch} from '@shared/store/ducks/hooks/hooks';
+import {useAppDispatch, useAppSelector} from '@shared/store/ducks/hooks/hooks';
+import {getSelfDesks} from '@shared/store/ducks/selectors/desks-selectors';
 import {logout} from '@shared/store/ducks/slices/auth-slice';
+import {fetchSelfDesks} from '@shared/store/ducks/slices/self-desks-slice';
 import {
   ButtonIconWithSize,
   ButtonSize,
@@ -9,12 +9,12 @@ import {
 import {UIDesksList} from '@shared/ui/desks-list';
 import {SvgPlusIcon} from '@shared/ui/icons/components/svg-plus-icon';
 import {PrimaryHeader} from '@shared/ui/primary-header';
-import {useEffect, useState} from 'react';
+import {useEffect} from 'react';
 import styled from 'styled-components/native';
 
 export const SelfDeskPage = () => {
-  const [desks, setDesks] = useState<Desks[]>([]);
   const dispatch = useAppDispatch();
+  const selfDesks = useAppSelector(getSelfDesks);
 
   const handleLogout = () => {
     dispatch(logout());
@@ -25,19 +25,16 @@ export const SelfDeskPage = () => {
   };
 
   useEffect(() => {
-    const handleSetDesks = async () => {
-      const response: any = await dispatch(getMyDesks());
-      setDesks(response.payload.data);
-    };
-
-    handleSetDesks();
-  }, [dispatch]);
+    if (selfDesks?.length === 0) {
+      dispatch(fetchSelfDesks());
+    }
+  });
 
   return (
     <StyledContainer>
       <PrimaryHeader title="My desk" onLogout={handleLogout} />
       <StyledContentContainer>
-        <UIDesksList data={desks} onPress={handleNavigate} />
+        <UIDesksList data={selfDesks} onPress={handleNavigate} />
         <StyledButtonContainer>
           <ButtonIconWithSize
             size={ButtonSize.large}
