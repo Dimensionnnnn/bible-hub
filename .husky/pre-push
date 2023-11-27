@@ -1,5 +1,4 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-npx husky add .husky/pre-push 'yarn validate-branch-name'
 yarn validate-branch-name

@@ -6,8 +6,8 @@ import {
   ButtonSize,
 } from '@shared/ui/components/buttons/button-icon-with-size/button-icon-with-size';
 import { UIDesksList } from '@shared/ui/components/desks-list';
-import { PrimaryHeader } from '@shared/ui/components/primary-header';
 import { SvgPlusIcon } from '@shared/ui/icons/components/svg-plus-icon';
+import { PrimaryHeader } from '@widgets/layouts/primary-header';
 import { useEffect } from 'react';
 import styled from 'styled-components/native';
 

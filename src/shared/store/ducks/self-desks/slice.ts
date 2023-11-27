@@ -1,5 +1,5 @@
-import { Desks } from '@api/generated';
 import { createSlice, SerializedError } from '@reduxjs/toolkit';
+import { Desks } from '@shared/api/generated';
 
 import { actions } from './actions';
 

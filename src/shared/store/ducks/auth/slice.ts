@@ -1,5 +1,5 @@
-import { Users } from '@api/generated';
 import { createSlice, isFulfilled, isPending, isRejected } from '@reduxjs/toolkit';
+import { Users } from '@shared/api/generated';
 
 import { actions } from './actions';
 

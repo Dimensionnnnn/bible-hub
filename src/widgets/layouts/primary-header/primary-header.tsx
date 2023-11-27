@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components/native';
 
-import { SvgExitIcon } from '../../icons/components/svg-exit-icon';
-import { ButtonIcon } from '../buttons/button-icon/button-icon';
+import { ButtonIcon } from '../../../shared/ui/components/buttons/button-icon/button-icon';
+import { SvgExitIcon } from '../../../shared/ui/icons/components/svg-exit-icon';
 
 interface Props {
   title: string;
