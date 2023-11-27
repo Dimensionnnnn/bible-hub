@@ -69,7 +69,7 @@
     "node": ">=16"
   },
   "validate-branch-name": {
-    "pattern": "^(develop|staging|main){1}$|^(feature|fix|chore|hotfix)/.+$",
+    "pattern": "^(develop|staging|main){1}$|^(feature|fix|chore|hotfix|feat)/.+$",
     "errorMsg": "Invalid branch name"
   },
   "config": {
