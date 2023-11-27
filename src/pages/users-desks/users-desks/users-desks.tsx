@@ -1,5 +1,8 @@
+import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { useCallback, useEffect } from 'react';
 import styled from 'styled-components/native';
+
+import { RootRouteNames, RootStackParamList } from '@app/navigation/navigators/root/root';
 
 import { PrimaryHeader } from '@widgets/layouts/primary-header';
 
@@ -12,12 +15,15 @@ export const UsersDeskPage = () => {
   const dispatch = useAppDispatch();
   const afterCursor = useAppSelector(selectors.selectAfterCursor);
   const usersDesks = useAppSelector(selectors.selectUsersDesks);
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
   const handleLogout = () => {
     dispatch(authActions.logout());
   };
 
-  const handleNavigate = () => {};
+  const handleNavigate = (id: number, title: string) => {
+    navigation.navigate(RootRouteNames.DESK_COLUMNS, { deskId: id, deskTitle: title });
+  };
 
   const handleUsersDesks = useCallback(
     (cursor?: string) => {

@@ -1,18 +1,18 @@
 import styled from 'styled-components/native';
 
-import { Desks } from '@shared/api/generated';
+import { Columns } from '@shared/api/generated';
 
 import { UIDeskCard } from '../desk-card';
 
 interface Props {
-  data?: Desks[] | null;
+  data?: Columns[] | null;
   fetchMore?: (afterCursor?: string) => void;
   onPress?: (id: number, title: string) => void;
 }
 
 const backgroundImageUrl = require('@shared/ui/assets/images/background-gradient-primary.png');
 
-export const UIDesksList = ({ data, fetchMore, onPress }: Props) => {
+export const UIDeskColumnsList = ({ data, fetchMore, onPress }: Props) => {
   return (
     <StyledBackgroudImage source={backgroundImageUrl} imageStyle={imageStyle} resizeMode="cover">
       <StyledDesksContainer
@@ -21,8 +21,8 @@ export const UIDesksList = ({ data, fetchMore, onPress }: Props) => {
         renderItem={({ item }) => (
           <UIDeskCard
             key={item.id}
-            title={item.name}
-            onPress={() => onPress && onPress(item.id, item.name)}
+            title={item.title}
+            onPress={() => onPress && onPress(item.id, item.title)}
           />
         )}
         keyExtractor={(item) => item.id}
@@ -38,11 +38,11 @@ const StyledBackgroudImage = styled.ImageBackground`
   align-items: center;
   justify-content: center;
   padding-top: 24px;
+  padding-bottom: 24px;
 `;
 
 const imageStyle = {
-  borderTopLeftRadius: 24,
-  borderTopRightRadius: 24,
+  borderRadius: 24,
 };
 
 const StyledDesksContainer = styled.FlatList`

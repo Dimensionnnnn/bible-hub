@@ -1,0 +1,63 @@
+import { RouteProp, useRoute } from '@react-navigation/native';
+import { useCallback, useEffect } from 'react';
+import styled from 'styled-components/native';
+
+import { RootRouteNames, RootStackParamList } from '@app/navigation/navigators/root/root';
+
+import { SecondaryHeader } from '@widgets/layouts/secondary-header';
+
+import { useAppDispatch, useAppSelector } from '@shared/store';
+import { actions, selectors } from '@shared/store/ducks/desk-columns';
+import { UIDeskColumnsList } from '@shared/ui/components/desk-columns-list';
+
+export const DeskColumnsPage = () => {
+  const dispatch = useAppDispatch();
+  const route = useRoute<RouteProp<RootStackParamList, RootRouteNames.DESK_COLUMNS>>();
+  const { deskId, deskTitle } = route.params;
+  const deskColumns = useAppSelector((state) => selectors.selectDeskColumns(deskId, state));
+  const afterCursor = useAppSelector(selectors.selectAfterCursor);
+
+  const handleNavigate = () => {};
+
+  const handleDeskColumns = useCallback(
+    (cursor?: string) => {
+      if (cursor !== null) {
+        dispatch(actions.fetchDeskColumns({ deskId: deskId, afterCursor: cursor }));
+      }
+    },
+    [deskId, dispatch],
+  );
+
+  useEffect(() => {
+    if (!deskColumns) {
+      handleDeskColumns();
+    }
+  }, [deskColumns, handleDeskColumns]);
+
+  return (
+    <StyledContainer>
+      <SecondaryHeader title={deskTitle} />
+      <StyledContentContainer>
+        <UIDeskColumnsList
+          data={deskColumns}
+          onPress={handleNavigate}
+          fetchMore={() => handleDeskColumns(afterCursor)}
+        />
+      </StyledContentContainer>
+    </StyledContainer>
+  );
+};
+
+const StyledContainer = styled.View`
+  flex: 1;
+  background-color: ${(props) => props.theme.colors.grayscale_200};
+  position: relative;
+`;
+
+const StyledContentContainer = styled.View`
+  flex: 1;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 0 16px 0 14px;
+`;

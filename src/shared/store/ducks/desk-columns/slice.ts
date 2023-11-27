@@ -8,7 +8,7 @@ export const deskColumnsSlice = createSlice({
   name: 'desk-columns',
   initialState: {
     loading: false,
-    entities: [] as Columns[] | undefined,
+    entities: [] as Record<number, Columns[] | undefined>,
     afterCursor: undefined as string | undefined,
   },
   reducers: {},
@@ -19,9 +19,9 @@ export const deskColumnsSlice = createSlice({
       })
       .addCase(actions.fetchDeskColumns.fulfilled, (state, action: any) => {
         state.loading = false;
-        state.entities = state.entities
-          ? [...state.entities, ...action.payload.data]
-          : action.payload.data;
+        const deskId = action.meta.arg.deskId;
+        const existingColumns = state.entities[deskId] || [];
+        state.entities[deskId] = [...existingColumns, ...action.payload.data];
         state.afterCursor = action.payload.cursor?.afterCursor;
       })
       .addCase(actions.fetchDeskColumns.rejected, (state) => {
