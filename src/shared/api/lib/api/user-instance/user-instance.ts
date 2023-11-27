@@ -1,4 +1,5 @@
 import { API_URL } from '@env';
+
 import { store } from '@shared/store';
 import { selectors } from '@shared/store/ducks/auth';
 

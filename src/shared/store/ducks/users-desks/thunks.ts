@@ -1,4 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+
 import { Desks } from '@shared/api/index';
 
 export const fetchUsersDesksThunk = createAsyncThunk(

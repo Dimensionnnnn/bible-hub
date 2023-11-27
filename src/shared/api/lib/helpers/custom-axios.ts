@@ -13,10 +13,10 @@ export class CustomAxios extends HttpClient<AxiosInstance> {
   }
 
   baseUrl() {
-    return this._client.defaults.baseURL || '';
+    return this.client.defaults.baseURL || '';
   }
 
   instance(): AxiosInstance {
-    return this._client;
+    return this.client;
   }
 }

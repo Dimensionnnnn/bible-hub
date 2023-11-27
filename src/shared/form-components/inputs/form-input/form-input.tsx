@@ -1,10 +1,11 @@
-import { UILabelInput } from '@shared/ui/components/inputs/label-input';
-import { UIPasswordInput } from '@shared/ui/components/inputs/password-input';
 import { forwardRef } from 'react';
 import { ControllerFieldState, ControllerRenderProps, FormState } from 'react-hook-form';
 import { TextInputProps } from 'react-native';
-import { css, DefaultTheme, useTheme } from 'styled-components/native';
+import { DefaultTheme, css, useTheme } from 'styled-components/native';
 import { Interpolation } from 'styled-components/native/dist/types';
+
+import { UILabelInput } from '@shared/ui/components/inputs/label-input';
+import { UIPasswordInput } from '@shared/ui/components/inputs/password-input';
 
 interface Props extends TextInputProps {
   fieldState: ControllerFieldState;
@@ -23,7 +24,7 @@ export const FormInput = forwardRef<TextInputProps, Props>(
 
     const errorMessage = fieldState.error?.message;
     const isError = !!fieldState.error?.message;
-    const isDirty = fieldState.isDirty;
+    const { isDirty } = fieldState;
 
     const inputState: InputState | null = isDirty
       ? InputState.DIRTY
@@ -56,23 +57,22 @@ export const FormInput = forwardRef<TextInputProps, Props>(
           {...props}
         />
       );
-    } else {
-      return (
-        <UILabelInput
-          label={label}
-          errorMessage={errorMessage}
-          isError={isError}
-          isSuccess={isSubmitSuccessful}
-          isDisabled={isDisabled}
-          rootStyle={inputColors}
-          value={value}
-          onChangeText={onChange}
-          onBlur={onBlur}
-          ref={ref}
-          {...props}
-        />
-      );
     }
+    return (
+      <UILabelInput
+        label={label}
+        errorMessage={errorMessage}
+        isError={isError}
+        isSuccess={isSubmitSuccessful}
+        isDisabled={isDisabled}
+        rootStyle={inputColors}
+        value={value}
+        onChangeText={onChange}
+        onBlur={onBlur}
+        ref={ref}
+        {...props}
+      />
+    );
   },
 );
 

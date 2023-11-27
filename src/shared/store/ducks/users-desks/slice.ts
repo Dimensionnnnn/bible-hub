@@ -1,4 +1,5 @@
-import { createSlice, SerializedError } from '@reduxjs/toolkit';
+import { SerializedError, createSlice } from '@reduxjs/toolkit';
+
 import { Desks } from '@shared/api/generated';
 
 import { actions } from './actions';
@@ -19,7 +20,9 @@ export const usersDesksSlice = createSlice({
       })
       .addCase(actions.fetchUsersDesks.fulfilled, (state, action: any) => {
         state.loading = false;
-        state.entities = state.entities ? [...state.entities, ...action.payload.data] : action.payload.data;
+        state.entities = state.entities
+          ? [...state.entities, ...action.payload.data]
+          : action.payload.data;
         state.afterCursor = action.payload.cursor?.afterCursor;
       })
       .addCase(actions.fetchUsersDesks.rejected, (state, action) => {
@@ -29,4 +32,4 @@ export const usersDesksSlice = createSlice({
   },
 });
 
-export const reducer = usersDesksSlice.reducer;
+export const { reducer } = usersDesksSlice;

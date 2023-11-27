@@ -1,7 +1,8 @@
-import { Spinner } from '@shared/ui/components/spinner/spinner';
-import { SvgCheckSubscribeIcon } from '@shared/ui/icons/components/svg-check-subscribe-icon';
 import React, { useState } from 'react';
 import { Pressable, Text } from 'react-native';
+
+import { Spinner } from '@shared/ui/components/spinner/spinner';
+import { SvgCheckSubscribeIcon } from '@shared/ui/icons/components/svg-check-subscribe-icon';
 
 import { getStyles } from './styles';
 
@@ -13,7 +14,13 @@ interface Props {
   onPress: () => void;
 }
 
-export const SubscribeButton: React.FC<Props> = ({ title, isFollow, isDisabled, isLoading, onPress }) => {
+export const SubscribeButton: React.FC<Props> = ({
+  title,
+  isFollow,
+  isDisabled,
+  isLoading,
+  onPress,
+}) => {
   const [isPressed, setIsPressed] = useState(false);
 
   const styles = getStyles({
@@ -29,7 +36,12 @@ export const SubscribeButton: React.FC<Props> = ({ title, isFollow, isDisabled, 
 
   return (
     <Pressable
-      style={[styles.container, styles.containerColor, styles.containerLoading, styles.containerUnfollowed]}
+      style={[
+        styles.container,
+        styles.containerColor,
+        styles.containerLoading,
+        styles.containerUnfollowed,
+      ]}
       disabled={isDisabled}
       onPress={onPress}
       onPressIn={handlePress}

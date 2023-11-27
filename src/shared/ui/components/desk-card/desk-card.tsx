@@ -8,14 +8,17 @@ interface Props {
   title?: string;
   isLoading?: boolean;
   isDisabled?: boolean;
-  rootStyle?: CSSProp;
   onPress?: () => void;
 }
 
 export function UIDeskCard({ title, isLoading, isDisabled, onPress }: Props) {
   const [isPressed, setIsPressed] = useState(false);
 
-  const deskState: DeskState | null = isDisabled ? DeskState.DISABLED : isPressed ? DeskState.PRESSED : null;
+  const deskState: DeskState | null = isDisabled
+    ? DeskState.DISABLED
+    : isPressed
+    ? DeskState.PRESSED
+    : null;
 
   const textState: DeskState | null = isDisabled ? DeskState.DISABLED : null;
 

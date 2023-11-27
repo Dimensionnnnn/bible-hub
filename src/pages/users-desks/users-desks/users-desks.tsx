@@ -1,10 +1,12 @@
-import { useAppDispatch, useAppSelector } from '@shared/store';
-import { actions as authActions } from '@shared/store/ducks/auth';
-import { actions as usersDesksActions, selectors } from '@shared/store/ducks/users-desks';
-import { UIDesksList } from '@shared/ui/components/desks-list';
-import { PrimaryHeader } from '@widgets/layouts/primary-header';
 import { useCallback, useEffect } from 'react';
 import styled from 'styled-components/native';
+
+import { PrimaryHeader } from '@widgets/layouts/primary-header';
+
+import { useAppDispatch, useAppSelector } from '@shared/store';
+import { actions as authActions } from '@shared/store/ducks/auth';
+import { selectors, actions as usersDesksActions } from '@shared/store/ducks/users-desks';
+import { UIDesksList } from '@shared/ui/components/desks-list';
 
 export const UsersDeskPage = () => {
   const dispatch = useAppDispatch();

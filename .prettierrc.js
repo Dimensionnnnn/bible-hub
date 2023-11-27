@@ -6,7 +6,7 @@ module.exports = {
   trailingComma: 'all',
   endOfLine: 'crlf',
   tabWidth: 2,
-  printWidth: 110,
+  printWidth: 100,
   importOrderSeparation: true,
   importOrderSortSpecifiers: true,
   importOrder: [
@@ -20,3 +20,4 @@ module.exports = {
     '^[./]',
   ],
 };
+

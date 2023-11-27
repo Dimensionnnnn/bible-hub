@@ -1,14 +1,20 @@
-import { GuestStackParamList } from '@app/navigation/navigators/guest/guest';
-import { schema } from '@features/auth/sign-up/schema';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { Controller, useForm } from 'react-hook-form';
+import styled, { css } from 'styled-components/native';
+
+import { GuestStackParamList } from '@app/navigation/navigators/guest/guest';
+
+import { schema } from '@features/auth/sign-up/schema';
+
 import { FormInput } from '@shared/form-components/inputs/form-input';
 import { useAppDispatch } from '@shared/store';
 import { actions } from '@shared/store/ducks/auth';
-import { ButtonSize, PrimaryButton } from '@shared/ui/components/buttons/primary-button/primary-button';
+import {
+  ButtonSize,
+  PrimaryButton,
+} from '@shared/ui/components/buttons/primary-button/primary-button';
 import { TextButton } from '@shared/ui/components/buttons/text-button/text-button';
-import { Controller, useForm } from 'react-hook-form';
-import styled, { css } from 'styled-components/native';
 
 const backgroundImageUrl = require('@shared/ui/assets/images/background-gradient.png');
 
@@ -71,7 +77,9 @@ export const SignUpPage = ({ navigation }: SignUpScreenProps) => {
             <Controller
               control={control}
               name="confirmPassword"
-              render={(renderProps) => <FormInput label="Confirm password" isPassword {...renderProps} />}
+              render={(renderProps) => (
+                <FormInput label="Confirm password" isPassword {...renderProps} />
+              )}
             />
           </ControllersContainer>
           <FooterContainer>

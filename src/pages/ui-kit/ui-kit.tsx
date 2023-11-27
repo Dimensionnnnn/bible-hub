@@ -1,14 +1,18 @@
+import { ScrollView, StyleSheet } from 'react-native';
+
+import {
+  ButtonSize as ButtonIconSize,
+  ButtonIconWithSize,
+} from '@shared/ui/components/buttons/button-icon-with-size/button-icon-with-size';
 import { ButtonIcon } from '@shared/ui/components/buttons/button-icon/button-icon';
 import {
-  ButtonIconWithSize,
-  ButtonSize as ButtonIconSize,
-} from '@shared/ui/components/buttons/button-icon-with-size/button-icon-with-size';
-import {
-  ButtonSize as DeleteButtonSize,
   DeleteButton,
+  ButtonSize as DeleteButtonSize,
 } from '@shared/ui/components/buttons/delete-button/delete-button';
-import { PrimaryButton } from '@shared/ui/components/buttons/primary-button/primary-button';
-import { ButtonSize as PrimaryButtonSize } from '@shared/ui/components/buttons/primary-button/primary-button';
+import {
+  PrimaryButton,
+  ButtonSize as PrimaryButtonSize,
+} from '@shared/ui/components/buttons/primary-button/primary-button';
 import { SecondaryButton } from '@shared/ui/components/buttons/secondary-button/secondary-button';
 import { SubscribeButton } from '@shared/ui/components/buttons/subscribe-button/subscribe-button';
 import { TextButton } from '@shared/ui/components/buttons/text-button/text-button';
@@ -23,7 +27,6 @@ import { SvgArmsIcon } from '@shared/ui/icons/components/svg-arms-icon';
 import { SvgBackIcon } from '@shared/ui/icons/components/svg-back-icon';
 import { SvgExitIcon } from '@shared/ui/icons/components/svg-exit-icon';
 import { SvgPlusIcon } from '@shared/ui/icons/components/svg-plus-icon';
-import { ScrollView, StyleSheet } from 'react-native';
 
 export const UIKit = () => {
   return (
@@ -49,14 +52,44 @@ export const UIKit = () => {
       <DeleteButton onPress={() => {}} />
       <DeleteButton size={DeleteButtonSize.small} onPress={() => {}} />
       <ButtonIconWithSize size={ButtonIconSize.large} Icon={SvgPlusIcon} onPress={() => {}} />
-      <ButtonIconWithSize size={ButtonIconSize.large} Icon={SvgPlusIcon} isLoading onPress={() => {}} />
-      <ButtonIconWithSize size={ButtonIconSize.large} Icon={SvgPlusIcon} isDisabled onPress={() => {}} />
+      <ButtonIconWithSize
+        size={ButtonIconSize.large}
+        Icon={SvgPlusIcon}
+        isLoading
+        onPress={() => {}}
+      />
+      <ButtonIconWithSize
+        size={ButtonIconSize.large}
+        Icon={SvgPlusIcon}
+        isDisabled
+        onPress={() => {}}
+      />
       <ButtonIconWithSize size={ButtonIconSize.medium} Icon={SvgAirplaneIcon} onPress={() => {}} />
-      <ButtonIconWithSize size={ButtonIconSize.medium} Icon={SvgAirplaneIcon} isLoading onPress={() => {}} />
-      <ButtonIconWithSize size={ButtonIconSize.medium} Icon={SvgAirplaneIcon} isDisabled onPress={() => {}} />
+      <ButtonIconWithSize
+        size={ButtonIconSize.medium}
+        Icon={SvgAirplaneIcon}
+        isLoading
+        onPress={() => {}}
+      />
+      <ButtonIconWithSize
+        size={ButtonIconSize.medium}
+        Icon={SvgAirplaneIcon}
+        isDisabled
+        onPress={() => {}}
+      />
       <ButtonIconWithSize size={ButtonIconSize.small} Icon={SvgArmsIcon} onPress={() => {}} />
-      <ButtonIconWithSize size={ButtonIconSize.small} Icon={SvgArmsIcon} isLoading onPress={() => {}} />
-      <ButtonIconWithSize size={ButtonIconSize.small} Icon={SvgArmsIcon} isDisabled onPress={() => {}} />
+      <ButtonIconWithSize
+        size={ButtonIconSize.small}
+        Icon={SvgArmsIcon}
+        isLoading
+        onPress={() => {}}
+      />
+      <ButtonIconWithSize
+        size={ButtonIconSize.small}
+        Icon={SvgArmsIcon}
+        isDisabled
+        onPress={() => {}}
+      />
       <ButtonIcon Icon={SvgBackIcon} onPress={() => {}} />
       <ButtonIcon Icon={SvgBackIcon} isLoading onPress={() => {}} />
       <ButtonIcon Icon={SvgBackIcon} isDisabled onPress={() => {}} />

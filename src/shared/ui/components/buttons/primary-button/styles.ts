@@ -1,6 +1,7 @@
+import { StyleSheet } from 'react-native';
+
 import { COLORS } from '@shared/ui/styles/colors';
 import { outfitTextStyles } from '@shared/ui/styles/typography';
-import { StyleSheet } from 'react-native';
 
 import { ButtonSize } from './primary-button';
 
@@ -57,7 +58,8 @@ export const getStyles = ({ size, isDisabled, isLoading, isExit, isPressed }: Pr
     container: styles.root.container,
     fontTitle: styles.root.fontTitle,
     sizeContainer: styles.sizes[size],
-    containerColor: styles.colors.button[isDisabled ? 'disabled' : isPressed ? 'pressed' : 'initial'],
+    containerColor:
+      styles.colors.button[isDisabled ? 'disabled' : isPressed ? 'pressed' : 'initial'],
     titleColor: styles.colors.title[isExit ? 'exit' : 'initial'],
     ...(isLoading && {
       spinnerColor: styles.colors.spinner.color,

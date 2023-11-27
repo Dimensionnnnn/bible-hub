@@ -1,6 +1,7 @@
+import { StyleSheet } from 'react-native';
+
 import { COLORS } from '@shared/ui/styles/colors';
 import { outfitTextStyles } from '@shared/ui/styles/typography';
-import { StyleSheet } from 'react-native';
 
 const styles = {
   colors: {
@@ -64,7 +65,11 @@ enum ElementStatus {
 }
 
 const getButtonStatus = (isLoading?: boolean, isPressed?: boolean) => {
-  return isLoading ? ElementStatus.loading : isPressed ? ElementStatus.pressed : ElementStatus.initial;
+  return isLoading
+    ? ElementStatus.loading
+    : isPressed
+    ? ElementStatus.pressed
+    : ElementStatus.initial;
 };
 
 const getContentStatus = (isDisabled?: boolean) => {

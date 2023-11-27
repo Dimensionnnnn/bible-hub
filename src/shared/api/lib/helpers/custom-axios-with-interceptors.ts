@@ -5,10 +5,10 @@ export class CustomAxiosWithInterceptors extends CustomAxios {
     super(baseURL);
 
     if (config?.getToken) {
-      this._client.interceptors.request.use(
+      this.client.interceptors.request.use(
         (reqConfig) => {
           try {
-            reqConfig.headers.Authorization = `Bearer ${config?.getToken()}`;
+            Object.assign(reqConfig.headers, { Authorization: `Bearer ${config?.getToken()}` });
             return reqConfig;
           } catch {
             return reqConfig;

@@ -1,4 +1,5 @@
 import Svg, { Path, SvgProps } from 'react-native-svg';
+
 export const SvgAirplaneIcon = (props: SvgProps) => (
   <Svg width={24} height={24} fill="none" viewBox="0 0 24 24" {...props}>
     <Path

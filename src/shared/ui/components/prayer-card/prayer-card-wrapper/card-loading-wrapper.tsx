@@ -10,5 +10,5 @@ export const UICardLoadingWrapper: React.FC<Props> = ({ isLoading, children }) =
     return <UISkeleton />;
   }
 
-  return <>{children}</>;
+  return children;
 };

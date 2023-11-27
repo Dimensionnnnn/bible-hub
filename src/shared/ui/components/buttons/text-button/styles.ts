@@ -1,6 +1,7 @@
+import { StyleSheet } from 'react-native';
+
 import { COLORS } from '@shared/ui/styles/colors';
 import { outfitTextStyles } from '@shared/ui/styles/typography';
-import { StyleSheet } from 'react-native';
 
 export const styles = {
   textColor: {
@@ -23,7 +24,11 @@ enum ElementStatus {
 }
 
 const getElementStatus = (isDisabled?: boolean, isPressed?: boolean) => {
-  return isDisabled ? ElementStatus.disabled : isPressed ? ElementStatus.pressed : ElementStatus.initial;
+  return isDisabled
+    ? ElementStatus.disabled
+    : isPressed
+    ? ElementStatus.pressed
+    : ElementStatus.initial;
 };
 
 export const getStyles = (pressed?: boolean, isDisabled?: boolean) => {
