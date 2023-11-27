@@ -1,4 +1,4 @@
-import { SerializedError, createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
 import { Desks } from '@shared/api/generated';
 
@@ -9,7 +9,6 @@ export const usersDesksSlice = createSlice({
   initialState: {
     entities: [] as Desks[] | undefined,
     loading: false,
-    error: null as unknown as SerializedError,
     afterCursor: undefined as string | undefined,
   },
   reducers: {},
@@ -25,9 +24,8 @@ export const usersDesksSlice = createSlice({
           : action.payload.data;
         state.afterCursor = action.payload.cursor?.afterCursor;
       })
-      .addCase(actions.fetchUsersDesks.rejected, (state, action) => {
+      .addCase(actions.fetchUsersDesks.rejected, (state) => {
         state.loading = false;
-        state.error = action.error;
       });
   },
 });

@@ -12,8 +12,12 @@ export const fetchUsersDesksThunk = createAsyncThunk(
         limit: 10,
       });
       return response.data;
-    } catch (error) {
-      return thunkApi.rejectWithValue(error instanceof Error ? error.message : null);
+    } catch (error: any) {
+      if (error.response) {
+        return thunkApi.rejectWithValue(error.response.data);
+      } else {
+        return thunkApi.rejectWithValue(error.message);
+      }
     }
   },
 );

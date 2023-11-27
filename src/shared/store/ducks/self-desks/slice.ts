@@ -1,4 +1,4 @@
-import { SerializedError, createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
 import { Desks } from '@shared/api/generated';
 
@@ -9,7 +9,6 @@ export const selfDesksSlice = createSlice({
   initialState: {
     entities: [] as Desks[] | undefined,
     loading: false,
-    error: null as unknown as SerializedError,
   },
   reducers: {},
   extraReducers: (builder) => {
@@ -21,9 +20,8 @@ export const selfDesksSlice = createSlice({
         state.loading = false;
         state.entities = action.payload.data;
       })
-      .addCase(actions.fetchSelfDesks.rejected, (state, action) => {
+      .addCase(actions.fetchSelfDesks.rejected, (state) => {
         state.loading = false;
-        state.error = action.error;
       });
   },
 });

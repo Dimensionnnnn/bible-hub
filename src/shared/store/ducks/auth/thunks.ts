@@ -9,8 +9,12 @@ export const fetchAuthSignInThunk = createAsyncThunk(
     try {
       const response = await Auth.authControllerSignIn({ authSignInDto: userData });
       return response.data;
-    } catch (error) {
-      return thunkApi.rejectWithValue(error instanceof Error ? error.message : null);
+    } catch (error: any) {
+      if (error.response) {
+        return thunkApi.rejectWithValue(error.response.data);
+      } else {
+        return thunkApi.rejectWithValue(error.message);
+      }
     }
   },
 );
@@ -21,8 +25,12 @@ export const fetchAuthSignUpThunk = createAsyncThunk(
     try {
       const response = await Auth.authControllerSignUp({ authSignUpDto: userData });
       return response.data;
-    } catch (error) {
-      return thunkApi.rejectWithValue(error instanceof Error ? error.message : null);
+    } catch (error: any) {
+      if (error.response) {
+        return thunkApi.rejectWithValue(error.response.data);
+      } else {
+        return thunkApi.rejectWithValue(error.message);
+      }
     }
   },
 );
