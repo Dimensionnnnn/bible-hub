@@ -1,198 +1,72 @@
-import {ScrollView, StyleSheet} from 'react-native';
-import {PrimaryButton} from '@shared/ui/buttons/primary-button/primary-button';
-import {ButtonSize as PrimaryButtonSize} from '@shared/ui/buttons/primary-button/primary-button';
-import {SecondaryButton} from '@shared/ui/buttons/secondary-button/secondary-button';
-import {SubscribeButton} from '@shared/ui/buttons/subscribe-button/subscribe-button';
-import {TextButton} from '@shared/ui/buttons/text-button/text-button';
+import { ButtonIcon } from '@shared/ui/components/buttons/button-icon/button-icon';
+import {
+  ButtonIconWithSize,
+  ButtonSize as ButtonIconSize,
+} from '@shared/ui/components/buttons/button-icon-with-size/button-icon-with-size';
 import {
   ButtonSize as DeleteButtonSize,
   DeleteButton,
-} from '@shared/ui/buttons/delete-button/delete-button';
-import {
-  ButtonSize as ButtonIconSize,
-  ButtonIconWithSize,
-} from '@shared/ui/buttons/button-icon-with-size/button-icon-with-size';
-import {SvgPlusIcon} from '@shared/ui/icons/components/svg-plus-icon';
-import {SvgAirplaneIcon} from '@shared/ui/icons/components/svg-airplane-icon';
-import {SvgArmsIcon} from '@shared/ui/icons/components/svg-arms-icon';
-import {ButtonIcon} from '@shared/ui/buttons/button-icon/button-icon';
-import {SvgBackIcon} from '@shared/ui/icons/components/svg-back-icon';
-import {SvgExitIcon} from '@shared/ui/icons/components/svg-exit-icon';
-import {UIDefaultInput} from '@shared/ui/inputs/default-input';
-import {UILabelInput} from '@shared/ui/inputs/label-input';
-import {UICommentInput} from '@shared/ui/inputs/comment-input';
-import {UILongTapEdit} from '@shared/ui/inputs/long-tap-edit';
-import {UIDeskCard} from '@shared/ui/desk-card';
-import {UIPrayerCard} from '@shared/ui/prayer-card';
+} from '@shared/ui/components/buttons/delete-button/delete-button';
+import { PrimaryButton } from '@shared/ui/components/buttons/primary-button/primary-button';
+import { ButtonSize as PrimaryButtonSize } from '@shared/ui/components/buttons/primary-button/primary-button';
+import { SecondaryButton } from '@shared/ui/components/buttons/secondary-button/secondary-button';
+import { SubscribeButton } from '@shared/ui/components/buttons/subscribe-button/subscribe-button';
+import { TextButton } from '@shared/ui/components/buttons/text-button/text-button';
+import { UIDeskCard } from '@shared/ui/components/desk-card';
+import { UICommentInput } from '@shared/ui/components/inputs/comment-input';
+import { UIDefaultInput } from '@shared/ui/components/inputs/default-input';
+import { UILabelInput } from '@shared/ui/components/inputs/label-input';
+import { UILongTapEdit } from '@shared/ui/components/inputs/long-tap-edit';
+import { UIPrayerCard } from '@shared/ui/components/prayer-card';
+import { SvgAirplaneIcon } from '@shared/ui/icons/components/svg-airplane-icon';
+import { SvgArmsIcon } from '@shared/ui/icons/components/svg-arms-icon';
+import { SvgBackIcon } from '@shared/ui/icons/components/svg-back-icon';
+import { SvgExitIcon } from '@shared/ui/icons/components/svg-exit-icon';
+import { SvgPlusIcon } from '@shared/ui/icons/components/svg-plus-icon';
+import { ScrollView, StyleSheet } from 'react-native';
 
 export const UIKit = () => {
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <UILongTapEdit placeholder="Placeholder" />
-      <PrimaryButton
-        title="Add"
-        size={PrimaryButtonSize.large}
-        onPress={() => console.log('Pressed')}
-      />
-      <PrimaryButton
-        title="Add"
-        size={PrimaryButtonSize.large}
-        isDisabled
-        onPress={() => console.log('Pressed')}
-      />
-      <PrimaryButton
-        title="Add"
-        size={PrimaryButtonSize.large}
-        isLoading
-        onPress={() => console.log('Pressed')}
-      />
-      <PrimaryButton
-        title="Add"
-        size={PrimaryButtonSize.large}
-        isExit
-        onPress={() => console.log('Pressed')}
-      />
-      <PrimaryButton
-        title="Add"
-        size={PrimaryButtonSize.medium}
-        onPress={() => console.log('Pressed')}
-      />
-      <PrimaryButton
-        title="Add"
-        size={PrimaryButtonSize.small}
-        onPress={() => console.log('Pressed')}
-      />
-      <SecondaryButton title="Add" onPress={() => console.log('Pressed')} />
-      <SecondaryButton
-        title="Add"
-        isDisabled
-        onPress={() => console.log('Pressed')}
-      />
-      <SecondaryButton
-        title="Add"
-        isLoading
-        onPress={() => console.log('Pressed')}
-      />
-      <SubscribeButton
-        title="Following"
-        isFollow
-        onPress={() => console.log('Pressed')}
-      />
-      <SubscribeButton title="Follow" onPress={() => console.log('Pressed')} />
-      <SubscribeButton
-        title="Follow"
-        isLoading
-        onPress={() => console.log('Pressed')}
-      />
-      <SubscribeButton
-        title="Following"
-        isLoading
-        isFollow
-        onPress={() => console.log('Pressed')}
-      />
-      <SubscribeButton
-        title="Following"
-        isDisabled
-        isFollow
-        onPress={() => console.log('Pressed')}
-      />
-      <SubscribeButton
-        title="Follow"
-        isDisabled
-        onPress={() => console.log('Pressed')}
-      />
-      <TextButton title="Log in" onPress={() => console.log('Pressed')} />
-      <TextButton
-        title="Log in"
-        isDisabled
-        onPress={() => console.log('Pressed')}
-      />
-      <DeleteButton onPress={() => console.log('Pressed')} />
-      <DeleteButton
-        size={DeleteButtonSize.small}
-        onPress={() => console.log('Pressed')}
-      />
-      <ButtonIconWithSize
-        size={ButtonIconSize.large}
-        Icon={SvgPlusIcon}
-        onPress={() => console.log('Pressed')}
-      />
-      <ButtonIconWithSize
-        size={ButtonIconSize.large}
-        Icon={SvgPlusIcon}
-        isLoading
-        onPress={() => console.log('Pressed')}
-      />
-      <ButtonIconWithSize
-        size={ButtonIconSize.large}
-        Icon={SvgPlusIcon}
-        isDisabled
-        onPress={() => console.log('Pressed')}
-      />
-      <ButtonIconWithSize
-        size={ButtonIconSize.medium}
-        Icon={SvgAirplaneIcon}
-        onPress={() => console.log('Pressed')}
-      />
-      <ButtonIconWithSize
-        size={ButtonIconSize.medium}
-        Icon={SvgAirplaneIcon}
-        isLoading
-        onPress={() => console.log('Pressed')}
-      />
-      <ButtonIconWithSize
-        size={ButtonIconSize.medium}
-        Icon={SvgAirplaneIcon}
-        isDisabled
-        onPress={() => console.log('Pressed')}
-      />
-      <ButtonIconWithSize
-        size={ButtonIconSize.small}
-        Icon={SvgArmsIcon}
-        onPress={() => console.log('Pressed')}
-      />
-      <ButtonIconWithSize
-        size={ButtonIconSize.small}
-        Icon={SvgArmsIcon}
-        isLoading
-        onPress={() => console.log('Pressed')}
-      />
-      <ButtonIconWithSize
-        size={ButtonIconSize.small}
-        Icon={SvgArmsIcon}
-        isDisabled
-        onPress={() => console.log('Pressed')}
-      />
-      <ButtonIcon Icon={SvgBackIcon} onPress={() => console.log('Pressed')} />
-      <ButtonIcon
-        Icon={SvgBackIcon}
-        isLoading
-        onPress={() => console.log('Pressed')}
-      />
-      <ButtonIcon
-        Icon={SvgBackIcon}
-        isDisabled
-        onPress={() => console.log('Pressed')}
-      />
-      <ButtonIcon Icon={SvgExitIcon} onPress={() => console.log('Pressed')} />
+      <PrimaryButton title="Add" size={PrimaryButtonSize.large} onPress={() => {}} />
+      <PrimaryButton title="Add" size={PrimaryButtonSize.large} isDisabled onPress={() => {}} />
+      <PrimaryButton title="Add" size={PrimaryButtonSize.large} isLoading onPress={() => {}} />
+      <PrimaryButton title="Add" size={PrimaryButtonSize.large} isExit onPress={() => {}} />
+      <PrimaryButton title="Add" size={PrimaryButtonSize.medium} onPress={() => {}} />
+      <PrimaryButton title="Add" size={PrimaryButtonSize.small} onPress={() => {}} />
+      <SecondaryButton title="Add" onPress={() => {}} />
+      <SecondaryButton title="Add" isDisabled onPress={() => {}} />
+      <SecondaryButton title="Add" isLoading onPress={() => {}} />
+      <SubscribeButton title="Following" isFollow onPress={() => {}} />
+      <SubscribeButton title="Follow" onPress={() => {}} />
+      <SubscribeButton title="Follow" isLoading onPress={() => {}} />
+      <SubscribeButton title="Following" isLoading isFollow onPress={() => {}} />
+      <SubscribeButton title="Following" isDisabled isFollow onPress={() => {}} />
+      <SubscribeButton title="Follow" isDisabled onPress={() => {}} />
+      <TextButton title="Log in" onPress={() => {}} />
+      <TextButton title="Log in" isDisabled onPress={() => {}} />
+      <DeleteButton onPress={() => {}} />
+      <DeleteButton size={DeleteButtonSize.small} onPress={() => {}} />
+      <ButtonIconWithSize size={ButtonIconSize.large} Icon={SvgPlusIcon} onPress={() => {}} />
+      <ButtonIconWithSize size={ButtonIconSize.large} Icon={SvgPlusIcon} isLoading onPress={() => {}} />
+      <ButtonIconWithSize size={ButtonIconSize.large} Icon={SvgPlusIcon} isDisabled onPress={() => {}} />
+      <ButtonIconWithSize size={ButtonIconSize.medium} Icon={SvgAirplaneIcon} onPress={() => {}} />
+      <ButtonIconWithSize size={ButtonIconSize.medium} Icon={SvgAirplaneIcon} isLoading onPress={() => {}} />
+      <ButtonIconWithSize size={ButtonIconSize.medium} Icon={SvgAirplaneIcon} isDisabled onPress={() => {}} />
+      <ButtonIconWithSize size={ButtonIconSize.small} Icon={SvgArmsIcon} onPress={() => {}} />
+      <ButtonIconWithSize size={ButtonIconSize.small} Icon={SvgArmsIcon} isLoading onPress={() => {}} />
+      <ButtonIconWithSize size={ButtonIconSize.small} Icon={SvgArmsIcon} isDisabled onPress={() => {}} />
+      <ButtonIcon Icon={SvgBackIcon} onPress={() => {}} />
+      <ButtonIcon Icon={SvgBackIcon} isLoading onPress={() => {}} />
+      <ButtonIcon Icon={SvgBackIcon} isDisabled onPress={() => {}} />
+      <ButtonIcon Icon={SvgExitIcon} onPress={() => {}} />
       <UIDefaultInput placeholder="Placeholder" />
       <UILabelInput placeholder="Placeholder" label="Label" isSuccess />
       <UILabelInput placeholder="Placeholder" label="Label" />
-      <UILabelInput
-        placeholder="Placeholder"
-        label="Label"
-        isError
-        errorMessage="Error"
-      />
-      <UICommentInput
-        placeholder="Placeholder"
-        onPress={() => console.log('Pressed')}
-      />
-      <UICommentInput
-        placeholder="Placeholder"
-        isDisabled
-        onPress={() => console.log('Pressed')}
-      />
+      <UILabelInput placeholder="Placeholder" label="Label" isError errorMessage="Error" />
+      <UICommentInput placeholder="Placeholder" onPress={() => {}} />
+      <UICommentInput placeholder="Placeholder" isDisabled onPress={() => {}} />
       <UILabelInput placeholder="Placeholder" label="Label" />
       <UILabelInput placeholder="Placeholder" label="Label" isDisabled />
       <UIDeskCard title="Title" />
@@ -202,15 +76,10 @@ export const UIKit = () => {
         title="Title"
         membersCount={32}
         completedCount={120}
-        onCardPress={() => console.log('Pressed card')}
-        onCompletePress={() => console.log('Pressed complete')}
+        onCardPress={() => {}}
+        onCompletePress={() => {}}
       />
-      <UIPrayerCard
-        title="Title"
-        isLoading
-        onCardPress={() => console.log('Pressed card')}
-        onCompletePress={() => console.log('Pressed complete')}
-      />
+      <UIPrayerCard title="Title" isLoading onCardPress={() => {}} onCompletePress={() => {}} />
     </ScrollView>
   );
 };

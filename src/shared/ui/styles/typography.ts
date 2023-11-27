@@ -1,4 +1,4 @@
-import {TextStyle} from 'react-native';
+import { TextStyle } from 'react-native';
 
 enum fonts {
   OUTFIT_BOLD = 'outfit-bold',
@@ -7,7 +7,7 @@ enum fonts {
   OUTFIT_MEDIUM = 'outfit-medium',
 }
 
-export const outfitTextStyles: {[key: string]: TextStyle} = {
+export const outfitTextStyles: { [key: string]: TextStyle } = {
   titleBold_28: {
     fontFamily: fonts.OUTFIT_BOLD,
     fontSize: 28,

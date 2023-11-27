@@ -1,11 +1,8 @@
-import {UIKit} from '@pages/ui-kit/ui-kit';
-import {SelfDeskPage} from '@pages/self-desk/self-desk';
-import {
-  TabBarIconsNames,
-  getTabBarIcon,
-} from '@shared/helpers/tab-bar-icons/tab-bar-icon';
-import {BottomTabBar, Tab} from '@shared/ui/bottom-tabbar/bottom-tabbar';
-import {UsersDeskPage} from '@pages/users-desks/users-desks/users-desks';
+import { SelfDeskPage } from '@pages/self-desk/self-desk';
+import { UIKit } from '@pages/ui-kit/ui-kit';
+import { UsersDeskPage } from '@pages/users-desks/users-desks/users-desks';
+import { getTabBarIcon, TabBarIconsNames } from '@shared/helpers/tab-bar-icons/tab-bar-icon';
+import { BottomTabBar, Tab } from '@shared/ui/components/bottom-tabbar/bottom-tabbar';
 
 export const RootNavigator = () => {
   return (
@@ -13,33 +10,33 @@ export const RootNavigator = () => {
       <Tab.Screen
         name={TabBarIconsNames.MY_DESK}
         component={SelfDeskPage}
-        options={({route}) => ({
+        options={({ route }) => ({
           tabBarLabel: TabBarIconsNames.MY_DESK,
-          tabBarIcon: ({color}) => getTabBarIcon(route.name, color),
+          tabBarIcon: ({ color }) => getTabBarIcon(route.name, color),
         })}
       />
       <Tab.Screen
         name={TabBarIconsNames.USERS_DESKS}
         component={UsersDeskPage}
-        options={({route}) => ({
+        options={({ route }) => ({
           tabBarLabel: TabBarIconsNames.USERS_DESKS,
-          tabBarIcon: ({color}) => getTabBarIcon(route.name, color),
+          tabBarIcon: ({ color }) => getTabBarIcon(route.name, color),
         })}
       />
       <Tab.Screen
         name={TabBarIconsNames.FOLLOWED}
         component={SelfDeskPage}
-        options={({route}) => ({
+        options={({ route }) => ({
           tabBarLabel: TabBarIconsNames.FOLLOWED,
-          tabBarIcon: ({color}) => getTabBarIcon(route.name, color),
+          tabBarIcon: ({ color }) => getTabBarIcon(route.name, color),
         })}
       />
       <Tab.Screen
         name={TabBarIconsNames.UI_KIT}
         component={UIKit}
-        options={({route}) => ({
+        options={({ route }) => ({
           tabBarLabel: TabBarIconsNames.UI_KIT,
-          tabBarIcon: ({color}) => getTabBarIcon(route.name, color),
+          tabBarIcon: ({ color }) => getTabBarIcon(route.name, color),
         })}
       />
     </BottomTabBar>

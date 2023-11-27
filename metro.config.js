@@ -9,7 +9,6 @@ const path = require('path');
  */
 const config = {
   watchFolders: [
-    path.resolve(__dirname, './src/api'),
     path.resolve(__dirname, './src/app'),
     path.resolve(__dirname, './src/pages'),
     path.resolve(__dirname, './src/widgets'),

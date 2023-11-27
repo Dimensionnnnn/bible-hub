@@ -1,11 +1,12 @@
-import {COLORS} from '@shared/ui/styles/colors';
-import {styledComponentsTypography} from '../../styles/styledComponentsTypography';
-import {EFFECTS} from './effects';
+import { COLORS } from '@shared/ui/styles/colors';
+
+import { EFFECTS } from './effects';
+import { styledComponentsTypography } from './styled-components-typography';
 
 export const themes = {
   default: {
-    colors: {...COLORS},
-    effects: {...EFFECTS},
-    typography: {...styledComponentsTypography},
+    colors: { ...COLORS },
+    effects: { ...EFFECTS },
+    typography: { ...styledComponentsTypography },
   },
 };

@@ -1,39 +1,36 @@
-import {useAppDispatch, useAppSelector} from '@shared/store/ducks/hooks/hooks';
-import {
-  getUsersAfterCursor,
-  getUsersDesks,
-} from '@shared/store/ducks/selectors/desks-selectors';
-import {logout} from '@shared/store/ducks/slices/auth-slice';
-import {fetchUsersDesks} from '@shared/store/ducks/slices/users-desks-slice';
-import {UIDesksList} from '@shared/ui/desks-list';
-import {PrimaryHeader} from '@shared/ui/primary-header';
-import {useEffect} from 'react';
+import { useAppDispatch, useAppSelector } from '@shared/store';
+import { actions as authActions } from '@shared/store/ducks/auth';
+import { actions as usersDesksActions, selectors } from '@shared/store/ducks/users-desks';
+import { UIDesksList } from '@shared/ui/components/desks-list';
+import { PrimaryHeader } from '@shared/ui/components/primary-header';
+import { useCallback, useEffect } from 'react';
 import styled from 'styled-components/native';
 
 export const UsersDeskPage = () => {
   const dispatch = useAppDispatch();
-  const afterCursor = useAppSelector(getUsersAfterCursor);
-  const usersDesks = useAppSelector(getUsersDesks);
+  const afterCursor = useAppSelector(selectors.selectAfterCursor);
+  const usersDesks = useAppSelector(selectors.selectUsersDesks);
 
   const handleLogout = () => {
-    dispatch(logout());
+    dispatch(authActions.logout());
   };
 
-  const handleNavigate = (id: number) => {
-    console.log(id);
-  };
+  const handleNavigate = () => {};
 
-  const handleUsersDesks = (cursor?: string) => {
-    if (cursor !== null) {
-      dispatch(fetchUsersDesks(cursor || ''));
-    }
-  };
+  const handleUsersDesks = useCallback(
+    (cursor?: string) => {
+      if (cursor !== null) {
+        dispatch(usersDesksActions.fetchUsersDesks(cursor || ''));
+      }
+    },
+    [dispatch],
+  );
 
   useEffect(() => {
     if (usersDesks?.length === 0) {
       handleUsersDesks();
     }
-  });
+  }, [handleUsersDesks, usersDesks]);
 
   return (
     <StyledContainer>
@@ -51,7 +48,7 @@ export const UsersDeskPage = () => {
 
 const StyledContainer = styled.View`
   flex: 1;
-  background-color: ${props => props.theme.colors.grayscale_200};
+  background-color: ${(props) => props.theme.colors.grayscale_200};
   position: relative;
 `;
 

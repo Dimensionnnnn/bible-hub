@@ -1,34 +1,31 @@
-import {useAppDispatch, useAppSelector} from '@shared/store/ducks/hooks/hooks';
-import {getSelfDesks} from '@shared/store/ducks/selectors/desks-selectors';
-import {logout} from '@shared/store/ducks/slices/auth-slice';
-import {fetchSelfDesks} from '@shared/store/ducks/slices/self-desks-slice';
+import { useAppDispatch, useAppSelector } from '@shared/store';
+import { actions as authActions } from '@shared/store/ducks/auth';
+import { actions as selfDesksActions, selectors } from '@shared/store/ducks/self-desks';
 import {
   ButtonIconWithSize,
   ButtonSize,
-} from '@shared/ui/buttons/button-icon-with-size/button-icon-with-size';
-import {UIDesksList} from '@shared/ui/desks-list';
-import {SvgPlusIcon} from '@shared/ui/icons/components/svg-plus-icon';
-import {PrimaryHeader} from '@shared/ui/primary-header';
-import {useEffect} from 'react';
+} from '@shared/ui/components/buttons/button-icon-with-size/button-icon-with-size';
+import { UIDesksList } from '@shared/ui/components/desks-list';
+import { PrimaryHeader } from '@shared/ui/components/primary-header';
+import { SvgPlusIcon } from '@shared/ui/icons/components/svg-plus-icon';
+import { useEffect } from 'react';
 import styled from 'styled-components/native';
 
 export const SelfDeskPage = () => {
   const dispatch = useAppDispatch();
-  const selfDesks = useAppSelector(getSelfDesks);
+  const selfDesks = useAppSelector(selectors.selectSelfDesks);
 
   const handleLogout = () => {
-    dispatch(logout());
+    dispatch(authActions.logout());
   };
 
-  const handleNavigate = (id: number) => {
-    console.log(id);
-  };
+  const handleNavigate = () => {};
 
   useEffect(() => {
     if (selfDesks?.length === 0) {
-      dispatch(fetchSelfDesks());
+      dispatch(selfDesksActions.fetchSelfDesks());
     }
-  });
+  }, [selfDesks, dispatch]);
 
   return (
     <StyledContainer>
@@ -36,11 +33,7 @@ export const SelfDeskPage = () => {
       <StyledContentContainer>
         <UIDesksList data={selfDesks} onPress={handleNavigate} />
         <StyledButtonContainer>
-          <ButtonIconWithSize
-            size={ButtonSize.large}
-            Icon={SvgPlusIcon}
-            onPress={() => console.log('Pressed')}
-          />
+          <ButtonIconWithSize size={ButtonSize.large} Icon={SvgPlusIcon} onPress={() => {}} />
         </StyledButtonContainer>
       </StyledContentContainer>
     </StyledContainer>
@@ -49,7 +42,7 @@ export const SelfDeskPage = () => {
 
 const StyledContainer = styled.View`
   flex: 1;
-  background-color: ${props => props.theme.colors.grayscale_200};
+  background-color: ${(props) => props.theme.colors.grayscale_200};
   position: relative;
 `;
 

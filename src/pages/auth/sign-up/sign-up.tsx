@@ -1,17 +1,14 @@
-import styled, {css} from 'styled-components/native';
-import {Controller, useForm} from 'react-hook-form';
-import {FormInput} from '@shared/form-components/inputs/form-input';
-import {schema} from '@features/auth/sign-up/schema';
-import {yupResolver} from '@hookform/resolvers/yup';
-import {
-  ButtonSize,
-  PrimaryButton,
-} from '@shared/ui/buttons/primary-button/primary-button';
-import {TextButton} from '@shared/ui/buttons/text-button/text-button';
-import {StackNavigationProp} from '@react-navigation/stack';
-import {GuestStackParamList} from '@app/navigation/navigators/guest/guest';
-import {fetchAuthSignUp} from '@shared/store/ducks/slices/auth-slice';
-import {useAppDispatch} from '@shared/store/ducks/hooks/hooks';
+import { GuestStackParamList } from '@app/navigation/navigators/guest/guest';
+import { schema } from '@features/auth/sign-up/schema';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { FormInput } from '@shared/form-components/inputs/form-input';
+import { useAppDispatch } from '@shared/store';
+import { actions } from '@shared/store/ducks/auth';
+import { ButtonSize, PrimaryButton } from '@shared/ui/components/buttons/primary-button/primary-button';
+import { TextButton } from '@shared/ui/components/buttons/text-button/text-button';
+import { Controller, useForm } from 'react-hook-form';
+import styled, { css } from 'styled-components/native';
 
 const backgroundImageUrl = require('@shared/ui/assets/images/background-gradient.png');
 
@@ -26,8 +23,8 @@ interface SignUpScreenProps {
   navigation: StackNavigationProp<GuestStackParamList, 'SignUp'>;
 }
 
-export const SignUpPage = ({navigation}: SignUpScreenProps) => {
-  const {control, handleSubmit, formState} = useForm({
+export const SignUpPage = ({ navigation }: SignUpScreenProps) => {
+  const { control, handleSubmit, formState } = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
       name: '',
@@ -39,10 +36,10 @@ export const SignUpPage = ({navigation}: SignUpScreenProps) => {
 
   const dispatch = useAppDispatch();
 
-  const {isValid} = formState;
+  const { isValid } = formState;
 
   const onSubmit = (dataSubmit: SubmitProps) => {
-    dispatch(fetchAuthSignUp(dataSubmit));
+    dispatch(actions.signUp(dataSubmit));
   };
 
   const handleSignInNavigate = () => {
@@ -59,34 +56,22 @@ export const SignUpPage = ({navigation}: SignUpScreenProps) => {
             <Controller
               control={control}
               name="name"
-              render={renderProps => (
-                <FormInput label="Name" {...renderProps} />
-              )}
+              render={(renderProps) => <FormInput label="Name" {...renderProps} />}
             />
             <Controller
               control={control}
               name="email"
-              render={renderProps => (
-                <FormInput label="Email" {...renderProps} />
-              )}
+              render={(renderProps) => <FormInput label="Email" {...renderProps} />}
             />
             <Controller
               control={control}
               name="password"
-              render={renderProps => (
-                <FormInput label="Password" isPassword {...renderProps} />
-              )}
+              render={(renderProps) => <FormInput label="Password" isPassword {...renderProps} />}
             />
             <Controller
               control={control}
               name="confirmPassword"
-              render={renderProps => (
-                <FormInput
-                  label="Confirm password"
-                  isPassword
-                  {...renderProps}
-                />
-              )}
+              render={(renderProps) => <FormInput label="Confirm password" isPassword {...renderProps} />}
             />
           </ControllersContainer>
           <FooterContainer>
@@ -118,7 +103,7 @@ const StyledWrapper = styled.ScrollView`
   padding: 36px 24px 40px 24px;
   border-top-left-radius: 24px;
   border-top-right-radius: 24px;
-  background-color: ${props => props.theme.colors.grayscale_100};
+  background-color: ${(props) => props.theme.colors.grayscale_100};
 `;
 
 const StyledFormContainer = styled.View`
@@ -143,7 +128,7 @@ const FooterWrapper = styled.View`
 `;
 
 const StyledTitle = styled.Text`
-  ${props => {
+  ${(props) => {
     return css`
       ${props.theme.typography.titleBold_28};
       color: ${props.theme.colors.grayscale_800};
@@ -153,7 +138,7 @@ const StyledTitle = styled.Text`
 `;
 
 const FooterText = styled.Text`
-  ${props => {
+  ${(props) => {
     return css`
       ${props.theme.typography.bodyRegular_16};
       color: ${props.theme.colors.grayscale_700};

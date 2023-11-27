@@ -1,4 +1,4 @@
-import {COLORS} from '@shared/ui/styles/colors';
+import { COLORS } from '@shared/ui/styles/colors';
 
 export function getColorByDate(date?: Date): string {
   if (!date) {

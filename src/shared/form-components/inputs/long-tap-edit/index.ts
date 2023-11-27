@@ -1,1 +1,1 @@
-export {LongTapFormEdit} from './long-tap-edit';
+export { LongTapFormEdit } from './long-tap-edit';
