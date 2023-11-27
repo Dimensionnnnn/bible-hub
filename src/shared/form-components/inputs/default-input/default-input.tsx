@@ -1,9 +1,9 @@
-import {forwardRef} from 'react';
-import {UIDefaultInput} from '@shared/ui/inputs/default-input';
-import {ControllerRenderProps} from 'react-hook-form';
-import {TextInputProps} from 'react-native';
-import {css} from 'styled-components/native';
-import {Interpolation} from 'styled-components/native/dist/types';
+import { UIDefaultInput } from '@shared/ui/components/inputs/default-input';
+import { forwardRef } from 'react';
+import { ControllerRenderProps } from 'react-hook-form';
+import { TextInputProps } from 'react-native';
+import { css } from 'styled-components/native';
+import { Interpolation } from 'styled-components/native/dist/types';
 
 interface Props extends TextInputProps {
   field: ControllerRenderProps<any, any>;
@@ -12,8 +12,8 @@ interface Props extends TextInputProps {
 }
 
 export const DefaultFormInput = forwardRef<HTMLInputElement, Props>(
-  ({field, isDisabled, isDirty, ...props}: Props, ref) => {
-    const {value, onChange, onBlur} = field;
+  ({ field, isDisabled, isDirty, ...props }: Props, ref) => {
+    const { value, onChange, onBlur } = field;
 
     const inputState: InputState | null = isDirty
       ? InputState.DIRTY
@@ -44,11 +44,11 @@ enum InputState {
 
 const defaultInputStyles = {
   [InputState.DISABLED]: css`
-    color: ${props => props.theme.colors.grayscale_500};
-    border-bottom-color: ${props => props.theme.colors.grayscale_500};
+    color: ${(props) => props.theme.colors.grayscale_500};
+    border-bottom-color: ${(props) => props.theme.colors.grayscale_500};
   `,
   [InputState.DIRTY]: css`
-    color: ${props => props.theme.colors.grayscale_800};
-    border-bottom-color: ${props => props.theme.colors.grayscale_800};
+    color: ${(props) => props.theme.colors.grayscale_800};
+    border-bottom-color: ${(props) => props.theme.colors.grayscale_800};
   `,
 } as Readonly<Record<InputState, Interpolation<typeof InputState>>>;

@@ -1,7 +1,7 @@
-import {forwardRef} from 'react';
-import {TextInputProps} from 'react-native';
-import {ControllerRenderProps, FormState} from 'react-hook-form';
-import {UILongTapEdit} from '@shared/ui/inputs/long-tap-edit';
+import { UILongTapEdit } from '@shared/ui/components/inputs/long-tap-edit';
+import { forwardRef } from 'react';
+import { ControllerRenderProps, FormState } from 'react-hook-form';
+import { TextInputProps } from 'react-native';
 
 interface Props extends TextInputProps {
   field: ControllerRenderProps<any, any>;
@@ -10,9 +10,9 @@ interface Props extends TextInputProps {
 }
 
 export const LongTapFormEdit = forwardRef<TextInputProps, Props>(
-  ({field, isDisabled, formState, ...props}: Props, ref) => {
-    const {isLoading} = formState;
-    const {value, onChange, onBlur} = field;
+  ({ field, isDisabled, formState, ...props }: Props, ref) => {
+    const { isLoading } = formState;
+    const { value, onChange, onBlur } = field;
 
     return (
       <UILongTapEdit

@@ -1,5 +1,4 @@
-import * as React from 'react';
-import Svg, {SvgProps, G, Path} from 'react-native-svg';
+import Svg, { G, Path, SvgProps } from 'react-native-svg';
 export const SvgPasswordShowedIcon = (props: SvgProps) => (
   <Svg width={24} height={24} fill="none" viewBox="0 0 20 20" {...props}>
     <G clipPath="url(#a)">

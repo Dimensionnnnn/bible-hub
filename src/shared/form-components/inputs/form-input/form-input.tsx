@@ -1,14 +1,10 @@
-import {forwardRef} from 'react';
-import {UILabelInput} from '@shared/ui/inputs/label-input';
-import {
-  ControllerFieldState,
-  ControllerRenderProps,
-  FormState,
-} from 'react-hook-form';
-import {TextInputProps} from 'react-native';
-import {DefaultTheme, css, useTheme} from 'styled-components/native';
-import {Interpolation} from 'styled-components/native/dist/types';
-import {UIPasswordInput} from '@shared/ui/inputs/password-input';
+import { UILabelInput } from '@shared/ui/components/inputs/label-input';
+import { UIPasswordInput } from '@shared/ui/components/inputs/password-input';
+import { forwardRef } from 'react';
+import { ControllerFieldState, ControllerRenderProps, FormState } from 'react-hook-form';
+import { TextInputProps } from 'react-native';
+import { css, DefaultTheme, useTheme } from 'styled-components/native';
+import { Interpolation } from 'styled-components/native/dist/types';
 
 interface Props extends TextInputProps {
   fieldState: ControllerFieldState;
@@ -20,20 +16,9 @@ interface Props extends TextInputProps {
 }
 
 export const FormInput = forwardRef<TextInputProps, Props>(
-  (
-    {
-      field,
-      formState,
-      fieldState,
-      label,
-      isPassword,
-      isDisabled,
-      ...props
-    }: Props,
-    ref,
-  ) => {
-    const {isSubmitSuccessful} = formState;
-    const {value, onChange, onBlur} = field;
+  ({ field, formState, fieldState, label, isPassword, isDisabled, ...props }: Props, ref) => {
+    const { isSubmitSuccessful } = formState;
+    const { value, onChange, onBlur } = field;
     const theme = useTheme();
 
     const errorMessage = fieldState.error?.message;
@@ -101,20 +86,20 @@ enum InputState {
 
 const labelInputStyles = {
   [InputState.DISABLED]: css`
-    color: ${props => props.theme.colors.grayscale_500};
-    border-bottom-color: ${props => props.theme.colors.grayscale_500};
+    color: ${(props) => props.theme.colors.grayscale_500};
+    border-bottom-color: ${(props) => props.theme.colors.grayscale_500};
   `,
   [InputState.DIRTY]: css`
-    color: ${props => props.theme.colors.grayscale_800};
-    border-bottom-color: ${props => props.theme.colors.grayscale_800};
+    color: ${(props) => props.theme.colors.grayscale_800};
+    border-bottom-color: ${(props) => props.theme.colors.grayscale_800};
   `,
   [InputState.SUCCESS]: css`
-    color: ${props => props.theme.colors.additional_success};
-    border-bottom-color: ${props => props.theme.colors.additional_success};
+    color: ${(props) => props.theme.colors.additional_success};
+    border-bottom-color: ${(props) => props.theme.colors.additional_success};
   `,
   [InputState.ERROR]: css`
-    color: ${props => props.theme.colors.additional_error};
-    border-bottom-color: ${props => props.theme.colors.additional_error};
+    color: ${(props) => props.theme.colors.additional_error};
+    border-bottom-color: ${(props) => props.theme.colors.additional_error};
   `,
 } as Readonly<Record<InputState, Interpolation<typeof InputState>>>;
 
