@@ -1,0 +1,9 @@
+node-modules/**
+vendor/**
+ios/**
+android/**
+.bundle/**
+src/shared/api/generated/**
+src/shared/api/openapi.json
+src/shared/ui/icons/**
+**.js
