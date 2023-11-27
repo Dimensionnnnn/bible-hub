@@ -1,9 +1,13 @@
-import { getColorByDate } from '@shared/helpers/color-by-date/color-by-date';
 import styled, { css } from 'styled-components/native';
 import { CSSProp } from 'styled-components/native/dist/types';
 
+import { getColorByDate } from '@shared/helpers/color-by-date/color-by-date';
+
 import { SvgArmsIcon } from '../../icons/components/svg-arms-icon';
-import { ButtonIconWithSize, ButtonSize } from '../buttons/button-icon-with-size/button-icon-with-size';
+import {
+  ButtonIconWithSize,
+  ButtonSize,
+} from '../buttons/button-icon-with-size/button-icon-with-size';
 import { UIColorMark } from '../color-mark';
 import { UICardLoadingWrapper } from './prayer-card-wrapper';
 
@@ -29,7 +33,8 @@ export function UIPrayerCard({
   const date = dateOfCompletion ? new Date(dateOfCompletion) : new Date();
   const markColor = getColorByDate(date);
 
-  const formatCompletedCount = completedCount && completedCount > 999 ? '999+' : completedCount?.toString();
+  const formatCompletedCount =
+    completedCount && completedCount > 999 ? '999+' : completedCount?.toString();
 
   const formatMembersCount = membersCount && membersCount > 99 ? '99+' : membersCount?.toString();
 
@@ -55,7 +60,11 @@ export function UIPrayerCard({
             </StyledCardInfoWrapper>
           </StyledCardInfoContainer>
 
-          <ButtonIconWithSize size={ButtonSize.small} Icon={SvgArmsIcon} onPress={onCompletePress} />
+          <ButtonIconWithSize
+            size={ButtonSize.small}
+            Icon={SvgArmsIcon}
+            onPress={onCompletePress}
+          />
         </>
       </UICardLoadingWrapper>
     </StyledPressable>

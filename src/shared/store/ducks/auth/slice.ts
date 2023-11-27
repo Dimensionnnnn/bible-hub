@@ -1,4 +1,5 @@
 import { createSlice, isFulfilled, isPending, isRejected } from '@reduxjs/toolkit';
+
 import { Users } from '@shared/api/generated';
 
 import { actions } from './actions';
@@ -34,4 +35,4 @@ export const authSlice = createSlice({
   },
 });
 
-export const reducer = authSlice.reducer;
+export const { reducer } = authSlice;

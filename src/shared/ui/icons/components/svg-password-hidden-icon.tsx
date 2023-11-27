@@ -1,4 +1,5 @@
 import Svg, { G, Path, SvgProps } from 'react-native-svg';
+
 export const SvgPasswordHiddenIcon = (props: SvgProps) => (
   <Svg width={24} height={24} fill="none" viewBox="0 0 20 20" {...props}>
     <G clipPath="url(#a)">

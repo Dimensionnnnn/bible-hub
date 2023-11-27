@@ -1,12 +1,13 @@
+import { useState } from 'react';
+import { TextInputProps } from 'react-native';
+import styled, { css } from 'styled-components/native';
+import { CSSProp } from 'styled-components/native/dist/types';
+
 import {
   ButtonIconWithSize,
   ButtonSize,
 } from '@shared/ui/components/buttons/button-icon-with-size/button-icon-with-size';
 import { SvgAirplaneIcon } from '@shared/ui/icons/components/svg-airplane-icon';
-import { useState } from 'react';
-import { TextInputProps } from 'react-native';
-import styled, { css } from 'styled-components/native';
-import { CSSProp } from 'styled-components/native/dist/types';
 
 interface UICommentInputProps extends TextInputProps {
   isDisabled?: boolean;

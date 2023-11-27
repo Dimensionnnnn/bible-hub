@@ -47,7 +47,7 @@
     "babel.config.js",
     "metro.config.js",
     "jest.config.js",
-    "src/7_shared/api/generated",
-    "src/7_shared/api/generated.json"
+    "src/shared/api/generated",
+    "src/shared/api/openapi.json"
   ]
 }

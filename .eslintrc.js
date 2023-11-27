@@ -3,10 +3,16 @@ module.exports = {
   parserOptions: {
     sourceType: 'module',
   },
-  extends: ['@react-native-community', 'prettier', 'airbnb'],
+  extends: ['@react-native', 'prettier', 'airbnb'],
   parser: '@typescript-eslint/parser',
   plugins: ['@typescript-eslint', 'unused-imports', 'react', 'react-native', 'react-hooks'],
   rules: {
+    'react/prop-types': 'off',
+    'no-nested-ternary': 'off',
+    indent: 'off',
+    'no-undef': 'off',
+    'no-param-reassign': 'off',
+    'linebreak-style': ['error', 'windows'],
     'prettier/prettier': ['error', { singleQuote: true }, { usePrettierrc: true }],
     'react-hooks/exhaustive-deps': 'off',
     'no-shadow': 'off',

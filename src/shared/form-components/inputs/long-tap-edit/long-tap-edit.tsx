@@ -1,7 +1,8 @@
-import { UILongTapEdit } from '@shared/ui/components/inputs/long-tap-edit';
 import { forwardRef } from 'react';
 import { ControllerRenderProps, FormState } from 'react-hook-form';
 import { TextInputProps } from 'react-native';
+
+import { UILongTapEdit } from '@shared/ui/components/inputs/long-tap-edit';
 
 interface Props extends TextInputProps {
   field: ControllerRenderProps<any, any>;

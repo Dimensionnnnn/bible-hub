@@ -1,7 +1,8 @@
-import { SvgCheckIcon } from '@shared/ui/icons/components/svg-check-icon';
 import { TextInputProps } from 'react-native';
 import styled from 'styled-components/native';
 import { CSSProp } from 'styled-components/native/dist/types';
+
+import { SvgCheckIcon } from '@shared/ui/icons/components/svg-check-icon';
 
 import { UIDefaultInput } from '../default-input';
 

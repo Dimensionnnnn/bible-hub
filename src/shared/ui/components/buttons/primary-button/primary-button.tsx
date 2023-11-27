@@ -1,6 +1,7 @@
-import { Spinner } from '@shared/ui/components/spinner/spinner';
 import React, { useState } from 'react';
 import { Pressable, Text } from 'react-native';
+
+import { Spinner } from '@shared/ui/components/spinner/spinner';
 
 import { getStyles } from './styles';
 

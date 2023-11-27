@@ -1,5 +1,6 @@
-import { messages } from '@shared/constants/authentication-error-messages/authentication-error-messages';
 import * as yup from 'yup';
+
+import { messages } from '@shared/constants/authentication-error-messages/authentication-error-messages';
 
 export const schema = yup.object({
   email: yup.string().email(messages.email).required(messages.emailRequired),

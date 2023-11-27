@@ -1,4 +1,5 @@
-import { createSlice, SerializedError } from '@reduxjs/toolkit';
+import { SerializedError, createSlice } from '@reduxjs/toolkit';
+
 import { Desks } from '@shared/api/generated';
 
 import { actions } from './actions';
@@ -27,4 +28,4 @@ export const selfDesksSlice = createSlice({
   },
 });
 
-export const reducer = selfDesksSlice.reducer;
+export const { reducer } = selfDesksSlice;

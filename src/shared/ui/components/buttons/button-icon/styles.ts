@@ -1,5 +1,6 @@
-import { COLORS } from '@shared/ui/styles/colors';
 import { StyleSheet } from 'react-native';
+
+import { COLORS } from '@shared/ui/styles/colors';
 
 const styles = {
   colors: {
@@ -40,7 +41,11 @@ enum ElementStatus {
 }
 
 const getButtonStatus = (isDisabled?: boolean, isPressed?: boolean) => {
-  return isPressed ? ElementStatus.pressed : isDisabled ? ElementStatus.disabled : ElementStatus.initial;
+  return isPressed
+    ? ElementStatus.pressed
+    : isDisabled
+    ? ElementStatus.disabled
+    : ElementStatus.initial;
 };
 
 interface Props {

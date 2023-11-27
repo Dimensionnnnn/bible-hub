@@ -1,7 +1,8 @@
 import { SelfDeskPage } from '@pages/self-desk/self-desk';
 import { UIKit } from '@pages/ui-kit/ui-kit';
 import { UsersDeskPage } from '@pages/users-desks/users-desks/users-desks';
-import { getTabBarIcon, TabBarIconsNames } from '@shared/helpers/tab-bar-icons/tab-bar-icon';
+
+import { TabBarIconsNames, getTabBarIcon } from '@shared/helpers/tab-bar-icons/tab-bar-icon';
 import { BottomTabBar, Tab } from '@shared/ui/components/bottom-tabbar/bottom-tabbar';
 
 export const TabBar = () => {

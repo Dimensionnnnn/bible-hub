@@ -1,9 +1,10 @@
-import { UIDefaultInput } from '@shared/ui/components/inputs/default-input';
 import { forwardRef } from 'react';
 import { ControllerRenderProps } from 'react-hook-form';
 import { TextInputProps } from 'react-native';
 import { css } from 'styled-components/native';
 import { Interpolation } from 'styled-components/native/dist/types';
+
+import { UIDefaultInput } from '@shared/ui/components/inputs/default-input';
 
 interface Props extends TextInputProps {
   field: ControllerRenderProps<any, any>;
@@ -11,7 +12,7 @@ interface Props extends TextInputProps {
   isDirty?: boolean;
 }
 
-export const DefaultFormInput = forwardRef<HTMLInputElement, Props>(
+export const DefaultFormInput = forwardRef<TextInputProps, Props>(
   ({ field, isDisabled, isDirty, ...props }: Props, ref) => {
     const { value, onChange, onBlur } = field;
 

@@ -10,9 +10,9 @@ export function getColorByDate(date?: Date): string {
 
   if (diffInHours < 1) {
     return COLORS.indicator_blue;
-  } else if (diffInHours < 24) {
-    return COLORS.indicator_yellow;
-  } else {
-    return COLORS.indicator_orange;
   }
+  if (diffInHours < 24) {
+    return COLORS.indicator_yellow;
+  }
+  return COLORS.indicator_orange;
 }

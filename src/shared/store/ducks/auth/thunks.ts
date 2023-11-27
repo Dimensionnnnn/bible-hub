@@ -1,4 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+
 import { Auth } from '@shared/api';
 import { AuthSignInDto, AuthSignUpDto } from '@shared/api/generated';
 

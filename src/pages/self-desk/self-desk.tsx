@@ -1,15 +1,17 @@
+import { useEffect } from 'react';
+import styled from 'styled-components/native';
+
+import { PrimaryHeader } from '@widgets/layouts/primary-header';
+
 import { useAppDispatch, useAppSelector } from '@shared/store';
 import { actions as authActions } from '@shared/store/ducks/auth';
-import { actions as selfDesksActions, selectors } from '@shared/store/ducks/self-desks';
+import { selectors, actions as selfDesksActions } from '@shared/store/ducks/self-desks';
 import {
   ButtonIconWithSize,
   ButtonSize,
 } from '@shared/ui/components/buttons/button-icon-with-size/button-icon-with-size';
 import { UIDesksList } from '@shared/ui/components/desks-list';
 import { SvgPlusIcon } from '@shared/ui/icons/components/svg-plus-icon';
-import { PrimaryHeader } from '@widgets/layouts/primary-header';
-import { useEffect } from 'react';
-import styled from 'styled-components/native';
 
 export const SelfDeskPage = () => {
   const dispatch = useAppDispatch();

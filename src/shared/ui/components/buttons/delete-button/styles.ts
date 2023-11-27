@@ -1,5 +1,6 @@
-import { COLORS } from '@shared/ui/styles/colors';
 import { StyleSheet } from 'react-native';
+
+import { COLORS } from '@shared/ui/styles/colors';
 
 import { ButtonSize } from './delete-button';
 

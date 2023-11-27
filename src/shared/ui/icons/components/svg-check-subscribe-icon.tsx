@@ -1,6 +1,13 @@
 import Svg, { Path, SvgProps } from 'react-native-svg';
+
 export const SvgCheckSubscribeIcon = (props: SvgProps) => (
-  <Svg width={props.width || 24} height={props.height || 24} fill="none" viewBox="0 0 17 16" {...props}>
+  <Svg
+    width={props.width || 24}
+    height={props.height || 24}
+    fill="none"
+    viewBox="0 0 17 16"
+    {...props}
+  >
     <Path
       fill="currentColor"
       fillRule="evenodd"

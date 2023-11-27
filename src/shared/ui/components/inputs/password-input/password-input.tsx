@@ -1,7 +1,8 @@
+import styled from 'styled-components/native';
+
 import { useToggle } from '@shared/helpers/hooks/use-toggle';
 import { SvgPasswordHiddenIcon } from '@shared/ui/icons/components/svg-password-hidden-icon';
 import { SvgPasswordShowedIcon } from '@shared/ui/icons/components/svg-password-showed-icon';
-import styled from 'styled-components/native';
 
 import { UILabelInput } from '../label-input';
 import { UILabelInputProps } from '../label-input/label-input';

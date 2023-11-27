@@ -1,4 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+
 import { Desks } from '@shared/api/';
 
 export const fetchSelfDesksThunk = createAsyncThunk('desks/my', async (_, thunkApi) => {
