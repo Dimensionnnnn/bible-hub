@@ -23,7 +23,9 @@ export const UIPrayersList = ({ data, fetchMore, onPress }: Props) => {
             membersCount={item.subscribersCount}
             completedCount={item.completesCount}
             dateOfCompletion={item.lastPrayerEvent}
-            onCardPress={() => {}}
+            onCardPress={() => {
+              onPress && onPress(item.id, item.title);
+            }}
             onCompletePress={() => {}}
           />
         )}
