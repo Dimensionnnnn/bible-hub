@@ -1,4 +1,4 @@
-import { RouteProp, useRoute } from '@react-navigation/native';
+import { NavigationProp, RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { useCallback, useEffect } from 'react';
 import styled from 'styled-components/native';
 
@@ -17,7 +17,11 @@ export const DeskColumnsPage = () => {
   const deskColumns = useAppSelector((state) => selectors.selectDeskColumns(deskId, state));
   const afterCursor = useAppSelector(selectors.selectAfterCursor);
 
-  const handleNavigate = () => {};
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+
+  const handleNavigate = (id: number, title: string) => {
+    navigation.navigate(RootRouteNames.PRAYERS_BY_COLUMN_ID, { columnId: id, columnTitle: title });
+  };
 
   const handleDeskColumns = useCallback(
     (cursor?: string) => {
