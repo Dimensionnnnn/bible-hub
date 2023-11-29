@@ -25,20 +25,16 @@ export const UsersDeskPage = () => {
     navigation.navigate(RootRouteNames.DESK_COLUMNS, { deskId: id, deskTitle: title });
   };
 
-  const handleUsersDesks = useCallback(
+  const handleMoreUsersDesks = useCallback(
     (cursor?: string) => {
-      if (cursor !== null) {
-        dispatch(usersDesksActions.fetchUsersDesks({ afterCursor: cursor }));
-      }
+      dispatch(usersDesksActions.fetchMoreUsersDesks({ afterCursor: cursor }));
     },
     [dispatch],
   );
 
   useEffect(() => {
-    if (usersDesks?.length === 0) {
-      handleUsersDesks();
-    }
-  }, [handleUsersDesks, usersDesks]);
+    dispatch(usersDesksActions.fetchUsersDesks());
+  }, [dispatch]);
 
   return (
     <StyledContainer>
@@ -47,7 +43,7 @@ export const UsersDeskPage = () => {
         <UIDesksList
           data={usersDesks}
           onPress={handleNavigate}
-          fetchMore={() => handleUsersDesks(afterCursor)}
+          fetchMore={() => handleMoreUsersDesks(afterCursor)}
         />
       </StyledContentContainer>
     </StyledContainer>

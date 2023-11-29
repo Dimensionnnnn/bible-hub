@@ -14,7 +14,7 @@ export const DeskColumnsPage = () => {
   const dispatch = useAppDispatch();
   const route = useRoute<RouteProp<RootStackParamList, RootRouteNames.DESK_COLUMNS>>();
   const { deskId, deskTitle } = route.params;
-  const deskColumns = useAppSelector((state) => selectors.selectDeskColumns(deskId, state));
+  const deskColumns = useAppSelector((state) => selectors.selectDeskColumns(state, deskId));
   const afterCursor = useAppSelector(selectors.selectAfterCursor);
 
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
@@ -23,20 +23,16 @@ export const DeskColumnsPage = () => {
     navigation.navigate(RootRouteNames.PRAYERS_BY_COLUMN_ID, { columnId: id, columnTitle: title });
   };
 
-  const handleDeskColumns = useCallback(
+  const handleMoreDeskColumns = useCallback(
     (cursor?: string) => {
-      if (cursor !== null) {
-        dispatch(actions.fetchDeskColumns({ deskId: deskId, afterCursor: cursor }));
-      }
+      dispatch(actions.fetchMoreDeskColumns({ deskId, afterCursor: cursor }));
     },
     [deskId, dispatch],
   );
 
   useEffect(() => {
-    if (!deskColumns) {
-      handleDeskColumns();
-    }
-  }, [deskColumns, handleDeskColumns]);
+    dispatch(actions.fetchDeskColumns(deskId));
+  }, [deskId, dispatch]);
 
   return (
     <StyledContainer>
@@ -45,7 +41,7 @@ export const DeskColumnsPage = () => {
         <UIDeskColumnsList
           data={deskColumns}
           onPress={handleNavigate}
-          fetchMore={() => handleDeskColumns(afterCursor)}
+          fetchMore={() => handleMoreDeskColumns(afterCursor)}
         />
       </StyledContentContainer>
     </StyledContainer>
