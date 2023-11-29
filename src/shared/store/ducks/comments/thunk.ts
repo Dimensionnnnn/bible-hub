@@ -46,3 +46,25 @@ export const fetchMoreCommentsByPrayerIdThunk = createAsyncThunk(
     }
   },
 );
+
+export const fetchCreateCommentByPrayerIdThunk = createAsyncThunk(
+  'prayers/id/comments/create',
+  async (args: { prayerId: number; body: string }, thunkApi) => {
+    const { prayerId, body } = args;
+    try {
+      const response = await Comments.commentsControllerAddCommentToPrayer({
+        prayerId,
+        commentsDto: {
+          body,
+        },
+      });
+      return response.data;
+    } catch (error: any) {
+      if (error.response) {
+        return thunkApi.rejectWithValue(error.response.data);
+      } else {
+        return thunkApi.rejectWithValue(error.message);
+      }
+    }
+  },
+);

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { ControllerFieldState, ControllerRenderProps } from 'react-hook-form';
 import { TextInputProps } from 'react-native';
 import styled, { css } from 'styled-components/native';
 import { CSSProp } from 'styled-components/native/dist/types';
@@ -10,42 +10,84 @@ import {
 import { SvgAirplaneIcon } from '@shared/ui/icons/components/svg-airplane-icon';
 
 interface UICommentInputProps extends TextInputProps {
+  fieldState: ControllerFieldState;
+  field: ControllerRenderProps<any, any>;
   isDisabled?: boolean;
   rootStyle?: CSSProp;
-  onPress: () => void;
+  onSubmitButtonPress: () => void;
 }
 
-export function UICommentInput({ isDisabled, onPress, rootStyle, ...props }: UICommentInputProps) {
-  const [isFocused, setIsFocused] = useState(false);
-  const isFilled = props?.value ? !!props.value.length : false;
+export function UICommentInput({
+  fieldState,
+  field,
+  isDisabled,
+  onSubmitButtonPress,
+  rootStyle,
+  ...props
+}: UICommentInputProps) {
+  const { value, onChange, onBlur } = field;
+  const { isDirty } = fieldState;
 
-  const handleFocus = () => {
-    setIsFocused(true);
-  };
+  const containerState: InputState = isDisabled ? InputState.DISABLED : InputState.DEFAULT;
 
-  const handleBlur = () => {
-    setIsFocused(false);
-  };
+  const inputState: InputState = isDirty
+    ? InputState.DIRTY
+    : isDisabled
+    ? InputState.DIRTY
+    : InputState.DEFAULT;
+
+  const containerColors = containerStyles[containerState];
+  const inputColors = inputStyles[inputState];
 
   return (
-    <StyledContainer>
+    <StyledContainer rootStyle={containerColors}>
       <StyledInput
-        rootStyle={rootStyle}
-        isFocused={isFocused}
-        isFilled={isFilled}
-        onFocus={handleFocus}
-        onBlur={handleBlur}
+        rootStyle={inputColors}
         editable={!isDisabled}
+        onChangeText={onChange}
+        onBlur={onBlur}
+        value={value}
         {...props}
       />
-      {!isDisabled && isFilled && (
-        <ButtonIconWithSize size={ButtonSize.medium} Icon={SvgAirplaneIcon} onPress={onPress} />
+      {!isDisabled && isDirty && (
+        <ButtonIconWithSize
+          size={ButtonSize.medium}
+          Icon={SvgAirplaneIcon}
+          onPress={onSubmitButtonPress}
+        />
       )}
     </StyledContainer>
   );
 }
 
-const StyledContainer = styled.View<{ isDisabled?: boolean }>`
+enum InputState {
+  DISABLED = 'isDisabled',
+  DIRTY = 'isDirty',
+  DEFAULT = 'isDefault',
+}
+
+const containerStyles = {
+  [InputState.DISABLED]: css`
+    background-color: ${(props) => props.theme.colors.grayscale_200};
+  `,
+  [InputState.DEFAULT]: css`
+    background-color: ${(props) => props.theme.colors.grayscale_300};
+  `,
+};
+
+const inputStyles = {
+  [InputState.DISABLED]: css`
+    color: ${(props) => props.theme.colors.grayscale_400};
+  `,
+  [InputState.DIRTY]: css`
+    color: ${(props) => props.theme.colors.grayscale_800};
+  `,
+  [InputState.DEFAULT]: css`
+    color: ${(props) => props.theme.colors.grayscale_600};
+  `,
+};
+
+const StyledContainer = styled.View<{ rootStyle?: CSSProp }>`
   width: 100%;
   max-width: 343px;
   height: 56px;
@@ -56,47 +98,15 @@ const StyledContainer = styled.View<{ isDisabled?: boolean }>`
   flex-direction: row;
   align-items: center;
 
-  ${(props) => {
-    if (props.isDisabled) {
-      return css`
-        background-color: ${props.theme.colors.grayscale_200};
-      `;
-    }
-    return css`
-      background-color: ${props.theme.colors.grayscale_300};
-    `;
-  }}
+  ${(props) => props.rootStyle};
 `;
 
-const StyledInput = styled.TextInput<{
-  isFocused?: boolean;
-  isFilled?: boolean;
-  isDisabled?: boolean;
-  rootStyle?: CSSProp;
-}>`
+const StyledInput = styled.TextInput<{ rootStyle?: CSSProp }>`
   ${(props) => props.theme.typography.bodyRegular_16};
-
-  ${(props) => {
-    if (props.isDisabled) {
-      return css`
-        color: ${props.theme.colors.grayscale_400};
-      `;
-    }
-
-    if (props.isFocused || props.isFilled) {
-      return css`
-        color: ${props.theme.colors.grayscale_800};
-      `;
-    }
-
-    return css`
-      color: ${props.theme.colors.grayscale_600};
-    `;
-  }}
 
   padding: 10px;
   width: 100%;
   flex: 1;
 
-  ${({ rootStyle }) => rootStyle};
+  ${(props) => props.rootStyle};
 `;

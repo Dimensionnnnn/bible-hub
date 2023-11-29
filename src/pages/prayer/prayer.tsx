@@ -8,6 +8,7 @@ import { RootRouteNames, RootStackParamList } from '@app/navigation/navigators/r
 import { PrayerInfo } from '@widgets/layouts/prayer-info/prayer-info';
 import { SecondaryHeader } from '@widgets/layouts/secondary-header';
 
+import { CommentFormInput } from '@shared/form-components/inputs/comment-input';
 import { useAppDispatch, useAppSelector } from '@shared/store';
 import {
   actions as commentsActions,
@@ -20,7 +21,6 @@ import {
 } from '@shared/ui/components/buttons/primary-button/primary-button';
 import { SubscribeButton } from '@shared/ui/components/buttons/subscribe-button/subscribe-button';
 import { UICommentsList } from '@shared/ui/components/comments-list';
-import { UICommentInput } from '@shared/ui/components/inputs/comment-input';
 
 export const PrayerPage = () => {
   const dispatch = useAppDispatch();
@@ -71,7 +71,7 @@ export const PrayerPage = () => {
         </StyledButtonsContainer>
         <UICommentsList data={comments} />
       </StyledScrollView>
-      <UICommentInput placeholder="Enter your comment" onPress={() => {}} />
+      <CommentFormInput prayerId={prayerId} />
     </StyledContainer>
   );
 };
