@@ -17,14 +17,25 @@ export const deskColumnsSlice = createSlice({
       .addCase(actions.fetchDeskColumns.pending, (state) => {
         state.loading = true;
       })
+      .addCase(actions.fetchMoreDeskColumns.pending, (state) => {
+        state.loading = true;
+      })
       .addCase(actions.fetchDeskColumns.fulfilled, (state, action: any) => {
         state.loading = false;
+        const deskId = action.meta.arg;
+        state.entities[deskId] = [...action.payload.data];
+        state.afterCursor = action.payload.cursor?.afterCursor;
+      })
+      .addCase(actions.fetchMoreDeskColumns.fulfilled, (state, action: any) => {
+        state.loading = false;
         const deskId = action.meta.arg.deskId;
-        const existingColumns = state.entities[deskId] || [];
-        state.entities[deskId] = [...existingColumns, ...action.payload.data];
+        state.entities[deskId] = [...(state.entities[deskId] || []), ...action.payload.data];
         state.afterCursor = action.payload.cursor?.afterCursor;
       })
       .addCase(actions.fetchDeskColumns.rejected, (state) => {
+        state.loading = false;
+      })
+      .addCase(actions.fetchMoreDeskColumns.rejected, (state) => {
         state.loading = false;
       });
   },
