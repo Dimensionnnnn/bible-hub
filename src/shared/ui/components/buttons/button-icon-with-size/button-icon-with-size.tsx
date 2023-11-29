@@ -7,6 +7,7 @@ import { Spinner } from '@shared/ui/components/spinner/spinner';
 import { getStyles } from './styles';
 
 export enum ButtonSize {
+  extra_small = 'extraSmall',
   small = 'small',
   medium = 'medium',
   large = 'large',

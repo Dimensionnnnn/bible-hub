@@ -1,8 +1,10 @@
 import { useEffect } from 'react';
 import styled from 'styled-components/native';
 
+import { LayoutModal, ModalType } from '@widgets/layouts/modal';
 import { PrimaryHeader } from '@widgets/layouts/primary-header';
 
+import { useToggle } from '@shared/helpers/hooks/use-toggle';
 import { useAppDispatch, useAppSelector } from '@shared/store';
 import { actions as authActions } from '@shared/store/ducks/auth';
 import { selectors, actions as selfDesksActions } from '@shared/store/ducks/self-desks';
@@ -16,6 +18,7 @@ import { SvgPlusIcon } from '@shared/ui/icons/components/svg-plus-icon';
 export const SelfDeskPage = () => {
   const dispatch = useAppDispatch();
   const selfDesks = useAppSelector(selectors.selectSelfDesks);
+  const { onCloseToggle, onOpenToggle, isOpened } = useToggle(false);
 
   const handleLogout = () => {
     dispatch(authActions.logout());
@@ -33,9 +36,10 @@ export const SelfDeskPage = () => {
       <StyledContentContainer>
         <UIDesksList data={selfDesks} onPress={handleNavigate} />
         <StyledButtonContainer>
-          <ButtonIconWithSize size={ButtonSize.large} Icon={SvgPlusIcon} onPress={() => {}} />
+          <ButtonIconWithSize size={ButtonSize.large} Icon={SvgPlusIcon} onPress={onOpenToggle} />
         </StyledButtonContainer>
       </StyledContentContainer>
+      <LayoutModal modalVisible={isOpened} closeModal={onCloseToggle} type={ModalType.COLUMN} />
     </StyledContainer>
   );
 };

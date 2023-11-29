@@ -1,7 +1,8 @@
 import { selfDesksSlice } from './slice';
-import { fetchSelfDesksThunk } from './thunks';
+import { fetchCreateSelfDeskThunk, fetchSelfDesksThunk } from './thunks';
 
 export const actions = {
   ...selfDesksSlice.actions,
   fetchSelfDesks: fetchSelfDesksThunk,
+  fetchCreateDesk: fetchCreateSelfDeskThunk,
 };

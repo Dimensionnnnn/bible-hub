@@ -6,6 +6,24 @@ import { ButtonSize } from './button-icon-with-size';
 
 const styles = {
   colors: {
+    extraSmall: {
+      pressed: {
+        color: COLORS.grayscale_800,
+        background: { backgroundColor: COLORS.grayscale_500 },
+      },
+      disabled: {
+        color: COLORS.grayscale_600,
+        background: { backgroundColor: COLORS.grayscale_300 },
+      },
+      initial: {
+        color: COLORS.grayscale_800,
+        background: { backgroundColor: COLORS.grayscale_300 },
+      },
+      spinner: {
+        color: COLORS.grayscale_800,
+        strokeColor: COLORS.grayscale_600,
+      },
+    },
     small: {
       pressed: {
         color: COLORS.grayscale_800,
@@ -67,6 +85,11 @@ const styles = {
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
+    },
+    extraSmall: {
+      maxWidth: 34,
+      height: 34,
+      borderRadius: 32,
     },
     small: {
       maxWidth: 46,
