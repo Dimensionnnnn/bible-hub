@@ -1,40 +1,21 @@
+import React from 'react';
 import styled, { css } from 'styled-components/native';
 
-import { UISkeleton } from '../skeleton';
+import { CardBlockHOC } from './card-block-hoc/card-block-hoc';
 
-interface Props {
+export interface Props {
   title?: string;
   content?: string | number;
-  isLoading?: boolean;
 }
 
-export const UICardBlock = ({ title, content, isLoading }: Props) => {
+export const UICardBlock = CardBlockHOC(({ title, content }: Props) => {
   return (
-    <StyledContainer>
-      {isLoading ? (
-        <UISkeleton />
-      ) : (
-        <>
-          <StyledTitle>{title}</StyledTitle>
-          <StyledContent>{content}</StyledContent>
-        </>
-      )}
-    </StyledContainer>
+    <>
+      <StyledTitle>{title}</StyledTitle>
+      <StyledContent>{content}</StyledContent>
+    </>
   );
-};
-
-const StyledContainer = styled.View`
-  max-width: 149.5px;
-  width: 100%;
-  height: 109px;
-  border-radius: 28px;
-  background-color: ${(props) => props.theme.colors.grayscale_100};
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-`;
+});
 
 const StyledTitle = styled.Text`
   ${(props) => {

@@ -35,35 +35,29 @@ export const PrayerPage = () => {
 
   const handlePrayer = useCallback(() => {
     dispatch(prayerActions.fetchPrayerById(prayerId));
-  }, [dispatch]);
+  }, [prayerId, dispatch]);
 
-  const handleComments = useCallback(
-    (cursor?: string) => {
-      if (cursor !== null) {
-        dispatch(
-          commentsActions.fetchCommentsByPrayerId({ prayerId, afterCursor: commentsAfterCursor }),
-        );
-      }
-    },
-    [dispatch],
-  );
+  const handleFetchMoreComments = () => {
+    dispatch(
+      commentsActions.fetchMoreCommentsByPrayerId({ prayerId, afterCursor: commentsAfterCursor }),
+    );
+  };
 
   useEffect(() => {
-    if (prayer?.id !== prayerId) {
-      handlePrayer();
-    }
-  }, [handlePrayer, prayer, prayerId]);
+    handlePrayer();
+  }, [handlePrayer]);
 
   useEffect(() => {
-    if (comments?.length === 0) {
-      handleComments();
-    }
-  }, [handleComments, comments]);
+    dispatch(commentsActions.fetchCommentsByPrayerId(prayerId));
+  }, [prayerId, dispatch]);
 
   return (
     <StyledContainer>
       <SecondaryHeader title={prayerTitle} />
-      <StyledScrollView contentContainerStyle={{ alignItems: 'center' }}>
+      <StyledScrollView
+        onMomentumScrollEnd={handleFetchMoreComments}
+        contentContainerStyle={{ alignItems: 'center' }}
+      >
         <PrayerInfo
           isLoading={isLoading}
           date={dayjs(prayer.createdAt).format('DD.MM.YYYY')}
@@ -75,7 +69,7 @@ export const PrayerPage = () => {
           <PrimaryButton size={ButtonSize.large} title="Prayed" onPress={() => {}} />
           <SubscribeButton title={'Follow'} onPress={() => {}} />
         </StyledButtonsContainer>
-        <UICommentsList data={comments} fetchMore={() => handleComments(commentsAfterCursor)} />
+        <UICommentsList data={comments} />
       </StyledScrollView>
       <UICommentInput placeholder="Enter your comment" onPress={() => {}} />
     </StyledContainer>

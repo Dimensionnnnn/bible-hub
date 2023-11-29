@@ -24,13 +24,13 @@ export const UIPrayersList = ({ data, fetchMore, onPress }: Props) => {
             completedCount={item.completesCount}
             dateOfCompletion={item.lastPrayerEvent}
             onCardPress={() => {
-              onPress && onPress(item.id, item.title);
+              onPress?.(item.id, item.title);
             }}
             onCompletePress={() => {}}
           />
         )}
         keyExtractor={(item) => item.id}
-        onEndReached={() => fetchMore && fetchMore()}
+        onEndReached={() => fetchMore?.()}
         onEndReachedThreshold={0.1}
       />
     </StyledContainer>

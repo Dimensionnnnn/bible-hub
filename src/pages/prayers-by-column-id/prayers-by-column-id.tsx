@@ -1,5 +1,5 @@
 import { NavigationProp, RouteProp, useNavigation, useRoute } from '@react-navigation/native';
-import { useCallback, useEffect } from 'react';
+import { useEffect } from 'react';
 import styled from 'styled-components/native';
 
 import { RootRouteNames, RootStackParamList } from '@app/navigation/navigators/root/root';
@@ -23,15 +23,9 @@ export const PrayersByColumnIdPage = () => {
     navigation.navigate(RootRouteNames.PRAYER, { prayerId: id, prayerTitle: title });
   };
 
-  const handlePrayersByColumnId = useCallback(() => {
-    dispatch(actions.fetchPrayersByColumnId(columnId));
-  }, [columnId, dispatch]);
-
   useEffect(() => {
-    if (!prayersByColumnId) {
-      handlePrayersByColumnId();
-    }
-  }, [handlePrayersByColumnId, prayersByColumnId]);
+    dispatch(actions.fetchPrayersByColumnId(columnId));
+  }, [dispatch, columnId]);
 
   return (
     <StyledContainer>

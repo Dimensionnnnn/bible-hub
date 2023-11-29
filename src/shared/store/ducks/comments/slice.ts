@@ -17,14 +17,25 @@ export const commentsByPrayerIdSlice = createSlice({
       .addCase(actions.fetchCommentsByPrayerId.pending, (state) => {
         state.loading = true;
       })
+      .addCase(actions.fetchMoreCommentsByPrayerId.pending, (state) => {
+        state.loading = true;
+      })
       .addCase(actions.fetchCommentsByPrayerId.fulfilled, (state, action: any) => {
         state.loading = false;
         const prayerId = action.meta.arg;
-        const existingComments = state.entities[prayerId] || [];
-        state.entities[prayerId] = [...existingComments, ...action.payload.data];
+        state.entities[prayerId] = [...action.payload.data];
+        state.afterCursor = action.payload.cursor?.afterCursor;
+      })
+      .addCase(actions.fetchMoreCommentsByPrayerId.fulfilled, (state, action: any) => {
+        state.loading = false;
+        const prayerId = action.meta.arg.prayerId;
+        state.entities[prayerId] = [...(state.entities[prayerId] || []), ...action.payload.data];
         state.afterCursor = action.payload.cursor?.afterCursor;
       })
       .addCase(actions.fetchCommentsByPrayerId.rejected, (state) => {
+        state.loading = false;
+      })
+      .addCase(actions.fetchMoreCommentsByPrayerId.rejected, (state) => {
         state.loading = false;
       });
   },

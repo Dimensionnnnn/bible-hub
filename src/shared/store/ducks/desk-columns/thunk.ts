@@ -3,7 +3,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { Desks } from '@shared/api/';
 
 export const fetchDeskColumnsThunk = createAsyncThunk(
-  'desks/my',
+  'desks/id/columns',
   async (args: { deskId: number; afterCursor?: string }, thunkApi) => {
     const { deskId, afterCursor } = args;
     try {

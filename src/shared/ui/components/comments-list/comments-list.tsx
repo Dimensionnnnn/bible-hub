@@ -1,3 +1,4 @@
+import dayjs from 'dayjs';
 import styled, { css } from 'styled-components/native';
 
 import { Comments } from '@shared/api/generated';
@@ -6,10 +7,9 @@ import { UIComment } from '../comment';
 
 interface Props {
   data?: Comments[] | null;
-  fetchMore?: (afterCursor?: string) => void;
 }
 
-export const UICommentsList = ({ data, fetchMore }: Props = {}) => {
+export const UICommentsList = ({ data }: Props = {}) => {
   return (
     <>
       <StyledCommentsHeader>Comments</StyledCommentsHeader>
@@ -21,13 +21,11 @@ export const UICommentsList = ({ data, fetchMore }: Props = {}) => {
             <UIComment
               key={item.id}
               authorName={item.authorName}
-              dateOfCreation={item.createdAt}
+              dateOfCreation={dayjs(item.createdAt).format('DD.MM.YYYY')}
               commentText={item.body}
             />
           )}
           keyExtractor={(item) => item.id}
-          onEndReached={() => fetchMore && fetchMore()}
-          showsVerticalScrollIndicator={false}
         />
       )}
     </>
