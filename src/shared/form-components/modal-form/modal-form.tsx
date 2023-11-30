@@ -9,10 +9,11 @@ import { DefaultFormInput } from '../inputs/default-input';
 
 interface Props {
   placeholder: string;
-  dispatchAction?: (title: string) => any;
+  onCloseModal: () => void;
+  dispatchAction: (title: string) => any;
 }
 
-export const ModalForm = ({ placeholder, dispatchAction }: Props) => {
+export const ModalForm = ({ placeholder, dispatchAction, onCloseModal }: Props) => {
   const {
     control,
     handleSubmit,
@@ -24,7 +25,8 @@ export const ModalForm = ({ placeholder, dispatchAction }: Props) => {
   });
 
   const onSubmit = (dataSubmit: any) => {
-    console.log(dataSubmit);
+    dispatchAction(dataSubmit.title);
+    onCloseModal();
   };
 
   return (

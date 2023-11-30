@@ -12,7 +12,10 @@ import { ModalForm } from '@shared/form-components/modal-form';
 import { useToggle } from '@shared/helpers/hooks/use-toggle';
 import { useAppDispatch, useAppSelector } from '@shared/store';
 import { actions as authActions } from '@shared/store/ducks/auth';
-import { actions, selectors as columnsSelectors } from '@shared/store/ducks/desk-columns';
+import {
+  actions as columnsActions,
+  selectors as columnsSelectors,
+} from '@shared/store/ducks/desk-columns';
 import {
   actions as selfDesksActions,
   selectors as selfDesksSelectors,
@@ -42,13 +45,13 @@ export const SelfDeskPage = () => {
   };
 
   const handleNavigate = (id: number, title: string) => {
-    navigation.navigate(RootRouteNames.PRAYERS_BY_COLUMN_ID, { columnId: id, columnTitle: title });
+    navigation.navigate(RootRouteNames.SELF_PRAYERS, { columnId: id, columnTitle: title });
   };
 
   const handleMoreDeskColumns = useCallback(
     (cursor?: string) => {
       if (deskId) {
-        dispatch(actions.fetchMoreDeskColumns({ deskId, afterCursor: cursor }));
+        dispatch(columnsActions.fetchMoreDeskColumns({ deskId, afterCursor: cursor }));
       }
     },
     [deskId, dispatch],
@@ -60,7 +63,7 @@ export const SelfDeskPage = () => {
 
   useEffect(() => {
     if (deskId) {
-      dispatch(actions.fetchDeskColumns(deskId));
+      dispatch(columnsActions.fetchDeskColumns(deskId));
     }
   }, [deskId, dispatch]);
 
@@ -80,7 +83,13 @@ export const SelfDeskPage = () => {
         </StyledButtonContainer>
       </StyledContentContainer>
       <LayoutModal modalVisible={isOpened} closeModal={onCloseToggle} type={ModalType.COLUMN}>
-        <ModalForm placeholder={ModalPlaceholders[ModalType.COLUMN]} />
+        <ModalForm
+          placeholder={ModalPlaceholders[ModalType.COLUMN]}
+          onCloseModal={onCloseToggle}
+          dispatchAction={(title: string) =>
+            dispatch(columnsActions.fetchCreateColumn({ deskId, title }))
+          }
+        />
       </LayoutModal>
     </StyledContainer>
   );
