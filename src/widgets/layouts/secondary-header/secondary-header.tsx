@@ -10,10 +10,10 @@ interface Props {
 }
 
 export const SecondaryHeader = ({ title }: Props) => {
-  const nagivate = useNavigation();
+  const navigate = useNavigation();
 
   const handleGoBack = () => {
-    nagivate.goBack();
+    navigate.goBack();
   };
 
   return (

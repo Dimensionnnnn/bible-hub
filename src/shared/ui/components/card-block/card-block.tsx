@@ -1,14 +1,13 @@
-import React from 'react';
 import styled, { css } from 'styled-components/native';
 
-import { CardBlockHOC } from './card-block-hoc/card-block-hoc';
+import { withLoadingSkeleton } from './card-block-hoc/card-block-hoc';
 
 export interface Props {
   title?: string;
   content?: string | number;
 }
 
-export const UICardBlock = CardBlockHOC(({ title, content }: Props) => {
+export const UICardBlock = withLoadingSkeleton(({ title, content }: Props) => {
   return (
     <>
       <StyledTitle>{title}</StyledTitle>
