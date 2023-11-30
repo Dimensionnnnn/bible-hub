@@ -1,6 +1,6 @@
 import { RouteProp, useRoute } from '@react-navigation/native';
 import dayjs from 'dayjs';
-import { useCallback, useEffect } from 'react';
+import { useEffect } from 'react';
 import styled from 'styled-components/native';
 
 import { RootRouteNames, RootStackParamList } from '@app/navigation/navigators/root/root';
@@ -33,10 +33,6 @@ export const PrayerPage = () => {
   const comments = useAppSelector((state) => commentsSelectors.selectComments(state, prayerId));
   const commentsAfterCursor = useAppSelector(commentsSelectors.selectAfterCursor);
 
-  const handlePrayer = useCallback(() => {
-    dispatch(prayerActions.fetchPrayerById(prayerId));
-  }, [prayerId, dispatch]);
-
   const handleFetchMoreComments = () => {
     dispatch(
       commentsActions.fetchMoreCommentsByPrayerId({ prayerId, afterCursor: commentsAfterCursor }),
@@ -44,8 +40,8 @@ export const PrayerPage = () => {
   };
 
   useEffect(() => {
-    handlePrayer();
-  }, [handlePrayer]);
+    dispatch(prayerActions.fetchPrayerById(prayerId));
+  }, [prayerId, dispatch]);
 
   useEffect(() => {
     dispatch(commentsActions.fetchCommentsByPrayerId(prayerId));
