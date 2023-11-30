@@ -1,7 +1,6 @@
 import { Modal, TouchableWithoutFeedback } from 'react-native';
 import styled, { css } from 'styled-components/native';
 
-import { ModalForm } from '@shared/form-components/modal-form';
 import {
   ButtonSize as ButtonIconSize,
   ButtonIconWithSize,
@@ -12,6 +11,7 @@ interface Props {
   modalVisible: boolean;
   closeModal: () => void;
   type: ModalType;
+  children?: React.ReactNode;
 }
 
 export enum ModalType {
@@ -24,12 +24,12 @@ const ModalTitles = {
   [ModalType.PRAYER]: 'New prayer',
 };
 
-const ModalPlaceholders = {
+export const ModalPlaceholders = {
   [ModalType.COLUMN]: 'Enter title of column',
   [ModalType.PRAYER]: 'Enter title of prayer',
 };
 
-export const LayoutModal = ({ modalVisible, closeModal, type }: Props) => {
+export const LayoutModal = ({ modalVisible, closeModal, type, children }: Props) => {
   return (
     modalVisible && (
       <StyledContainer>
@@ -53,9 +53,7 @@ export const LayoutModal = ({ modalVisible, closeModal, type }: Props) => {
                       onPress={closeModal}
                     />
                   </StyledModalTitleContainer>
-                  <StyledModalFormContainer>
-                    <ModalForm placeholder={ModalPlaceholders[type]} />
-                  </StyledModalFormContainer>
+                  <StyledModalFormContainer>{children}</StyledModalFormContainer>
                 </StyledModalContainer>
               </TouchableWithoutFeedback>
             </StyledWrapper>

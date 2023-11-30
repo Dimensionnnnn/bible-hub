@@ -16,7 +16,7 @@ export const PrayersByColumnIdPage = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const { columnId, columnTitle } = route.params;
   const prayersByColumnId = useAppSelector((state) =>
-    selectors.selectPrayersByColumnId(columnId, state),
+    selectors.selectPrayersByColumnId(state, columnId),
   );
 
   const handleNavigate = (id: number, title: string) => {

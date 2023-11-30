@@ -7,7 +7,7 @@ import { actions } from './actions';
 export const selfDesksSlice = createSlice({
   name: 'self-desks',
   initialState: {
-    entities: [] as Desks[] | undefined,
+    entities: {} as Desks | undefined,
     loading: false,
   },
   reducers: {},
@@ -18,7 +18,7 @@ export const selfDesksSlice = createSlice({
       })
       .addCase(actions.fetchSelfDesks.fulfilled, (state, action: any) => {
         state.loading = false;
-        state.entities = action.payload.data;
+        state.entities = action.payload;
       })
       .addCase(actions.fetchSelfDesks.rejected, (state) => {
         state.loading = false;
