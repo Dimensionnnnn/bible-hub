@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import { Columns } from '@shared/api/';
+import { Columns, Prayers } from '@shared/api/';
 
 export const fetchPrayersByColumnIdThunk = createAsyncThunk(
   'columns/id/prayers',
@@ -30,6 +30,26 @@ export const fetchCreatePrayerThunk = createAsyncThunk(
           title,
           description: '',
         },
+      });
+      return response.data;
+    } catch (error: any) {
+      if (error.response) {
+        return thunkApi.rejectWithValue(error.response.data);
+      } else {
+        return thunkApi.rejectWithValue(error.message);
+      }
+    }
+  },
+);
+
+export const fetchDeletePrayerThunk = createAsyncThunk(
+  'columns/id/prayers/id/delete',
+  async (args: { columnId: number; prayerId: number }, thunkApi) => {
+    const { prayerId } = args;
+
+    try {
+      const response = await Prayers.prayerControllerDelete({
+        prayerId,
       });
       return response.data;
     } catch (error: any) {

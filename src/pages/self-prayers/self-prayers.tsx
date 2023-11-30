@@ -16,7 +16,7 @@ import {
   ButtonIconWithSize,
   ButtonSize,
 } from '@shared/ui/components/buttons/button-icon-with-size/button-icon-with-size';
-import { UIPrayersList } from '@shared/ui/components/prayers-list';
+import { UISelfPrayersList } from '@shared/ui/components/self-prayers-list';
 import { SvgPlusIcon } from '@shared/ui/icons/components/svg-plus-icon';
 
 export const SelfPrayersPage = () => {
@@ -30,7 +30,12 @@ export const SelfPrayersPage = () => {
   );
 
   const handleNavigate = (id: number, title: string) => {
+    console.log(id, title);
     navigation.navigate(RootRouteNames.PRAYER, { prayerId: id, prayerTitle: title });
+  };
+
+  const handleDelete = (columnId: number, prayerId: number) => {
+    dispatch(actions.fetchDeletePrayer({ columnId, prayerId }));
   };
 
   useEffect(() => {
@@ -41,7 +46,11 @@ export const SelfPrayersPage = () => {
     <StyledContainer>
       <SecondaryHeader title={columnTitle} />
       <StyledContentContainer>
-        <UIPrayersList data={prayersByColumnId} onPress={handleNavigate} />
+        <UISelfPrayersList
+          data={prayersByColumnId}
+          onPress={handleNavigate}
+          onDeleteAction={handleDelete}
+        />
         <StyledButtonContainer>
           <ButtonIconWithSize size={ButtonSize.large} Icon={SvgPlusIcon} onPress={onOpenToggle} />
         </StyledButtonContainer>
