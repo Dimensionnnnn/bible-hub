@@ -63,3 +63,25 @@ export const fetchCreateColumnThunk = createAsyncThunk(
     }
   },
 );
+
+export const fetchDeleteColumnThunk = createAsyncThunk(
+  'desks/my/columns/id/delete',
+  async (args: { columnId: number; deskId?: number }, thunkApi) => {
+    const { deskId, columnId } = args;
+
+    if (!deskId) {
+      return thunkApi.rejectWithValue('No deskId provided for deleting column');
+    }
+
+    try {
+      const response = await Columns.columnsControllerDelete({ columnId });
+      return response.data;
+    } catch (error: any) {
+      if (error.response) {
+        return thunkApi.rejectWithValue(error.response.data);
+      } else {
+        return thunkApi.rejectWithValue(error.message);
+      }
+    }
+  },
+);

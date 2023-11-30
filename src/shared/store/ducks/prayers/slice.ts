@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 import { Prayers } from '@shared/api/generated';
 
+import { actions as deskColumnsActions } from '../desk-columns';
 import { actions } from './actions';
 
 export const prayersByColumnIdSlice = createSlice({
@@ -31,6 +32,10 @@ export const prayersByColumnIdSlice = createSlice({
         const { columnId, prayerId } = action.meta.arg;
         const existingColumns = state.entities[columnId] || [];
         state.entities[columnId] = [...existingColumns.filter((prayer) => prayer.id !== prayerId)];
+      })
+      .addCase(deskColumnsActions.fetchDeleteColumn.fulfilled, (state, action: any) => {
+        const { columnId } = action.meta.arg;
+        delete state.entities[columnId];
       })
       .addCase(actions.fetchPrayersByColumnId.rejected, (state) => {
         state.loading = false;

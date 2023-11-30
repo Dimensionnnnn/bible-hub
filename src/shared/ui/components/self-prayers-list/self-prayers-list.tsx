@@ -86,6 +86,7 @@ const StyledPrayersContainer = styled.FlatList`
 
 const StyledDeleteButtonContainer = styled.View`
   width: 76px;
+  margin-left: -25px;
 `;
 
 const scrollViewStyle = {

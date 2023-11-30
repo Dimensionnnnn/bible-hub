@@ -24,7 +24,7 @@ import {
   ButtonIconWithSize,
   ButtonSize,
 } from '@shared/ui/components/buttons/button-icon-with-size/button-icon-with-size';
-import { UIDeskColumnsList } from '@shared/ui/components/desk-columns-list';
+import { UISelfDeskColumnsList } from '@shared/ui/components/self-desks-columns-list';
 import { SvgPlusIcon } from '@shared/ui/icons/components/svg-plus-icon';
 
 export const SelfDeskPage = () => {
@@ -57,6 +57,10 @@ export const SelfDeskPage = () => {
     [deskId, dispatch],
   );
 
+  const handleDelete = (columnId: number, deskId?: number) => {
+    dispatch(columnsActions.fetchDeleteColumn({ columnId, deskId }));
+  };
+
   useEffect(() => {
     dispatch(selfDesksActions.fetchSelfDesks());
   }, [dispatch]);
@@ -71,12 +75,13 @@ export const SelfDeskPage = () => {
     <StyledContainer>
       <PrimaryHeader title="My desk" onLogout={handleLogout} />
       <StyledContentContainer>
-        <UIDeskColumnsList
+        <UISelfDeskColumnsList
           data={selfColumns}
           onPress={handleNavigate}
           fetchMore={() => {
             handleMoreDeskColumns(afterCursor);
           }}
+          onDeleteAction={(columnId: number) => handleDelete(columnId, deskId)}
         />
         <StyledButtonContainer>
           <ButtonIconWithSize size={ButtonSize.large} Icon={SvgPlusIcon} onPress={onOpenToggle} />

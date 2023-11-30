@@ -30,7 +30,6 @@ export const SelfPrayersPage = () => {
   );
 
   const handleNavigate = (id: number, title: string) => {
-    console.log(id, title);
     navigation.navigate(RootRouteNames.PRAYER, { prayerId: id, prayerTitle: title });
   };
 
