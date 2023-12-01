@@ -1,7 +1,8 @@
 import { prayerByIdSlice } from './slice';
-import { fetchPrayerByIdThunk } from './thunk';
+import { fetchPrayerByIdThunk, fetchPrayerDoThunk } from './thunk';
 
 export const actions = {
   ...prayerByIdSlice.actions,
   fetchPrayerById: fetchPrayerByIdThunk,
+  fetchPrayerDo: fetchPrayerDoThunk,
 };

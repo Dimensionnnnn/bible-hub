@@ -20,6 +20,10 @@ export const prayerByIdSlice = createSlice({
         state.loading = false;
         state.entity = action.payload;
       })
+      .addCase(actions.fetchPrayerDo.fulfilled, (state, action: any) => {
+        state.loading = false;
+        state.entity = action.payload;
+      })
       .addCase(actions.fetchPrayerById.rejected, (state) => {
         state.loading = false;
       });
