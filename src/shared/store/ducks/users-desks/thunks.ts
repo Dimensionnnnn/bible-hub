@@ -19,12 +19,8 @@ export const fetchUsersDesksThunk = createAsyncThunk('desks', async (_, thunkApi
 
 export const fetchMoreUsersDesksThunk = createAsyncThunk(
   'desks/more',
-  async (args: { afterCursor?: string }, thunkApi) => {
+  async (args: { afterCursor: string }, thunkApi) => {
     const { afterCursor } = args;
-
-    if (!afterCursor) {
-      return thunkApi.rejectWithValue('No cursor provided for fetching more desks');
-    }
 
     try {
       const response = await Desks.deskControllerFind({

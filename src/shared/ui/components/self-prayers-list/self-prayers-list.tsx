@@ -56,15 +56,15 @@ export const UISelfPrayersList: React.FC<Props> = ({ data, onPress, onDeleteActi
         <StyledPrayersContainer
           contentContainerStyle={scrollViewStyle}
           data={data}
-          renderItem={({ item }) =>
-            ItemSwipe({
-              item,
-              handleDeletePrayer: () => {
+          renderItem={({ item }) => (
+            <ItemSwipe
+              item={item}
+              handleDeletePrayer={() => {
                 onDeleteAction?.(item.columnId, item.id);
-              },
-              onCardPress: onPress,
-            })
-          }
+              }}
+              onCardPress={onPress}
+            />
+          )}
           keyExtractor={(item) => item.id}
         />
       </StyledContainer>

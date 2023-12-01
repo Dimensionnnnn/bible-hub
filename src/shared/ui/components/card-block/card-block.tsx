@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components/native';
 
-import { withLoadingSkeleton } from './card-block-hoc/card-block-hoc';
+import { withLoadingSkeleton } from '../../../helpers/with-loading-skeleton/with-loading-skeleton';
 
 export interface Props {
   title?: string;

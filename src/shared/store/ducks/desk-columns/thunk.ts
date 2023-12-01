@@ -20,12 +20,8 @@ export const fetchDeskColumnsThunk = createAsyncThunk(
 
 export const fetchMoreDeskColumnsThunk = createAsyncThunk(
   'desks/id/columns/more',
-  async (args: { deskId: number; afterCursor?: string }, thunkApi) => {
+  async (args: { deskId: number; afterCursor: string }, thunkApi) => {
     const { deskId, afterCursor } = args;
-
-    if (!afterCursor) {
-      return thunkApi.rejectWithValue('No cursor provided for fetching more columns');
-    }
 
     try {
       const response = await Desks.deskControllerFindColumns({ deskId, limit: 10, afterCursor });
@@ -42,12 +38,8 @@ export const fetchMoreDeskColumnsThunk = createAsyncThunk(
 
 export const fetchCreateColumnThunk = createAsyncThunk(
   'desks/my/create',
-  async (args: { deskId?: number; title: string }, thunkApi) => {
-    const { deskId, title } = args;
-
-    if (!deskId) {
-      return thunkApi.rejectWithValue('No deskId provided for creating column');
-    }
+  async (args: { deskId: number; title: string }, thunkApi) => {
+    const { title } = args;
 
     try {
       const response = await Columns.columnsControllerCreate({
@@ -66,12 +58,8 @@ export const fetchCreateColumnThunk = createAsyncThunk(
 
 export const fetchDeleteColumnThunk = createAsyncThunk(
   'desks/my/columns/id/delete',
-  async (args: { columnId: number; deskId?: number }, thunkApi) => {
-    const { deskId, columnId } = args;
-
-    if (!deskId) {
-      return thunkApi.rejectWithValue('No deskId provided for deleting column');
-    }
+  async (args: { columnId: number; deskId: number }, thunkApi) => {
+    const { columnId } = args;
 
     try {
       const response = await Columns.columnsControllerDelete({ columnId });

@@ -1,4 +1,7 @@
+import { yupResolver } from '@hookform/resolvers/yup';
 import { Controller, useForm } from 'react-hook-form';
+
+import { schema } from '@features/modal-create/schema';
 
 import {
   ButtonSize,
@@ -19,6 +22,7 @@ export const ModalForm = ({ placeholder, dispatchAction, onCloseModal }: Props) 
     handleSubmit,
     formState: { isDirty },
   } = useForm({
+    resolver: yupResolver(schema),
     defaultValues: {
       title: '',
     },

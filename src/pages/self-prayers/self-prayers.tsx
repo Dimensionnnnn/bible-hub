@@ -4,20 +4,16 @@ import styled from 'styled-components/native';
 
 import { RootRouteNames, RootStackParamList } from '@app/navigation/navigators/root/root';
 
-import { LayoutModal } from '@widgets/layouts/modal';
-import { ModalPlaceholders, ModalType } from '@widgets/layouts/modal/modal';
+import { ModalTrigerButton } from '@widgets/buttons/modal-triger-button';
+import { ModalType } from '@widgets/layouts/modal/modal';
 import { SecondaryHeader } from '@widgets/layouts/secondary-header';
 
-import { ModalForm } from '@shared/form-components/modal-form';
+import { CreateItemModalEntity } from '@entities/modal/create-item-modal';
+
 import { useToggle } from '@shared/helpers/hooks/use-toggle';
 import { useAppDispatch, useAppSelector } from '@shared/store';
 import { actions, selectors } from '@shared/store/ducks/prayers';
-import {
-  ButtonIconWithSize,
-  ButtonSize,
-} from '@shared/ui/components/buttons/button-icon-with-size/button-icon-with-size';
 import { UISelfPrayersList } from '@shared/ui/components/self-prayers-list';
-import { SvgPlusIcon } from '@shared/ui/icons/components/svg-plus-icon';
 
 export const SelfPrayersPage = () => {
   const dispatch = useAppDispatch();
@@ -38,8 +34,10 @@ export const SelfPrayersPage = () => {
   };
 
   useEffect(() => {
-    dispatch(actions.fetchPrayersByColumnId(columnId));
-  }, [dispatch, columnId]);
+    if (!prayersByColumnId) {
+      dispatch(actions.fetchPrayersByColumnId(columnId));
+    }
+  }, [dispatch, prayersByColumnId, columnId]);
 
   return (
     <StyledContainer>
@@ -50,19 +48,16 @@ export const SelfPrayersPage = () => {
           onPress={handleNavigate}
           onDeleteAction={handleDelete}
         />
-        <StyledButtonContainer>
-          <ButtonIconWithSize size={ButtonSize.large} Icon={SvgPlusIcon} onPress={onOpenToggle} />
-        </StyledButtonContainer>
+        <ModalTrigerButton onOpenToggle={onOpenToggle} />
       </StyledContentContainer>
-      <LayoutModal modalVisible={isOpened} closeModal={onCloseToggle} type={ModalType.PRAYER}>
-        <ModalForm
-          placeholder={ModalPlaceholders[ModalType.PRAYER]}
-          onCloseModal={onCloseToggle}
-          dispatchAction={(title: string) => {
-            dispatch(actions.fetchCreatePrayer({ columnId, title }));
-          }}
-        />
-      </LayoutModal>
+      <CreateItemModalEntity
+        modalType={ModalType.PRAYER}
+        onClose={onCloseToggle}
+        isOpened={isOpened}
+        dispatchAction={(title: string) => {
+          dispatch(actions.fetchCreatePrayer({ columnId, title }));
+        }}
+      />
     </StyledContainer>
   );
 };
@@ -79,12 +74,4 @@ const StyledContentContainer = styled.View`
   width: 100%;
   height: 100%;
   padding: 0 16px 0 14px;
-`;
-
-const StyledButtonContainer = styled.View`
-  width: 100%;
-  position: absolute;
-  bottom: 46px;
-  right: 16px;
-  align-items: flex-end;
 `;

@@ -52,17 +52,17 @@ export const UISelfDeskColumnsList = ({ data, fetchMore, onPress, onDeleteAction
         <StyledDesksContainer
           contentContainerStyle={scrollViewStyle}
           data={data}
-          renderItem={({ item }) =>
-            ItemSwipe({
-              item,
-              handleDeleteColumn: () => {
+          renderItem={({ item }) => (
+            <ItemSwipe
+              item={item}
+              handleDeleteColumn={() => {
                 onDeleteAction?.(item.id);
-              },
-              onColumnPress: () => {
+              }}
+              onColumnPress={() => {
                 onPress?.(item.id, item.title);
-              },
-            })
-          }
+              }}
+            />
+          )}
           keyExtractor={(item) => item.id}
           onEndReached={() => fetchMore?.()}
           onEndReachedThreshold={0.1}

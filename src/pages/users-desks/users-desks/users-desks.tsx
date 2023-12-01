@@ -27,7 +27,9 @@ export const UsersDeskPage = () => {
 
   const handleMoreUsersDesks = useCallback(
     (cursor?: string) => {
-      dispatch(usersDesksActions.fetchMoreUsersDesks({ afterCursor: cursor }));
+      if (cursor) {
+        dispatch(usersDesksActions.fetchMoreUsersDesks({ afterCursor: cursor }));
+      }
     },
     [dispatch],
   );

@@ -1,101 +1,55 @@
-import { NavigationProp, useNavigation } from '@react-navigation/native';
-import { useCallback, useEffect } from 'react';
+import { useEffect } from 'react';
 import styled from 'styled-components/native';
 
-import { RootRouteNames, RootStackParamList } from '@app/navigation/navigators/root/root';
-
-import { LayoutModal, ModalType } from '@widgets/layouts/modal';
-import { ModalPlaceholders } from '@widgets/layouts/modal/modal';
+import { ModalTrigerButton } from '@widgets/buttons/modal-triger-button';
+import { ModalType } from '@widgets/layouts/modal';
 import { PrimaryHeader } from '@widgets/layouts/primary-header';
 
-import { ModalForm } from '@shared/form-components/modal-form';
+import { SelfColumnsEntity } from '@entities/columns-list/self-columns';
+import { CreateItemModalEntity } from '@entities/modal/create-item-modal';
+
 import { useToggle } from '@shared/helpers/hooks/use-toggle';
 import { useAppDispatch, useAppSelector } from '@shared/store';
 import { actions as authActions } from '@shared/store/ducks/auth';
-import {
-  actions as columnsActions,
-  selectors as columnsSelectors,
-} from '@shared/store/ducks/desk-columns';
+import { actions as columnsActions } from '@shared/store/ducks/desk-columns';
 import {
   actions as selfDesksActions,
   selectors as selfDesksSelectors,
 } from '@shared/store/ducks/self-desks';
-import {
-  ButtonIconWithSize,
-  ButtonSize,
-} from '@shared/ui/components/buttons/button-icon-with-size/button-icon-with-size';
-import { UISelfDeskColumnsList } from '@shared/ui/components/self-desks-columns-list';
-import { SvgPlusIcon } from '@shared/ui/icons/components/svg-plus-icon';
 
 export const SelfDeskPage = () => {
   const dispatch = useAppDispatch();
   const selfDesks = useAppSelector(selfDesksSelectors.selectSelfDesks);
   const deskId = selfDesks?.id;
-  const afterCursor = useAppSelector(columnsSelectors.selectAfterCursor);
   const { onCloseToggle, onOpenToggle, isOpened } = useToggle(false);
-  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
-  const selfColumns = useAppSelector((state) => {
-    if (deskId) {
-      return columnsSelectors.selectDeskColumns(state, deskId);
-    }
-  });
 
   const handleLogout = () => {
     dispatch(authActions.logout());
   };
 
-  const handleNavigate = (id: number, title: string) => {
-    navigation.navigate(RootRouteNames.SELF_PRAYERS, { columnId: id, columnTitle: title });
-  };
-
-  const handleMoreDeskColumns = useCallback(
-    (cursor?: string) => {
-      if (deskId) {
-        dispatch(columnsActions.fetchMoreDeskColumns({ deskId, afterCursor: cursor }));
-      }
-    },
-    [deskId, dispatch],
-  );
-
-  const handleDelete = (columnId: number, deskId?: number) => {
-    dispatch(columnsActions.fetchDeleteColumn({ columnId, deskId }));
+  const handleCreateColumn = (title: string) => {
+    if (deskId) {
+      dispatch(columnsActions.fetchCreateColumn({ deskId, title }));
+    }
   };
 
   useEffect(() => {
     dispatch(selfDesksActions.fetchSelfDesks());
   }, [dispatch]);
 
-  useEffect(() => {
-    if (deskId) {
-      dispatch(columnsActions.fetchDeskColumns(deskId));
-    }
-  }, [deskId, dispatch]);
-
   return (
     <StyledContainer>
       <PrimaryHeader title="My desk" onLogout={handleLogout} />
       <StyledContentContainer>
-        <UISelfDeskColumnsList
-          data={selfColumns}
-          onPress={handleNavigate}
-          fetchMore={() => {
-            handleMoreDeskColumns(afterCursor);
-          }}
-          onDeleteAction={(columnId: number) => handleDelete(columnId, deskId)}
-        />
-        <StyledButtonContainer>
-          <ButtonIconWithSize size={ButtonSize.large} Icon={SvgPlusIcon} onPress={onOpenToggle} />
-        </StyledButtonContainer>
+        {deskId && <SelfColumnsEntity deskId={deskId} />}
+        <ModalTrigerButton onOpenToggle={onOpenToggle} />
       </StyledContentContainer>
-      <LayoutModal modalVisible={isOpened} closeModal={onCloseToggle} type={ModalType.COLUMN}>
-        <ModalForm
-          placeholder={ModalPlaceholders[ModalType.COLUMN]}
-          onCloseModal={onCloseToggle}
-          dispatchAction={(title: string) =>
-            dispatch(columnsActions.fetchCreateColumn({ deskId, title }))
-          }
-        />
-      </LayoutModal>
+      <CreateItemModalEntity
+        modalType={ModalType.COLUMN}
+        onClose={onCloseToggle}
+        isOpened={isOpened}
+        dispatchAction={handleCreateColumn}
+      />
     </StyledContainer>
   );
 };
