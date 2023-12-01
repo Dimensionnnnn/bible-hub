@@ -2,6 +2,7 @@ import styled from 'styled-components/native';
 
 import { Prayers } from '@shared/api/generated';
 
+import { DefaultListEmpty } from '../list-empty/default-list-empty';
 import { UIPrayerCard } from '../prayer-card';
 
 interface Props {
@@ -29,12 +30,14 @@ export const UIPrayersList = ({ data, onPress }: Props) => {
           />
         )}
         keyExtractor={(item) => item.id}
+        ListEmptyComponent={() => <DefaultListEmpty />}
       />
     </StyledContainer>
   );
 };
 
 const StyledContainer = styled.View`
+  flex: 1;
   width: 100%;
   align-items: center;
   justify-content: center;
