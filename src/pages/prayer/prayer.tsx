@@ -14,6 +14,8 @@ import {
   actions as commentsActions,
   selectors as commentsSelectors,
 } from '@shared/store/ducks/comments';
+import { actions } from '@shared/store/ducks/followed';
+import { selectors as prayerSelector } from '@shared/store/ducks/prayer';
 import {
   ButtonSize,
   PrimaryButton,
@@ -25,11 +27,22 @@ export const PrayerPage = () => {
   const route = useRoute<RouteProp<RootStackParamList, RootRouteNames.PRAYER>>();
   const { prayerId, prayerTitle } = route.params;
   const commentsAfterCursor = useAppSelector(commentsSelectors.selectAfterCursor);
+  const prayer = useAppSelector((state) => prayerSelector.selectCurrentPrayer(state));
 
   const handleFetchMoreComments = () => {
     dispatch(
       commentsActions.fetchMoreCommentsByPrayerId({ prayerId, afterCursor: commentsAfterCursor }),
     );
+  };
+
+  const handleFollow = (prayerId: number) => {
+    if (prayer) {
+      dispatch(actions.fetchFollowPrayer({ prayerId, prayer }));
+    }
+  };
+
+  const handleUnfollow = (prayerId: number) => {
+    dispatch(actions.fetchUnfollowPrayer(prayerId));
   };
 
   return (
@@ -42,7 +55,7 @@ export const PrayerPage = () => {
         <PrayerInfoEntity prayerId={prayerId} />
         <StyledButtonsContainer>
           <PrimaryButton size={ButtonSize.large} title="Prayed" onPress={() => {}} />
-          <SubscribeButton title={'Follow'} onPress={() => {}} />
+          <SubscribeButton title={'Follow'} onPress={() => handleFollow(prayerId)} />
         </StyledButtonsContainer>
         <CommentsEntity prayerId={prayerId} />
       </StyledScrollView>

@@ -1,3 +1,4 @@
+import { FollowedPage } from '@pages/followed';
 import { SelfDeskPage } from '@pages/self-desk/self-desk';
 import { UIKit } from '@pages/ui-kit/ui-kit';
 import { UsersDeskPage } from '@pages/users-desks/users-desks/users-desks';
@@ -26,7 +27,7 @@ export const TabBar = () => {
       />
       <Tab.Screen
         name={TabBarIconsNames.FOLLOWED}
-        component={SelfDeskPage}
+        component={FollowedPage}
         options={({ route }) => ({
           tabBarLabel: TabBarIconsNames.FOLLOWED,
           tabBarIcon: ({ color }) => getTabBarIcon(route.name, color),
