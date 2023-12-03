@@ -1,6 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import { Comments } from '@shared/api/';
+import { requestConstants } from '@shared/constants/request-constants/request-constants';
 
 export const fetchCommentsByPrayerIdThunk = createAsyncThunk(
   'prayers/id/comments',
@@ -8,7 +9,7 @@ export const fetchCommentsByPrayerIdThunk = createAsyncThunk(
     try {
       const response = await Comments.commentsControllerGetComments({
         prayerId,
-        limit: 10,
+        limit: requestConstants.limit,
       });
       return response.data;
     } catch (error: any) {
@@ -23,17 +24,13 @@ export const fetchCommentsByPrayerIdThunk = createAsyncThunk(
 
 export const fetchMoreCommentsByPrayerIdThunk = createAsyncThunk(
   'prayers/id/comments/more',
-  async (args: { prayerId: number; afterCursor?: string }, thunkApi) => {
+  async (args: { prayerId: number; afterCursor: string }, thunkApi) => {
     const { prayerId, afterCursor } = args;
-
-    if (!afterCursor) {
-      return thunkApi.rejectWithValue('No cursor provided for fetching more comments');
-    }
 
     try {
       const response = await Comments.commentsControllerGetComments({
         prayerId,
-        limit: 10,
+        limit: requestConstants.limit,
         afterCursor,
       });
       return response.data;

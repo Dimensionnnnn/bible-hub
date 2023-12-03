@@ -4,13 +4,21 @@ import { Users } from '@shared/api/generated';
 
 import { actions } from './actions';
 
+export type AuthStateType = {
+  loading: boolean;
+  currentUser: Users | null;
+  isAuthenticated: boolean;
+};
+
+const initialState: AuthStateType = {
+  loading: false,
+  currentUser: null,
+  isAuthenticated: false,
+};
+
 export const authSlice = createSlice({
   name: 'auth',
-  initialState: {
-    loading: false,
-    currentUser: null as Users | null,
-    isAuthenticated: false,
-  },
+  initialState,
   reducers: {
     logout: (state) => {
       state.loading = false;

@@ -4,13 +4,21 @@ import { Columns } from '@shared/api/generated';
 
 import { actions } from './actions';
 
+export type DeskColumnsStateType = {
+  loading: boolean;
+  entities: Record<number, Columns[]>;
+  afterCursor?: string;
+};
+
+const initialState: DeskColumnsStateType = {
+  loading: false,
+  entities: {},
+  afterCursor: undefined,
+};
+
 export const deskColumnsSlice = createSlice({
   name: 'desk-columns',
-  initialState: {
-    loading: false,
-    entities: [] as Record<number, Columns[] | undefined>,
-    afterCursor: undefined as string | undefined,
-  },
+  initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder

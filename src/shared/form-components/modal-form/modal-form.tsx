@@ -1,8 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Controller, useForm } from 'react-hook-form';
 
-import { schema } from '@features/modal-create/schema';
-
+import { schema } from '@shared/form-components/modal-form/schema';
 import {
   ButtonSize,
   PrimaryButton,

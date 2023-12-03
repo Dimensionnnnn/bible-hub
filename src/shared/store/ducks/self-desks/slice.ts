@@ -4,12 +4,19 @@ import { Desks } from '@shared/api/generated';
 
 import { actions } from './actions';
 
+export type SelfDesksStateType = {
+  entities: Desks;
+  loading: boolean;
+};
+
+const initialState: SelfDesksStateType = {
+  entities: {} as Desks,
+  loading: false,
+};
+
 export const selfDesksSlice = createSlice({
   name: 'self-desks',
-  initialState: {
-    entities: {} as Desks | undefined,
-    loading: false,
-  },
+  initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
