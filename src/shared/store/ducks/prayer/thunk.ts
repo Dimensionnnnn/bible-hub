@@ -17,3 +17,20 @@ export const fetchPrayerByIdThunk = createAsyncThunk(
     }
   },
 );
+
+export const fetchPrayerDoThunk = createAsyncThunk(
+  'prayers/id/do',
+  async (args: { columnId: number; prayerId: number }, thunkApi) => {
+    const { prayerId } = args;
+    try {
+      const response = await Prayers.prayerControllerDo({ prayerId });
+      return response.data;
+    } catch (error: any) {
+      if (error.response) {
+        return thunkApi.rejectWithValue(error.response.data);
+      } else {
+        return thunkApi.rejectWithValue(error.message);
+      }
+    }
+  },
+);

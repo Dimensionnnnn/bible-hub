@@ -15,7 +15,7 @@ import {
   selectors as commentsSelectors,
 } from '@shared/store/ducks/comments';
 import { actions } from '@shared/store/ducks/followed';
-import { selectors as prayerSelector } from '@shared/store/ducks/prayer';
+import { actions as prayerActions, selectors as prayerSelector } from '@shared/store/ducks/prayer';
 import {
   ButtonSize,
   PrimaryButton,
@@ -45,6 +45,13 @@ export const PrayerPage = () => {
     dispatch(actions.fetchUnfollowPrayer(prayerId));
   };
 
+  const handleDoPrayer = (prayerId: number) => {
+    if (prayer) {
+      const columnId = prayer.columnId;
+      dispatch(prayerActions.fetchPrayerDo({ columnId, prayerId }));
+    }
+  };
+
   return (
     <StyledContainer>
       <SecondaryHeader title={prayerTitle} />
@@ -54,7 +61,13 @@ export const PrayerPage = () => {
       >
         <PrayerInfoEntity prayerId={prayerId} />
         <StyledButtonsContainer>
-          <PrimaryButton size={ButtonSize.large} title="Prayed" onPress={() => {}} />
+          <PrimaryButton
+            size={ButtonSize.large}
+            title="Prayed"
+            onPress={() => {
+              handleDoPrayer(prayerId);
+            }}
+          />
           <SubscribeButton title={'Follow'} onPress={() => handleFollow(prayerId)} />
         </StyledButtonsContainer>
         <CommentsEntity prayerId={prayerId} />
