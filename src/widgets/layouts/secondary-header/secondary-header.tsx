@@ -21,7 +21,7 @@ export const SecondaryHeader = ({ title }: Props) => {
       <StyledButtonContainer>
         <ButtonIcon Icon={SvgBackIcon} onPress={handleGoBack} />
       </StyledButtonContainer>
-      <StyledHeaderTitle>{title}'s desk</StyledHeaderTitle>
+      <StyledHeaderTitle>{title}</StyledHeaderTitle>
     </StyledHeaderContainer>
   );
 };

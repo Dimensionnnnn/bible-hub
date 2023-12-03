@@ -1,7 +1,8 @@
 import { deskColumnsSlice } from './slice';
-import { fetchDeskColumnsThunk } from './thunk';
+import { fetchDeskColumnsThunk, fetchMoreDeskColumnsThunk } from './thunk';
 
 export const actions = {
   ...deskColumnsSlice.actions,
   fetchDeskColumns: fetchDeskColumnsThunk,
+  fetchMoreDeskColumns: fetchMoreDeskColumnsThunk,
 };

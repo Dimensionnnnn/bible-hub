@@ -17,7 +17,15 @@ export const usersDesksSlice = createSlice({
       .addCase(actions.fetchUsersDesks.pending, (state) => {
         state.loading = true;
       })
+      .addCase(actions.fetchMoreUsersDesks.pending, (state) => {
+        state.loading = true;
+      })
       .addCase(actions.fetchUsersDesks.fulfilled, (state, action: any) => {
+        state.loading = false;
+        state.entities = action.payload.data;
+        state.afterCursor = action.payload.cursor?.afterCursor;
+      })
+      .addCase(actions.fetchMoreUsersDesks.fulfilled, (state, action: any) => {
         state.loading = false;
         state.entities = state.entities
           ? [...state.entities, ...action.payload.data]
@@ -25,6 +33,9 @@ export const usersDesksSlice = createSlice({
         state.afterCursor = action.payload.cursor?.afterCursor;
       })
       .addCase(actions.fetchUsersDesks.rejected, (state) => {
+        state.loading = false;
+      })
+      .addCase(actions.fetchMoreUsersDesks.rejected, (state) => {
         state.loading = false;
       });
   },

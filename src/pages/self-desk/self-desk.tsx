@@ -24,10 +24,8 @@ export const SelfDeskPage = () => {
   const handleNavigate = () => {};
 
   useEffect(() => {
-    if (selfDesks?.length === 0) {
-      dispatch(selfDesksActions.fetchSelfDesks());
-    }
-  }, [selfDesks, dispatch]);
+    dispatch(selfDesksActions.fetchSelfDesks());
+  }, [dispatch]);
 
   return (
     <StyledContainer>
