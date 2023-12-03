@@ -1,12 +1,11 @@
-import { useNetInfo } from '@react-native-community/netinfo';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import styled from 'styled-components/native';
 
 import { Prayers } from '@shared/api/generated';
+import { withNoNetwork } from '@shared/helpers/with-no-network/with-no-network';
 
 import { ButtonSize, DeleteButton } from '../buttons/delete-button/delete-button';
-import { NoNetwork } from '../list-empty/no-network';
 import { SelfListEmpty } from '../list-empty/self-list-empty';
 import { UIPrayerCard } from '../prayer-card';
 
@@ -52,13 +51,7 @@ const ItemSwipe = ({ item, handleDeletePrayer, onCardPress }: ItemSwipeProps) =>
   );
 };
 
-export const UISelfPrayersList: React.FC<Props> = ({ data, onPress, onDeleteAction }) => {
-  const netInfo = useNetInfo();
-
-  if (!netInfo.isConnected) {
-    return <NoNetwork />;
-  }
-
+export const UISelfPrayersList = withNoNetwork(({ data, onPress, onDeleteAction }: Props) => {
   return (
     <GestureHandlerRootView>
       <StyledContainer>
@@ -80,7 +73,7 @@ export const UISelfPrayersList: React.FC<Props> = ({ data, onPress, onDeleteActi
       </StyledContainer>
     </GestureHandlerRootView>
   );
-};
+});
 
 const StyledContainer = styled.View`
   width: 100%;

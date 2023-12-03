@@ -1,12 +1,11 @@
-import { useNetInfo } from '@react-native-community/netinfo';
 import { GestureHandlerRootView, Swipeable } from 'react-native-gesture-handler';
 import styled from 'styled-components/native';
 
 import { Columns } from '@shared/api/generated';
+import { withNoNetwork } from '@shared/helpers/with-no-network/with-no-network';
 
 import { ButtonSize, DeleteButton } from '../buttons/delete-button/delete-button';
 import { UIDeskCard } from '../desk-card';
-import { NoNetwork } from '../list-empty/no-network';
 import { SelfListEmpty } from '../list-empty/self-list-empty';
 
 const backgroundImageUrl = require('@shared/ui/assets/images/background-gradient-primary.png');
@@ -48,41 +47,38 @@ const ItemSwipe = ({ item, handleDeleteColumn, onColumnPress }: ItemSwipeProps) 
   );
 };
 
-export const UISelfDeskColumnsList = ({ data, fetchMore, onPress, onDeleteAction }: Props) => {
-  const netInfo = useNetInfo();
+export const UISelfDeskColumnsList = withNoNetwork(
+  ({ data, fetchMore, onPress, onDeleteAction }: Props) => {
+    if (!data || data.length === 0) {
+      return <SelfListEmpty />;
+    }
 
-  if (!netInfo.isConnected) {
-    return <NoNetwork />;
-  }
-
-  if (!data || data.length === 0) {
-    return <SelfListEmpty />;
-  }
-  return (
-    <StyledBackgroudImage source={backgroundImageUrl} imageStyle={imageStyle} resizeMode="cover">
-      <GestureHandlerRootView style={{ width: '100%' }}>
-        <StyledDesksContainer
-          contentContainerStyle={scrollViewStyle}
-          data={data}
-          renderItem={({ item }) => (
-            <ItemSwipe
-              item={item}
-              handleDeleteColumn={() => {
-                onDeleteAction?.(item.id);
-              }}
-              onColumnPress={() => {
-                onPress?.(item.id, item.title);
-              }}
-            />
-          )}
-          keyExtractor={(item) => item.id}
-          onEndReached={() => fetchMore?.()}
-          onEndReachedThreshold={0.1}
-        />
-      </GestureHandlerRootView>
-    </StyledBackgroudImage>
-  );
-};
+    return (
+      <StyledBackgroudImage source={backgroundImageUrl} imageStyle={imageStyle} resizeMode="cover">
+        <GestureHandlerRootView style={{ width: '100%' }}>
+          <StyledDesksContainer
+            contentContainerStyle={scrollViewStyle}
+            data={data}
+            renderItem={({ item }) => (
+              <ItemSwipe
+                item={item}
+                handleDeleteColumn={() => {
+                  onDeleteAction?.(item.id);
+                }}
+                onColumnPress={() => {
+                  onPress?.(item.id, item.title);
+                }}
+              />
+            )}
+            keyExtractor={(item) => item.id}
+            onEndReached={() => fetchMore?.()}
+            onEndReachedThreshold={0.1}
+          />
+        </GestureHandlerRootView>
+      </StyledBackgroudImage>
+    );
+  },
+);
 
 const StyledBackgroudImage = styled.ImageBackground`
   width: 100%;
