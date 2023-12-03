@@ -2,6 +2,8 @@ import { useState } from 'react';
 import styled, { css } from 'styled-components/native';
 import { CSSProp, Interpolation } from 'styled-components/native/dist/types';
 
+import { useToggle } from '@shared/helpers/hooks/use-toggle';
+
 import { UISkeleton } from '../skeleton';
 
 interface Props {
@@ -12,6 +14,7 @@ interface Props {
 }
 
 export function UIDeskCard({ title, isLoading, isDisabled, onPress }: Props) {
+  const { isOpened, onCloseToggle, onOpenToggle } = useToggle();
   const [isPressed, setIsPressed] = useState(false);
 
   const deskState: DeskState | null = isDisabled
@@ -30,14 +33,19 @@ export function UIDeskCard({ title, isLoading, isDisabled, onPress }: Props) {
   };
 
   return (
-    <StyledPressable
-      rootStyle={cardColors}
-      onPress={onPress}
-      onPressIn={handlePress}
-      onPressOut={handlePress}
-    >
-      {isLoading ? <UISkeleton /> : <StyledText rootStyle={textColors}>{title}</StyledText>}
-    </StyledPressable>
+    <>
+      <StyledPressable
+        isOpened={isOpened}
+        rootStyle={cardColors}
+        onPress={onPress}
+        onPressIn={handlePress}
+        onPressOut={handlePress}
+        onLongPress={onOpenToggle}
+      >
+        {isLoading ? <UISkeleton /> : <StyledText rootStyle={textColors}>{title}</StyledText>}
+      </StyledPressable>
+      {isOpened && <StyledBackdrop onTouchEnd={onCloseToggle} />}
+    </>
   );
 }
 
@@ -61,13 +69,24 @@ const deskTextCardStyles = {
   `,
 } as Readonly<Record<DeskState, Interpolation<typeof DeskState>>>;
 
-const StyledPressable = styled.Pressable<{ rootStyle?: CSSProp }>`
+const StyledBackdrop = styled.View`
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(42, 42, 42, 0.8);
+  z-index: 1;
+`;
+
+const StyledPressable = styled.Pressable<{ rootStyle?: CSSProp; isOpened?: boolean }>`
   width: 100%;
   max-width: 311px;
   height: 76px;
   border-radius: 24px;
   justify-content: center;
   align-items: start;
+  z-index: ${(props) => (props.isOpened ? 10 : 0)};
 
   ${(props) => `background-color: ${props.theme.colors.grayscale_100}`};
 
