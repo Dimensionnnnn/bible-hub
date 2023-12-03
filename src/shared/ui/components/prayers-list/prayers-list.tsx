@@ -1,8 +1,10 @@
+import { useNetInfo } from '@react-native-community/netinfo';
 import styled from 'styled-components/native';
 
 import { Prayers } from '@shared/api/generated';
 
 import { DefaultListEmpty } from '../list-empty/default-list-empty';
+import { NoNetwork } from '../list-empty/no-network';
 import { UIPrayerCard } from '../prayer-card';
 
 interface Props {
@@ -11,6 +13,12 @@ interface Props {
 }
 
 export const UIPrayersList = ({ data, onPress }: Props) => {
+  const netInfo = useNetInfo();
+
+  if (!netInfo.isConnected) {
+    return <NoNetwork />;
+  }
+
   return (
     <StyledContainer>
       <StyledPrayersContainer

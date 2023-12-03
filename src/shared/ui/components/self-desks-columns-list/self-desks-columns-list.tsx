@@ -1,3 +1,4 @@
+import { useNetInfo } from '@react-native-community/netinfo';
 import { GestureHandlerRootView, Swipeable } from 'react-native-gesture-handler';
 import styled from 'styled-components/native';
 
@@ -5,6 +6,7 @@ import { Columns } from '@shared/api/generated';
 
 import { ButtonSize, DeleteButton } from '../buttons/delete-button/delete-button';
 import { UIDeskCard } from '../desk-card';
+import { NoNetwork } from '../list-empty/no-network';
 import { SelfListEmpty } from '../list-empty/self-list-empty';
 
 const backgroundImageUrl = require('@shared/ui/assets/images/background-gradient-primary.png');
@@ -47,6 +49,12 @@ const ItemSwipe = ({ item, handleDeleteColumn, onColumnPress }: ItemSwipeProps) 
 };
 
 export const UISelfDeskColumnsList = ({ data, fetchMore, onPress, onDeleteAction }: Props) => {
+  const netInfo = useNetInfo();
+
+  if (!netInfo.isConnected) {
+    return <NoNetwork />;
+  }
+
   if (!data || data.length === 0) {
     return <SelfListEmpty />;
   }

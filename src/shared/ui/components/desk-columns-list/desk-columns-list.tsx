@@ -1,9 +1,11 @@
+import { useNetInfo } from '@react-native-community/netinfo';
 import styled from 'styled-components/native';
 
 import { Columns } from '@shared/api/generated';
 
 import { UIDeskCard } from '../desk-card';
 import { DefaultListEmpty } from '../list-empty/default-list-empty';
+import { NoNetwork } from '../list-empty/no-network';
 
 interface Props {
   data?: Columns[] | null;
@@ -14,6 +16,12 @@ interface Props {
 const backgroundImageUrl = require('@shared/ui/assets/images/background-gradient-primary.png');
 
 export const UIDeskColumnsList = ({ data, fetchMore, onPress }: Props) => {
+  const netInfo = useNetInfo();
+
+  if (!netInfo.isConnected) {
+    return <NoNetwork />;
+  }
+
   if (!data || data.length === 0) {
     return <DefaultListEmpty />;
   }
