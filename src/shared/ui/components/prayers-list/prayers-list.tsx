@@ -6,11 +6,10 @@ import { UIPrayerCard } from '../prayer-card';
 
 interface Props {
   data?: Prayers[] | null;
-  fetchMore?: (afterCursor?: string) => void;
   onPress?: (id: number, title: string) => void;
 }
 
-export const UIPrayersList = ({ data, fetchMore, onPress }: Props) => {
+export const UIPrayersList = ({ data, onPress }: Props) => {
   return (
     <StyledContainer>
       <StyledPrayersContainer
@@ -30,8 +29,6 @@ export const UIPrayersList = ({ data, fetchMore, onPress }: Props) => {
           />
         )}
         keyExtractor={(item) => item.id}
-        onEndReached={() => fetchMore?.()}
-        onEndReachedThreshold={0.1}
       />
     </StyledContainer>
   );
