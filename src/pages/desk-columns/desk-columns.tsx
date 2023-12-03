@@ -25,7 +25,9 @@ export const DeskColumnsPage = () => {
 
   const handleMoreDeskColumns = useCallback(
     (cursor?: string) => {
-      dispatch(actions.fetchMoreDeskColumns({ deskId, afterCursor: cursor }));
+      if (cursor) {
+        dispatch(actions.fetchMoreDeskColumns({ deskId, afterCursor: cursor }));
+      }
     },
     [deskId, dispatch],
   );

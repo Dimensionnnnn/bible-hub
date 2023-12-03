@@ -1,7 +1,7 @@
 import { ComponentType, FC, ReactNode } from 'react';
 import styled from 'styled-components/native';
 
-import { UISkeleton } from '../../skeleton';
+import { UISkeleton } from '../../ui/components/skeleton';
 
 interface WithLoadingSkeletonProps {
   isLoading?: boolean;

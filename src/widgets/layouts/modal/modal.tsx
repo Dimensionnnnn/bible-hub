@@ -30,37 +30,39 @@ export const ModalPlaceholders = {
 };
 
 export const LayoutModal = ({ modalVisible, closeModal, type, children }: Props) => {
+  if (!modalVisible) {
+    return null;
+  }
+
   return (
-    modalVisible && (
-      <StyledContainer>
-        <Modal
-          animationType="fade"
-          transparent={true}
-          visible={modalVisible}
-          onRequestClose={() => {
-            closeModal();
-          }}
-        >
-          <TouchableWithoutFeedback onPress={closeModal}>
-            <StyledWrapper>
-              <TouchableWithoutFeedback onPress={(e) => e.stopPropagation()}>
-                <StyledModalContainer>
-                  <StyledModalTitleContainer>
-                    <StyledTitle>{ModalTitles[type]}</StyledTitle>
-                    <ButtonIconWithSize
-                      size={ButtonIconSize.extra_small}
-                      Icon={SvgCloseIcon}
-                      onPress={closeModal}
-                    />
-                  </StyledModalTitleContainer>
-                  <StyledModalFormContainer>{children}</StyledModalFormContainer>
-                </StyledModalContainer>
-              </TouchableWithoutFeedback>
-            </StyledWrapper>
-          </TouchableWithoutFeedback>
-        </Modal>
-      </StyledContainer>
-    )
+    <StyledContainer>
+      <Modal
+        animationType="fade"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          closeModal();
+        }}
+      >
+        <TouchableWithoutFeedback onPress={closeModal}>
+          <StyledWrapper>
+            <TouchableWithoutFeedback onPress={(e) => e.stopPropagation()}>
+              <StyledModalContainer>
+                <StyledModalTitleContainer>
+                  <StyledTitle>{ModalTitles[type]}</StyledTitle>
+                  <ButtonIconWithSize
+                    size={ButtonIconSize.extra_small}
+                    Icon={SvgCloseIcon}
+                    onPress={closeModal}
+                  />
+                </StyledModalTitleContainer>
+                <StyledModalFormContainer>{children}</StyledModalFormContainer>
+              </StyledModalContainer>
+            </TouchableWithoutFeedback>
+          </StyledWrapper>
+        </TouchableWithoutFeedback>
+      </Modal>
+    </StyledContainer>
   );
 };
 

@@ -35,6 +35,11 @@ export const deskColumnsSlice = createSlice({
         const deskId = action.meta.arg.deskId;
         state.entities[deskId] = [...(state.entities[deskId] || []), action.payload];
       })
+      .addCase(actions.fetchDeleteColumn.fulfilled, (state, action: any) => {
+        const { columnId, deskId } = action.meta.arg;
+        const existingColumns = state.entities[deskId] || [];
+        state.entities[deskId] = [...existingColumns.filter((column) => column.id !== columnId)];
+      })
       .addCase(actions.fetchDeskColumns.rejected, (state) => {
         state.loading = false;
       })
