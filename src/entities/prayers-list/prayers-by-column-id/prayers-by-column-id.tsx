@@ -23,10 +23,8 @@ export const PrayersListEntity = ({ columnId }: Props) => {
   };
 
   useEffect(() => {
-    if (!prayersByColumnId) {
-      dispatch(actions.fetchPrayersByColumnId(columnId));
-    }
-  }, [dispatch, prayersByColumnId, columnId]);
+    dispatch(actions.fetchPrayersByColumnId(columnId));
+  }, [columnId, dispatch]);
 
   return <UIPrayersList data={prayersByColumnId} onPress={handleNavigate} />;
 };

@@ -5,12 +5,19 @@ import { Prayers } from '@shared/api/generated';
 import { actions as prayerActions } from '../prayer';
 import { actions } from './actions';
 
+export type FollowedStateType = {
+  loading: boolean;
+  entities: Prayers[];
+};
+
+const initialState: FollowedStateType = {
+  loading: false,
+  entities: [],
+};
+
 export const followedSlice = createSlice({
   name: 'followed',
-  initialState: {
-    loading: false,
-    entities: [] as Prayers[] | undefined,
-  },
+  initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder

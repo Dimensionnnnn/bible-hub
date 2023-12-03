@@ -1,12 +1,16 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import { Columns, Desks } from '@shared/api/';
+import { requestConstants } from '@shared/constants/request-constants/request-constants';
 
 export const fetchDeskColumnsThunk = createAsyncThunk(
   'desks/id/columns',
   async (deskId: number, thunkApi) => {
     try {
-      const response = await Desks.deskControllerFindColumns({ deskId, limit: 10 });
+      const response = await Desks.deskControllerFindColumns({
+        deskId,
+        limit: requestConstants.limit,
+      });
       return response.data;
     } catch (error: any) {
       if (error.response) {
@@ -24,7 +28,11 @@ export const fetchMoreDeskColumnsThunk = createAsyncThunk(
     const { deskId, afterCursor } = args;
 
     try {
-      const response = await Desks.deskControllerFindColumns({ deskId, limit: 10, afterCursor });
+      const response = await Desks.deskControllerFindColumns({
+        deskId,
+        limit: requestConstants.limit,
+        afterCursor,
+      });
       return response.data;
     } catch (error: any) {
       if (error.response) {

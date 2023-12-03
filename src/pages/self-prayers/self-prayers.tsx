@@ -5,7 +5,6 @@ import styled from 'styled-components/native';
 import { RootRouteNames, RootStackParamList } from '@app/navigation/navigators/root/root';
 
 import { ModalTrigerButton } from '@widgets/buttons/modal-triger-button';
-import { ModalType } from '@widgets/layouts/modal/modal';
 import { SecondaryHeader } from '@widgets/layouts/secondary-header';
 
 import { CreateItemModalEntity } from '@entities/modal/create-item-modal';
@@ -34,10 +33,8 @@ export const SelfPrayersPage = () => {
   };
 
   useEffect(() => {
-    if (!prayersByColumnId) {
-      dispatch(actions.fetchPrayersByColumnId(columnId));
-    }
-  }, [dispatch, prayersByColumnId, columnId]);
+    dispatch(actions.fetchPrayersByColumnId(columnId));
+  }, [dispatch, columnId]);
 
   return (
     <StyledContainer>
@@ -51,9 +48,10 @@ export const SelfPrayersPage = () => {
         <ModalTrigerButton onOpenToggle={onOpenToggle} />
       </StyledContentContainer>
       <CreateItemModalEntity
-        modalType={ModalType.PRAYER}
-        onClose={onCloseToggle}
         isOpened={isOpened}
+        title="New prayer"
+        placeholder="Enter title of prayer"
+        onClose={onCloseToggle}
         dispatchAction={(title: string) => {
           dispatch(actions.fetchCreatePrayer({ columnId, title }));
         }}

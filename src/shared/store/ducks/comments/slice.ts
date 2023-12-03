@@ -4,13 +4,23 @@ import { Comments } from '@shared/api/generated';
 
 import { actions } from './actions';
 
+export type CommentsStateType = {
+  comments: {
+    loading: boolean;
+    entities: Record<number, Comments[]>;
+    afterCursor?: string;
+  };
+};
+
+const initialState: CommentsStateType['comments'] = {
+  loading: false,
+  entities: {},
+  afterCursor: undefined,
+};
+
 export const commentsByPrayerIdSlice = createSlice({
   name: 'comments-by-prayer-id',
-  initialState: {
-    loading: false,
-    entities: [] as Record<number, Comments[] | undefined>,
-    afterCursor: undefined as string | undefined,
-  },
+  initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder

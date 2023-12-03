@@ -6,12 +6,19 @@ import { actions as deskColumnsActions } from '../desk-columns';
 import { actions as prayerActions } from '../prayer';
 import { actions } from './actions';
 
+export type PrayersByColumnIdStateType = {
+  loading: boolean;
+  entities: Record<number, Prayers[]>;
+};
+
+const initialState: PrayersByColumnIdStateType = {
+  loading: false,
+  entities: {},
+};
+
 export const prayersByColumnIdSlice = createSlice({
   name: 'prayers-by-column-id',
-  initialState: {
-    loading: false,
-    entities: [] as Record<number, Prayers[] | undefined>,
-  },
+  initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
@@ -21,8 +28,7 @@ export const prayersByColumnIdSlice = createSlice({
       .addCase(actions.fetchPrayersByColumnId.fulfilled, (state, action: any) => {
         state.loading = false;
         const columnId = action.meta.arg;
-        const existingColumns = state.entities[columnId] || [];
-        state.entities[columnId] = [...existingColumns, ...action.payload];
+        state.entities[columnId] = action.payload;
       })
       .addCase(actions.fetchCreatePrayer.fulfilled, (state, action: any) => {
         const columnId = action.meta.arg.columnId;

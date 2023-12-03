@@ -1,35 +1,14 @@
 import { Modal, TouchableWithoutFeedback } from 'react-native';
-import styled, { css } from 'styled-components/native';
-
-import {
-  ButtonSize as ButtonIconSize,
-  ButtonIconWithSize,
-} from '@shared/ui/components/buttons/button-icon-with-size/button-icon-with-size';
-import { SvgCloseIcon } from '@shared/ui/icons/components/svg-close-icon';
+import styled from 'styled-components/native';
 
 interface Props {
   modalVisible: boolean;
   closeModal: () => void;
-  type: ModalType;
+  title: string;
   children?: React.ReactNode;
 }
 
-export enum ModalType {
-  COLUMN = 'column',
-  PRAYER = 'prayer',
-}
-
-const ModalTitles = {
-  [ModalType.COLUMN]: 'New column',
-  [ModalType.PRAYER]: 'New prayer',
-};
-
-export const ModalPlaceholders = {
-  [ModalType.COLUMN]: 'Enter title of column',
-  [ModalType.PRAYER]: 'Enter title of prayer',
-};
-
-export const LayoutModal = ({ modalVisible, closeModal, type, children }: Props) => {
+export const LayoutModal = ({ modalVisible, closeModal, title, children }: Props) => {
   if (!modalVisible) {
     return null;
   }
@@ -40,24 +19,12 @@ export const LayoutModal = ({ modalVisible, closeModal, type, children }: Props)
         animationType="fade"
         transparent={true}
         visible={modalVisible}
-        onRequestClose={() => {
-          closeModal();
-        }}
+        onRequestClose={closeModal}
       >
         <TouchableWithoutFeedback onPress={closeModal}>
           <StyledWrapper>
             <TouchableWithoutFeedback onPress={(e) => e.stopPropagation()}>
-              <StyledModalContainer>
-                <StyledModalTitleContainer>
-                  <StyledTitle>{ModalTitles[type]}</StyledTitle>
-                  <ButtonIconWithSize
-                    size={ButtonIconSize.extra_small}
-                    Icon={SvgCloseIcon}
-                    onPress={closeModal}
-                  />
-                </StyledModalTitleContainer>
-                <StyledModalFormContainer>{children}</StyledModalFormContainer>
-              </StyledModalContainer>
+              <StyledModalContainer>{children}</StyledModalContainer>
             </TouchableWithoutFeedback>
           </StyledWrapper>
         </TouchableWithoutFeedback>
@@ -90,25 +57,4 @@ const StyledModalContainer = styled.View`
   border-radius: 28px;
   gap: 28px;
   background-color: ${(props) => props.theme.colors.grayscale_100};
-`;
-
-const StyledModalTitleContainer = styled.View`
-  width: 100%;
-  flex-direction: row;
-  justify-content: space-between;
-`;
-
-const StyledModalFormContainer = styled.View`
-  width: 100%;
-  flex-direction: column;
-  gap: 20px;
-`;
-
-const StyledTitle = styled.Text`
-  ${(props) => {
-    return css`
-      ${props.theme.typography.titleSemibold_28};
-      color: ${props.theme.colors.grayscale_800};
-    `;
-  }}
 `;

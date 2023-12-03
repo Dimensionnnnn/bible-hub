@@ -2,6 +2,9 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import { Prayers as PrayersApi } from '@shared/api';
 import { Prayers } from '@shared/api/generated';
+import { RootState } from '@shared/store/store';
+
+import { selectors } from '.';
 
 export const fetchFollowedPrayersThunk = createAsyncThunk(
   'followed/prayers',

@@ -5,6 +5,7 @@ import styled from 'styled-components/native';
 import { Prayers } from '@shared/api/generated';
 
 import { ButtonSize, DeleteButton } from '../buttons/delete-button/delete-button';
+import { SelfListEmpty } from '../list-empty/self-list-empty';
 import { UIPrayerCard } from '../prayer-card';
 
 interface Props {
@@ -66,6 +67,7 @@ export const UISelfPrayersList: React.FC<Props> = ({ data, onPress, onDeleteActi
             />
           )}
           keyExtractor={(item) => item.id}
+          ListEmptyComponent={() => <SelfListEmpty />}
         />
       </StyledContainer>
     </GestureHandlerRootView>

@@ -4,13 +4,20 @@ import { Desks } from '@shared/api/generated';
 
 import { actions } from './actions';
 
+export type UsersDesksStateType = {
+  entities: Desks[];
+  loading: boolean;
+  afterCursor?: string;
+};
+
+const initialState: UsersDesksStateType = {
+  entities: [],
+  loading: false,
+};
+
 export const usersDesksSlice = createSlice({
   name: 'users-desks',
-  initialState: {
-    entities: [] as Desks[] | undefined,
-    loading: false,
-    afterCursor: undefined as string | undefined,
-  },
+  initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder

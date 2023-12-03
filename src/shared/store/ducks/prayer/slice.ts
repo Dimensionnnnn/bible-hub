@@ -4,12 +4,19 @@ import { Prayers } from '@shared/api/generated';
 
 import { actions } from './actions';
 
+export type PrayerByIdStateType = {
+  loading: boolean;
+  entity?: Prayers;
+};
+
+const initialState: PrayerByIdStateType = {
+  loading: false,
+  entity: {} as Prayers,
+};
+
 export const prayerByIdSlice = createSlice({
   name: 'prayer-by-id',
-  initialState: {
-    loading: false,
-    entity: {} as Prayers,
-  },
+  initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
