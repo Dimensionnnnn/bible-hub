@@ -1,4 +1,4 @@
-import { RouteProp, useRoute } from '@react-navigation/native';
+import { NavigationProp, RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { useEffect } from 'react';
 import styled from 'styled-components/native';
 
@@ -13,20 +13,25 @@ import { UIPrayersList } from '@shared/ui/components/prayers-list';
 export const PrayersByColumnIdPage = () => {
   const dispatch = useAppDispatch();
   const route = useRoute<RouteProp<RootStackParamList, RootRouteNames.PRAYERS_BY_COLUMN_ID>>();
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const { columnId, columnTitle } = route.params;
   const prayersByColumnId = useAppSelector((state) =>
     selectors.selectPrayersByColumnId(columnId, state),
   );
 
+  const handleNavigate = (id: number, title: string) => {
+    navigation.navigate(RootRouteNames.PRAYER, { prayerId: id, prayerTitle: title });
+  };
+
   useEffect(() => {
     dispatch(actions.fetchPrayersByColumnId(columnId));
-  }, [columnId, dispatch]);
+  }, [dispatch, columnId]);
 
   return (
     <StyledContainer>
       <SecondaryHeader title={columnTitle} />
       <StyledContentContainer>
-        <UIPrayersList data={prayersByColumnId} />
+        <UIPrayersList data={prayersByColumnId} onPress={handleNavigate} />
       </StyledContentContainer>
     </StyledContainer>
   );

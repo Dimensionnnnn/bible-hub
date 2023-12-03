@@ -22,11 +22,11 @@ export const UIDeskColumnsList = ({ data, fetchMore, onPress }: Props) => {
           <UIDeskCard
             key={item.id}
             title={item.title}
-            onPress={() => onPress && onPress(item.id, item.title)}
+            onPress={() => onPress?.(item.id, item.title)}
           />
         )}
         keyExtractor={(item) => item.id}
-        onEndReached={() => fetchMore && fetchMore()}
+        onEndReached={() => fetchMore?.()}
         onEndReachedThreshold={0.1}
       />
     </StyledBackgroudImage>

@@ -38,7 +38,7 @@ const styles = {
       alignItems: 'center',
       display: 'flex',
       flexDirection: 'row',
-      maxWidth: 343,
+      maxWidth: 327,
       width: '100%',
       paddingVertical: 16,
       paddingHorizontal: 20,

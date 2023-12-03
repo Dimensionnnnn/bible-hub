@@ -1,4 +1,10 @@
-import { AuthenticationApi, PrayerAPIV2ColumnsApi, PrayerAPIV2DesksApi } from './generated';
+import {
+  AuthenticationApi,
+  PrayerAPIV2ColumnsApi,
+  PrayerAPIV2CommentsApi,
+  PrayerAPIV2DesksApi,
+  PrayerAPIV2PrayersApi,
+} from './generated';
 import { authInstance, userInstance } from './lib/api';
 
 export const Auth = new AuthenticationApi(
@@ -14,6 +20,18 @@ export const Desks = new PrayerAPIV2DesksApi(
 );
 
 export const Columns = new PrayerAPIV2ColumnsApi(
+  undefined,
+  userInstance.baseUrl(),
+  userInstance.instance(),
+);
+
+export const Prayers = new PrayerAPIV2PrayersApi(
+  undefined,
+  userInstance.baseUrl(),
+  userInstance.instance(),
+);
+
+export const Comments = new PrayerAPIV2CommentsApi(
   undefined,
   userInstance.baseUrl(),
   userInstance.instance(),

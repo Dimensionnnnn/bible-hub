@@ -1,0 +1,1 @@
+export { UIComment } from './comment';
