@@ -22,6 +22,11 @@ export const prayersByColumnIdSlice = createSlice({
         const existingColumns = state.entities[columnId] || [];
         state.entities[columnId] = [...existingColumns, ...action.payload];
       })
+      .addCase(actions.fetchCreatePrayer.fulfilled, (state, action: any) => {
+        const columnId = action.meta.arg.columnId;
+        const existingColumns = state.entities[columnId] || [];
+        state.entities[columnId] = [...existingColumns, action.payload];
+      })
       .addCase(actions.fetchPrayersByColumnId.rejected, (state) => {
         state.loading = false;
       });

@@ -27,10 +27,13 @@ export const deskColumnsSlice = createSlice({
         state.afterCursor = action.payload.cursor?.afterCursor;
       })
       .addCase(actions.fetchMoreDeskColumns.fulfilled, (state, action: any) => {
-        state.loading = false;
         const deskId = action.meta.arg.deskId;
         state.entities[deskId] = [...(state.entities[deskId] || []), ...action.payload.data];
-        state.afterCursor = action.payload.cursor?.afterCursor;
+      })
+      .addCase(actions.fetchCreateColumn.fulfilled, (state, action: any) => {
+        state.loading = false;
+        const deskId = action.meta.arg.deskId;
+        state.entities[deskId] = [...(state.entities[deskId] || []), action.payload];
       })
       .addCase(actions.fetchDeskColumns.rejected, (state) => {
         state.loading = false;
