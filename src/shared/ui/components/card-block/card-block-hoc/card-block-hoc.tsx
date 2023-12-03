@@ -1,22 +1,32 @@
+import { ComponentType, FC, ReactNode } from 'react';
 import styled from 'styled-components/native';
 
 import { UISkeleton } from '../../skeleton';
-import { Props as ComponentProps } from '../card-block';
 
-interface HOCProps {
+interface WithLoadingSkeletonProps {
   isLoading?: boolean;
-  children?: React.ReactNode;
+  children?: ReactNode;
 }
 
-export const CardBlockHOC =
-  (Component: React.ComponentType<ComponentProps>): React.FC<ComponentProps & HOCProps> =>
-  ({ isLoading, children, ...props }) => {
+export function withLoadingSkeleton<T>(
+  Component: ComponentType<T>,
+): FC<T & WithLoadingSkeletonProps> {
+  const LoadingSkeletonComponent: FC<T & WithLoadingSkeletonProps> = ({
+    isLoading,
+    children,
+    ...props
+  }: T & WithLoadingSkeletonProps) => {
     return (
       <StyledContainer>
-        {isLoading ? <UISkeleton /> : <Component {...props}>{children}</Component>}
+        {isLoading ? <UISkeleton /> : <Component {...(props as T)}>{children}</Component>}
       </StyledContainer>
     );
   };
+  LoadingSkeletonComponent.displayName = `WithLoadingSkeleton(${
+    Component.displayName || Component.name || 'Component'
+  })`;
+  return LoadingSkeletonComponent;
+}
 
 const StyledContainer = styled.View`
   max-width: 149.5px;

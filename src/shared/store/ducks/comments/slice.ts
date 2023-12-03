@@ -32,6 +32,10 @@ export const commentsByPrayerIdSlice = createSlice({
         state.entities[prayerId] = [...(state.entities[prayerId] || []), ...action.payload.data];
         state.afterCursor = action.payload.cursor?.afterCursor;
       })
+      .addCase(actions.fetchCreateCommentByPrayerId.fulfilled, (state, action: any) => {
+        const prayerId = action.meta.arg.prayerId;
+        state.entities[prayerId] = [...(state.entities[prayerId] || []), action.payload];
+      })
       .addCase(actions.fetchCommentsByPrayerId.rejected, (state) => {
         state.loading = false;
       })
