@@ -1,7 +1,7 @@
 import { FollowedPage } from '@pages/followed';
-import { SelfDeskPage } from '@pages/self-desk/self-desk';
+import { SelfDeskPage } from '@pages/self-desk';
 import { UIKit } from '@pages/ui-kit/ui-kit';
-import { UsersDeskPage } from '@pages/users-desks/users-desks/users-desks';
+import { UsersDeskPage } from '@pages/users-desks';
 
 import { TabBarIconsNames, getTabBarIcon } from '@shared/helpers/tab-bar-icons/tab-bar-icon';
 import { BottomTabBar, Tab } from '@shared/ui/components/bottom-tabbar/bottom-tabbar';

@@ -10,7 +10,7 @@ export const UIComment = ({ authorName, dateOfCreation, commentText }: Props) =>
   return (
     <StyledContainer>
       <StyledHeader>
-        <StyledAuthorName>{authorName}</StyledAuthorName>
+        <StyledAuthorName>{authorName || 'Anonymous'}</StyledAuthorName>
         <StyledDateOfCreation>{dateOfCreation}</StyledDateOfCreation>
       </StyledHeader>
       <StyledCommentText>{commentText}</StyledCommentText>

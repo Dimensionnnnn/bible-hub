@@ -16,8 +16,8 @@ import { UIColorMark } from '../color-mark';
 import { UICardLoadingWrapper } from './prayer-card-wrapper';
 
 interface Props {
-  prayerId: number;
-  columnId: number;
+  prayerId?: number;
+  columnId?: number;
   title?: string;
   membersCount?: number;
   completedCount?: number;
@@ -74,7 +74,7 @@ export const UIPrayerCard = forwardRef<View, Props>(
                 <CardFormInput
                   title={title}
                   dispatchAction={(title: string) =>
-                    actions.editPrayerTitle({ columnId, prayerId, title })
+                    columnId && prayerId && actions.editPrayerTitle({ columnId, prayerId, title })
                   }
                 />
               ) : (

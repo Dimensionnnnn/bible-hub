@@ -1,6 +1,7 @@
-import { useState } from 'react';
 import styled, { css } from 'styled-components/native';
 import { CSSProp, Interpolation } from 'styled-components/native/dist/types';
+
+import { useToggle } from '@shared/helpers/hooks/use-toggle';
 
 import { UISkeleton } from '../skeleton';
 
@@ -12,7 +13,7 @@ interface Props {
 }
 
 export function UIDeskCard({ title, isLoading, isDisabled, onPress }: Props) {
-  const [isPressed, setIsPressed] = useState(false);
+  const { isOpened: isPressed, onToggle: onPressToggle } = useToggle();
 
   const deskState: DeskState | null = isDisabled
     ? DeskState.DISABLED
@@ -25,17 +26,13 @@ export function UIDeskCard({ title, isLoading, isDisabled, onPress }: Props) {
   const cardColors = deskState !== null ? deskCardStyles[deskState] : null;
   const textColors = textState !== null ? deskTextCardStyles[textState] : null;
 
-  const handlePress = () => {
-    setIsPressed((prevPressed) => !prevPressed);
-  };
-
   return (
     <>
       <StyledPressable
         rootStyle={cardColors}
         onPress={onPress}
-        onPressIn={handlePress}
-        onPressOut={handlePress}
+        onPressIn={onPressToggle}
+        onPressOut={onPressToggle}
       >
         {isLoading ? <UISkeleton /> : <StyledText rootStyle={textColors}>{title}</StyledText>}
       </StyledPressable>
