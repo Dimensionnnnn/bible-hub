@@ -1,7 +1,7 @@
 import styled from 'styled-components/native';
 
 import { Columns } from '@shared/api/generated';
-import { withNoNetwork } from '@shared/helpers/with-no-network/with-no-network';
+import { withNetworkState } from '@shared/helpers/with-network-state/with-network-state';
 
 import { UIDeskCard } from '../desk-card';
 import { DefaultListEmpty } from '../list-empty/default-list-empty';
@@ -14,7 +14,7 @@ interface Props {
 
 const backgroundImageUrl = require('@shared/ui/assets/images/background-gradient-primary.png');
 
-export const UIDeskColumnsList = withNoNetwork(({ data, fetchMore, onPress }: Props) => {
+export const UIDeskColumnsList = withNetworkState(({ data, fetchMore, onPress }: Props) => {
   if (!data || data.length === 0) {
     return <DefaultListEmpty />;
   }
