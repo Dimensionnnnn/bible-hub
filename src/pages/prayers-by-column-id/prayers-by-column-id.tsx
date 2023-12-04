@@ -1,7 +1,10 @@
 import { RouteProp, useRoute } from '@react-navigation/native';
 import styled from 'styled-components/native';
 
-import { RootRouteNames, RootStackParamList } from '@app/navigation/navigators/root/root';
+import {
+  RootRouteNames,
+  RootStackParamList,
+} from '@app/navigation/navigators/tab-navigator/tab-navigator';
 
 import { SecondaryHeader } from '@widgets/layouts/secondary-header';
 

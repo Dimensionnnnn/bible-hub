@@ -3,6 +3,7 @@ import { useRef, useState } from 'react';
 import { View } from 'react-native';
 import styled from 'styled-components/native';
 
+import { useOnLayout } from '@shared/helpers/hooks/use-on-layout';
 import { useToggle } from '@shared/helpers/hooks/use-toggle';
 
 import { UIPrayerCard } from '../prayer-card';
@@ -38,13 +39,7 @@ export const SelfPrayerCard = ({
     onOpenToggle();
   };
 
-  const onLayout = () => {
-    if (ref.current !== null) {
-      ref.current.measure((_, __, ___, ____, pageX, pageY) => {
-        setCardLayout({ pageX, pageY });
-      });
-    }
-  };
+  const onLayout = useOnLayout(ref, setCardLayout);
 
   return (
     <>

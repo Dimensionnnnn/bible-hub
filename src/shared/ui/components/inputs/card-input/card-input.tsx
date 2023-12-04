@@ -1,4 +1,4 @@
-import { forwardRef } from 'react';
+import { Ref, forwardRef } from 'react';
 import { ControllerRenderProps } from 'react-hook-form';
 import {
   NativeSyntheticEvent,
@@ -12,7 +12,7 @@ interface Props extends TextInputProps {
   field: ControllerRenderProps<any, any>;
   rootPressableStyle?: CSSProp;
   rootTextStyle?: CSSProp;
-  ref?: React.Ref<TextInputProps>;
+  ref?: Ref<TextInputProps>;
   isOpened?: boolean;
   onSubmitEditing?: (e: NativeSyntheticEvent<TextInputSubmitEditingEventData>) => void;
 }

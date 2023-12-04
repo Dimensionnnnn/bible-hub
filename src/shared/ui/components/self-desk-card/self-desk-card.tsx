@@ -5,6 +5,7 @@ import styled, { css } from 'styled-components/native';
 import { CSSProp, Interpolation } from 'styled-components/native/dist/types';
 
 import { CardFormInput } from '@shared/form-components/inputs/card-input';
+import { useOnLayout } from '@shared/helpers/hooks/use-on-layout';
 import { useToggle } from '@shared/helpers/hooks/use-toggle';
 import { actions } from '@shared/store/ducks/desk-columns';
 
@@ -21,7 +22,7 @@ interface Props {
 
 export function SelfDeskCard({ id, deskId, title, isLoading, isDisabled, onPress }: Props) {
   const { isOpened, onCloseToggle, onOpenToggle } = useToggle();
-  const [isPressed, setIsPressed] = useState(false);
+  const { isOpened: isPressed, onToggle: onPressToggle, onCloseToggle: onPressClose } = useToggle();
   const [cardLayout, setCardLayout] = useState({ pageX: 0, pageY: 0 });
 
   const deskState: DeskState | null = isDisabled
@@ -37,22 +38,12 @@ export function SelfDeskCard({ id, deskId, title, isLoading, isDisabled, onPress
 
   const ref = useRef<View | null>(null);
 
-  const handlePress = () => {
-    setIsPressed((prevPressed) => !prevPressed);
-  };
-
   const handleLongPress = () => {
     onOpenToggle();
-    setIsPressed(false);
+    onPressClose();
   };
 
-  const onLayout = () => {
-    if (ref.current !== null) {
-      ref.current.measure((_, __, ___, ____, pageX, pageY) => {
-        setCardLayout({ pageX, pageY });
-      });
-    }
-  };
+  const onLayout = useOnLayout(ref, setCardLayout);
 
   return (
     <>
@@ -82,8 +73,8 @@ export function SelfDeskCard({ id, deskId, title, isLoading, isDisabled, onPress
           isOpened={isOpened}
           rootStyle={cardColors}
           onPress={onPress}
-          onPressIn={handlePress}
-          onPressOut={handlePress}
+          onPressIn={onPressToggle}
+          onPressOut={onPressToggle}
           onLongPress={handleLongPress}
         >
           {isLoading ? <UISkeleton /> : <StyledText rootStyle={textColors}>{title}</StyledText>}

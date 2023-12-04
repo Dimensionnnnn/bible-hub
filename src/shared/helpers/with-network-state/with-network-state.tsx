@@ -13,7 +13,7 @@ export function withNetworkState<T>(Component: ComponentType<T>): FC<T & WithNet
     ...props
   }: T & WithNetworkStateProps) => {
     const netInfo = useNetInfo();
-    return netInfo.isConnected ? (
+    return netInfo.isConnected && netInfo.isInternetReachable ? (
       <Component {...(props as T)}>{children}</Component>
     ) : (
       <NoNetwork />
