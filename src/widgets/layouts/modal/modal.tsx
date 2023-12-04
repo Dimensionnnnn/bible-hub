@@ -14,12 +14,7 @@ export const LayoutModal = ({ modalVisible, closeModal, children }: Props) => {
 
   return (
     <StyledContainer>
-      <Modal
-        animationType="fade"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={closeModal}
-      >
+      <Modal animationType="fade" transparent visible={modalVisible} onRequestClose={closeModal}>
         <TouchableWithoutFeedback onPress={closeModal}>
           <StyledWrapper>
             <TouchableWithoutFeedback onPress={(e) => e.stopPropagation()}>

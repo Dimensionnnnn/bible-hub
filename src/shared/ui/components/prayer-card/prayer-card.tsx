@@ -1,4 +1,4 @@
-import { Ref, forwardRef } from 'react';
+import { forwardRef } from 'react';
 import { View } from 'react-native';
 import styled, { css } from 'styled-components/native';
 import { CSSProp } from 'styled-components/native/dist/types';
@@ -28,7 +28,6 @@ interface Props {
   onCardPress: () => void;
   onLongPress?: () => void;
   onLayout?: () => void;
-  ref?: Ref<View>;
 }
 
 export const UIPrayerCard = forwardRef<View, Props>(

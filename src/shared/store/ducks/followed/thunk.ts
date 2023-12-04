@@ -2,9 +2,6 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import { Prayers as PrayersApi } from '@shared/api';
 import { Prayers } from '@shared/api/generated';
-import { RootState } from '@shared/store/store';
-
-import { selectors } from '.';
 
 export const fetchFollowedPrayersThunk = createAsyncThunk(
   'followed/prayers',
@@ -15,9 +12,8 @@ export const fetchFollowedPrayersThunk = createAsyncThunk(
     } catch (error: any) {
       if (error.response) {
         return thunkApi.rejectWithValue(error.response.data);
-      } else {
-        return thunkApi.rejectWithValue(error.message);
       }
+      return thunkApi.rejectWithValue(error.message);
     }
   },
 );
@@ -32,9 +28,8 @@ export const fetchFollowPrayerThunk = createAsyncThunk(
     } catch (error: any) {
       if (error.response) {
         return thunkApi.rejectWithValue(error.response.data);
-      } else {
-        return thunkApi.rejectWithValue(error.message);
       }
+      return thunkApi.rejectWithValue(error.message);
     }
   },
 );
@@ -48,9 +43,8 @@ export const fetchUnfollowPrayerThunk = createAsyncThunk(
     } catch (error: any) {
       if (error.response) {
         return thunkApi.rejectWithValue(error.response.data);
-      } else {
-        return thunkApi.rejectWithValue(error.message);
       }
+      return thunkApi.rejectWithValue(error.message);
     }
   },
 );

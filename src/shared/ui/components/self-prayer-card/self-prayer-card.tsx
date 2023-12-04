@@ -41,47 +41,43 @@ export const SelfPrayerCard = ({
 
   const onLayout = useOnLayout(ref, setCardLayout);
 
-  return (
-    <>
-      {isOpened ? (
-        <Portal name="card">
-          <StyledContainer>
-            <StyledWrapper x={cardLayout.pageX} y={cardLayout.pageY}>
-              <UIPrayerCard
-                prayerId={prayerId}
-                columnId={columnId}
-                title={title}
-                isLoading={isLoading}
-                isOpened={isOpened}
-                membersCount={membersCount}
-                completedCount={completedCount}
-                dateOfCompletion={dateOfCompletion}
-                onLongPress={handleLongPress}
-                onCardPress={onCardPress}
-                onCompletePress={onCompletePress}
-              />
-            </StyledWrapper>
-          </StyledContainer>
-          <StyledBackdrop onTouchEnd={onCloseToggle} />
-        </Portal>
-      ) : (
-        <UIPrayerCard
-          ref={ref}
-          prayerId={prayerId}
-          columnId={columnId}
-          title={title}
-          isLoading={isLoading}
-          isOpened={isOpened}
-          membersCount={membersCount}
-          completedCount={completedCount}
-          dateOfCompletion={dateOfCompletion}
-          onLongPress={handleLongPress}
-          onCardPress={onCardPress}
-          onCompletePress={() => {}}
-          onLayout={onLayout}
-        />
-      )}
-    </>
+  return isOpened ? (
+    <Portal name="card">
+      <StyledContainer>
+        <StyledWrapper x={cardLayout.pageX} y={cardLayout.pageY}>
+          <UIPrayerCard
+            prayerId={prayerId}
+            columnId={columnId}
+            title={title}
+            isLoading={isLoading}
+            isOpened={isOpened}
+            membersCount={membersCount}
+            completedCount={completedCount}
+            dateOfCompletion={dateOfCompletion}
+            onLongPress={handleLongPress}
+            onCardPress={onCardPress}
+            onCompletePress={onCompletePress}
+          />
+        </StyledWrapper>
+      </StyledContainer>
+      <StyledBackdrop onTouchEnd={onCloseToggle} />
+    </Portal>
+  ) : (
+    <UIPrayerCard
+      ref={ref}
+      prayerId={prayerId}
+      columnId={columnId}
+      title={title}
+      isLoading={isLoading}
+      isOpened={isOpened}
+      membersCount={membersCount}
+      completedCount={completedCount}
+      dateOfCompletion={dateOfCompletion}
+      onLongPress={handleLongPress}
+      onCardPress={onCardPress}
+      onCompletePress={() => {}}
+      onLayout={onLayout}
+    />
   );
 };
 

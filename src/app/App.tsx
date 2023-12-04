@@ -1,6 +1,5 @@
 import { PortalProvider } from '@gorhom/portal';
 import { NavigationContainer } from '@react-navigation/native';
-import 'react-native-gesture-handler';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
@@ -17,7 +16,7 @@ export const App = () => {
       <PersistGate loading={null} persistor={persistor}>
         <NavigationContainer>
           <ThemeProvider theme={themes.default}>
-            <GestureHandlerRootView style={{ flex: 1 }}>
+            <GestureHandlerRootView style={gestureHandlerStyle}>
               <PortalProvider>
                 <AppNavigator />
               </PortalProvider>
@@ -30,3 +29,7 @@ export const App = () => {
 };
 
 export default App;
+
+const gestureHandlerStyle = {
+  flex: 1,
+};

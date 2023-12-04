@@ -15,9 +15,8 @@ export const fetchDeskColumnsThunk = createAsyncThunk(
     } catch (error: any) {
       if (error.response) {
         return thunkApi.rejectWithValue(error.response.data);
-      } else {
-        return thunkApi.rejectWithValue(error.message);
       }
+      return thunkApi.rejectWithValue(error.message);
     }
   },
 );
@@ -37,9 +36,8 @@ export const fetchMoreDeskColumnsThunk = createAsyncThunk(
     } catch (error: any) {
       if (error.response) {
         return thunkApi.rejectWithValue(error.response.data);
-      } else {
-        return thunkApi.rejectWithValue(error.message);
       }
+      return thunkApi.rejectWithValue(error.message);
     }
   },
 );
@@ -57,9 +55,8 @@ export const fetchCreateColumnThunk = createAsyncThunk(
     } catch (error: any) {
       if (error.response) {
         return thunkApi.rejectWithValue(error.response.data);
-      } else {
-        return thunkApi.rejectWithValue(error.message);
       }
+      return thunkApi.rejectWithValue(error.message);
     }
   },
 );
@@ -75,9 +72,8 @@ export const fetchDeleteColumnThunk = createAsyncThunk(
     } catch (error: any) {
       if (error.response) {
         return thunkApi.rejectWithValue(error.response.data);
-      } else {
-        return thunkApi.rejectWithValue(error.message);
       }
+      return thunkApi.rejectWithValue(error.message);
     }
   },
 );

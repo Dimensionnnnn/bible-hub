@@ -27,16 +27,14 @@ export function UIDeskCard({ title, isLoading, isDisabled, onPress }: Props) {
   const textColors = textState !== null ? deskTextCardStyles[textState] : null;
 
   return (
-    <>
-      <StyledPressable
-        rootStyle={cardColors}
-        onPress={onPress}
-        onPressIn={onPressToggle}
-        onPressOut={onPressToggle}
-      >
-        {isLoading ? <UISkeleton /> : <StyledText rootStyle={textColors}>{title}</StyledText>}
-      </StyledPressable>
-    </>
+    <StyledPressable
+      rootStyle={cardColors}
+      onPress={onPress}
+      onPressIn={onPressToggle}
+      onPressOut={onPressToggle}
+    >
+      {isLoading ? <UISkeleton /> : <StyledText rootStyle={textColors}>{title}</StyledText>}
+    </StyledPressable>
   );
 }
 
