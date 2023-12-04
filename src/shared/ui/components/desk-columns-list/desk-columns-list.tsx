@@ -1,9 +1,10 @@
 import styled from 'styled-components/native';
 
 import { Columns } from '@shared/api/generated';
+import { withNetworkState } from '@shared/helpers/with-network-state/with-network-state';
 
+import { DataHandler } from '../data-handler';
 import { UIDeskCard } from '../desk-card';
-import { DefaultListEmpty } from '../list-empty/default-list-empty';
 
 interface Props {
   data?: Columns[] | null;
@@ -13,30 +14,28 @@ interface Props {
 
 const backgroundImageUrl = require('@shared/ui/assets/images/background-gradient-primary.png');
 
-export const UIDeskColumnsList = ({ data, fetchMore, onPress }: Props) => {
-  if (!data || data.length === 0) {
-    return <DefaultListEmpty />;
-  }
-
+export const UIDeskColumnsList = withNetworkState(({ data, fetchMore, onPress }: Props) => {
   return (
-    <StyledBackgroudImage source={backgroundImageUrl} imageStyle={imageStyle} resizeMode="cover">
-      <StyledDesksContainer
-        contentContainerStyle={scrollViewStyle}
-        data={data}
-        renderItem={({ item }) => (
-          <UIDeskCard
-            key={item.id}
-            title={item.title}
-            onPress={() => onPress?.(item.id, item.title)}
-          />
-        )}
-        keyExtractor={(item) => item.id}
-        onEndReached={() => fetchMore?.()}
-        onEndReachedThreshold={0.1}
-      />
-    </StyledBackgroudImage>
+    <DataHandler data={data}>
+      <StyledBackgroudImage source={backgroundImageUrl} imageStyle={imageStyle} resizeMode="cover">
+        <StyledDesksContainer
+          contentContainerStyle={scrollViewStyle}
+          data={data}
+          renderItem={({ item }) => (
+            <UIDeskCard
+              key={item.id}
+              title={item.title}
+              onPress={() => onPress?.(item.id, item.title)}
+            />
+          )}
+          keyExtractor={(item) => item.id}
+          onEndReached={() => fetchMore?.()}
+          onEndReachedThreshold={0.1}
+        />
+      </StyledBackgroudImage>
+    </DataHandler>
   );
-};
+});
 
 const StyledBackgroudImage = styled.ImageBackground`
   width: 100%;

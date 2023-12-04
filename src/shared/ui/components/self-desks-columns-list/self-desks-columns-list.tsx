@@ -1,15 +1,17 @@
-import { GestureHandlerRootView, Swipeable } from 'react-native-gesture-handler';
+import { Swipeable } from 'react-native-gesture-handler';
 import styled from 'styled-components/native';
 
 import { Columns } from '@shared/api/generated';
+import { withNetworkState } from '@shared/helpers/with-network-state/with-network-state';
 
 import { ButtonSize, DeleteButton } from '../buttons/delete-button/delete-button';
-import { UIDeskCard } from '../desk-card';
 import { SelfListEmpty } from '../list-empty/self-list-empty';
+import { SelfDeskCard } from '../self-desk-card';
 
 const backgroundImageUrl = require('@shared/ui/assets/images/background-gradient-primary.png');
 
 interface Props {
+  deskId: number;
   data?: Columns[] | null;
   fetchMore?: (afterCursor?: string) => void;
   onPress?: (id: number, title: string) => void;
@@ -17,12 +19,13 @@ interface Props {
 }
 
 interface ItemSwipeProps {
+  deskId: number;
   item: any;
   onColumnPress?: (id: number, title: string) => void;
   handleDeleteColumn?: () => void;
 }
 
-const ItemSwipe = ({ item, handleDeleteColumn, onColumnPress }: ItemSwipeProps) => {
+const ItemSwipe = ({ deskId, item, handleDeleteColumn, onColumnPress }: ItemSwipeProps) => {
   const renderRightActions = () => {
     return (
       <StyledDeleteButtonContainer>
@@ -37,8 +40,10 @@ const ItemSwipe = ({ item, handleDeleteColumn, onColumnPress }: ItemSwipeProps) 
       dragOffsetFromRightEdge={5}
       onSwipeableOpen={handleDeleteColumn}
     >
-      <UIDeskCard
+      <SelfDeskCard
         key={item.id}
+        id={item.id}
+        deskId={deskId}
         title={item.title}
         onPress={() => onColumnPress?.(item.id, item.title)}
       />
@@ -46,18 +51,20 @@ const ItemSwipe = ({ item, handleDeleteColumn, onColumnPress }: ItemSwipeProps) 
   );
 };
 
-export const UISelfDeskColumnsList = ({ data, fetchMore, onPress, onDeleteAction }: Props) => {
-  if (!data || data.length === 0) {
-    return <SelfListEmpty />;
-  }
-  return (
-    <StyledBackgroudImage source={backgroundImageUrl} imageStyle={imageStyle} resizeMode="cover">
-      <GestureHandlerRootView style={{ width: '100%' }}>
+export const UISelfDeskColumnsList = withNetworkState(
+  ({ deskId, data, fetchMore, onPress, onDeleteAction }: Props) => {
+    if (!data || data.length === 0) {
+      return <SelfListEmpty />;
+    }
+
+    return (
+      <StyledBackgroudImage source={backgroundImageUrl} imageStyle={imageStyle} resizeMode="cover">
         <StyledDesksContainer
           contentContainerStyle={scrollViewStyle}
           data={data}
           renderItem={({ item }) => (
             <ItemSwipe
+              deskId={deskId}
               item={item}
               handleDeleteColumn={() => {
                 onDeleteAction?.(item.id);
@@ -71,10 +78,10 @@ export const UISelfDeskColumnsList = ({ data, fetchMore, onPress, onDeleteAction
           onEndReached={() => fetchMore?.()}
           onEndReachedThreshold={0.1}
         />
-      </GestureHandlerRootView>
-    </StyledBackgroudImage>
-  );
-};
+      </StyledBackgroudImage>
+    );
+  },
+);
 
 const StyledBackgroudImage = styled.ImageBackground`
   width: 100%;

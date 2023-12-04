@@ -25,7 +25,7 @@ export const CreateItemModalEntity = ({
   dispatchAction,
 }: Props) => {
   return (
-    <LayoutModal title={title} modalVisible={isOpened} closeModal={onClose}>
+    <LayoutModal modalVisible={isOpened} closeModal={onClose}>
       <StyledModalTitleContainer>
         <StyledTitle>{title}</StyledTitle>
         <ButtonIconWithSize

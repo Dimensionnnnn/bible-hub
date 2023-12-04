@@ -1,12 +1,12 @@
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import styled from 'styled-components/native';
 
 import { Prayers } from '@shared/api/generated';
+import { withNetworkState } from '@shared/helpers/with-network-state/with-network-state';
 
 import { ButtonSize, DeleteButton } from '../buttons/delete-button/delete-button';
 import { SelfListEmpty } from '../list-empty/self-list-empty';
-import { UIPrayerCard } from '../prayer-card';
+import { SelfPrayerCard } from '../self-prayer-card';
 
 interface Props {
   data?: Prayers[] | null;
@@ -35,44 +35,42 @@ const ItemSwipe = ({ item, handleDeletePrayer, onCardPress }: ItemSwipeProps) =>
       dragOffsetFromRightEdge={5}
       onSwipeableOpen={handleDeletePrayer}
     >
-      <UIPrayerCard
+      <SelfPrayerCard
         key={item.id}
+        prayerId={item.id}
+        columnId={item.columnId}
         title={item.title}
         membersCount={item.subscribersCount}
         completedCount={item.completesCount}
         dateOfCompletion={item.lastPrayerEvent}
-        onCardPress={() => {
-          onCardPress?.(item.id, item.title);
-        }}
+        onCardPress={() => onCardPress?.(item.id, item.title)}
         onCompletePress={() => {}}
       />
     </Swipeable>
   );
 };
 
-export const UISelfPrayersList: React.FC<Props> = ({ data, onPress, onDeleteAction }) => {
+export const UISelfPrayersList = withNetworkState(({ data, onPress, onDeleteAction }: Props) => {
   return (
-    <GestureHandlerRootView>
-      <StyledContainer>
-        <StyledPrayersContainer
-          contentContainerStyle={scrollViewStyle}
-          data={data}
-          renderItem={({ item }) => (
-            <ItemSwipe
-              item={item}
-              handleDeletePrayer={() => {
-                onDeleteAction?.(item.columnId, item.id);
-              }}
-              onCardPress={onPress}
-            />
-          )}
-          keyExtractor={(item) => item.id}
-          ListEmptyComponent={() => <SelfListEmpty />}
-        />
-      </StyledContainer>
-    </GestureHandlerRootView>
+    <StyledContainer>
+      <StyledPrayersContainer
+        contentContainerStyle={scrollViewStyle}
+        data={data}
+        renderItem={({ item }) => (
+          <ItemSwipe
+            item={item}
+            handleDeletePrayer={() => {
+              onDeleteAction?.(item.columnId, item.id);
+            }}
+            onCardPress={onPress}
+          />
+        )}
+        keyExtractor={(item) => item.id}
+        ListEmptyComponent={() => <SelfListEmpty />}
+      />
+    </StyledContainer>
   );
-};
+});
 
 const StyledContainer = styled.View`
   width: 100%;

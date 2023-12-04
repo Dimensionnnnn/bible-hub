@@ -1,7 +1,10 @@
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { useCallback, useEffect } from 'react';
 
-import { RootRouteNames, RootStackParamList } from '@app/navigation/navigators/root/root';
+import {
+  RootRouteNames,
+  RootStackParamList,
+} from '@app/navigation/navigators/tab-navigator/tab-navigator';
 
 import { useAppDispatch, useAppSelector } from '@shared/store';
 import {
@@ -45,6 +48,7 @@ export const SelfColumnsEntity = ({ deskId }: Props) => {
 
   return (
     <UISelfDeskColumnsList
+      deskId={deskId}
       data={selfColumns}
       onPress={handleNavigate}
       fetchMore={() => {

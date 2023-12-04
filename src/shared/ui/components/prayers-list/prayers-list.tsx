@@ -1,6 +1,7 @@
 import styled from 'styled-components/native';
 
 import { Prayers } from '@shared/api/generated';
+import { withNetworkState } from '@shared/helpers/with-network-state/with-network-state';
 
 import { DefaultListEmpty } from '../list-empty/default-list-empty';
 import { UIPrayerCard } from '../prayer-card';
@@ -10,7 +11,7 @@ interface Props {
   onPress?: (id: number, title: string) => void;
 }
 
-export const UIPrayersList = ({ data, onPress }: Props) => {
+export const UIPrayersList = withNetworkState(({ data, onPress }: Props) => {
   return (
     <StyledContainer>
       <StyledPrayersContainer
@@ -34,7 +35,7 @@ export const UIPrayersList = ({ data, onPress }: Props) => {
       />
     </StyledContainer>
   );
-};
+});
 
 const StyledContainer = styled.View`
   flex: 1;

@@ -1,7 +1,11 @@
+import { Ref, forwardRef } from 'react';
+import { View } from 'react-native';
 import styled, { css } from 'styled-components/native';
 import { CSSProp } from 'styled-components/native/dist/types';
 
+import { CardFormInput } from '@shared/form-components/inputs/card-input';
 import { getColorByDate } from '@shared/helpers/color-by-date/color-by-date';
+import { actions } from '@shared/store/ducks/prayers';
 
 import { SvgArmsIcon } from '../../icons/components/svg-arms-icon';
 import {
@@ -12,66 +16,97 @@ import { UIColorMark } from '../color-mark';
 import { UICardLoadingWrapper } from './prayer-card-wrapper';
 
 interface Props {
+  prayerId: number;
+  columnId: number;
   title?: string;
   membersCount?: number;
   completedCount?: number;
   dateOfCompletion?: string;
   isLoading?: boolean;
+  isOpened?: boolean;
   onCompletePress: () => void;
   onCardPress: () => void;
+  onLongPress?: () => void;
+  onLayout?: () => void;
+  ref?: Ref<View>;
 }
 
-export function UIPrayerCard({
-  title,
-  membersCount,
-  completedCount,
-  dateOfCompletion,
-  isLoading,
-  onCompletePress,
-  onCardPress,
-}: Props) {
-  const date = dateOfCompletion ? new Date(dateOfCompletion) : new Date();
-  const markColor = getColorByDate(date);
+export const UIPrayerCard = forwardRef<View, Props>(
+  (
+    {
+      prayerId,
+      columnId,
+      title,
+      membersCount,
+      completedCount,
+      dateOfCompletion,
+      isLoading,
+      isOpened,
+      onCompletePress,
+      onCardPress,
+      onLongPress,
+      onLayout,
+    },
+    ref,
+  ) => {
+    const date = dateOfCompletion ? new Date(dateOfCompletion) : new Date();
+    const markColor = getColorByDate(date);
 
-  const formatCompletedCount =
-    completedCount && completedCount > 999 ? '999+' : completedCount?.toString();
+    const formatCompletedCount =
+      completedCount && completedCount > 999 ? '999+' : completedCount?.toString();
 
-  const formatMembersCount = membersCount && membersCount > 99 ? '99+' : membersCount?.toString();
+    const formatMembersCount = membersCount && membersCount > 99 ? '99+' : membersCount?.toString();
 
-  return (
-    <StyledPressable onPress={onCardPress}>
-      <UICardLoadingWrapper isLoading={isLoading}>
-        <>
-          <UIColorMark color={markColor} />
+    return (
+      <StyledPressable
+        ref={ref}
+        onLongPress={onLongPress}
+        onPress={onCardPress}
+        isOpened={isOpened}
+        onLayout={onLayout}
+      >
+        <UICardLoadingWrapper isLoading={isLoading}>
+          <>
+            <UIColorMark color={markColor} />
 
-          <StyledCardInfoContainer>
-            <StyledCardInfoTitle>{title}</StyledCardInfoTitle>
+            <StyledCardInfoContainer>
+              {isOpened ? (
+                <CardFormInput
+                  title={title}
+                  dispatchAction={(title: string) =>
+                    actions.editPrayerTitle({ columnId, prayerId, title })
+                  }
+                />
+              ) : (
+                <StyledCardInfoTitle>{title}</StyledCardInfoTitle>
+              )}
 
-            <StyledCardInfoWrapper>
-              <StyledCardInfoDescriptionWrapper>
-                <StyledCardInfoDescription>Members</StyledCardInfoDescription>
-                <StyledCardInfoData>{formatMembersCount}</StyledCardInfoData>
-              </StyledCardInfoDescriptionWrapper>
+              <StyledCardInfoWrapper>
+                <StyledCardInfoDescriptionWrapper>
+                  <StyledCardInfoDescription>Members</StyledCardInfoDescription>
+                  <StyledCardInfoData>{formatMembersCount}</StyledCardInfoData>
+                </StyledCardInfoDescriptionWrapper>
 
-              <StyledCardInfoDescriptionWrapper>
-                <StyledCardInfoDescription>Completed</StyledCardInfoDescription>
-                <StyledCardInfoData>{formatCompletedCount}</StyledCardInfoData>
-              </StyledCardInfoDescriptionWrapper>
-            </StyledCardInfoWrapper>
-          </StyledCardInfoContainer>
+                <StyledCardInfoDescriptionWrapper>
+                  <StyledCardInfoDescription>Completed</StyledCardInfoDescription>
+                  <StyledCardInfoData>{formatCompletedCount}</StyledCardInfoData>
+                </StyledCardInfoDescriptionWrapper>
+              </StyledCardInfoWrapper>
+            </StyledCardInfoContainer>
 
-          <ButtonIconWithSize
-            size={ButtonSize.small}
-            Icon={SvgArmsIcon}
-            onPress={onCompletePress}
-          />
-        </>
-      </UICardLoadingWrapper>
-    </StyledPressable>
-  );
-}
+            <ButtonIconWithSize
+              size={ButtonSize.small}
+              Icon={SvgArmsIcon}
+              onPress={onCompletePress}
+            />
+          </>
+        </UICardLoadingWrapper>
+      </StyledPressable>
+    );
+  },
+);
 
-const StyledPressable = styled.Pressable<{ rootStyle?: CSSProp }>`
+const StyledPressable = styled.Pressable<{ rootStyle?: CSSProp; isOpened?: boolean }>`
   width: 100%;
   max-width: 343px;
   height: 95px;
@@ -81,6 +116,8 @@ const StyledPressable = styled.Pressable<{ rootStyle?: CSSProp }>`
   display: flex;
   flex-direction: row;
   gap: 20px;
+
+  z-index: ${({ isOpened }) => (isOpened ? 10 : 0)};
 
   ${(props) => `background-color: ${props.theme.colors.grayscale_100}`};
 

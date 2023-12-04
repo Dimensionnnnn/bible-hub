@@ -65,11 +65,3 @@ const StyledContentContainer = styled.View`
   height: 100%;
   padding: 0 16px 0 14px;
 `;
-
-const StyledButtonContainer = styled.View`
-  width: 100%;
-  position: absolute;
-  bottom: 12px;
-  right: 16px;
-  align-items: flex-end;
-`;

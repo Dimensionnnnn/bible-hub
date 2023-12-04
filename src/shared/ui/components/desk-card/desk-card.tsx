@@ -30,14 +30,16 @@ export function UIDeskCard({ title, isLoading, isDisabled, onPress }: Props) {
   };
 
   return (
-    <StyledPressable
-      rootStyle={cardColors}
-      onPress={onPress}
-      onPressIn={handlePress}
-      onPressOut={handlePress}
-    >
-      {isLoading ? <UISkeleton /> : <StyledText rootStyle={textColors}>{title}</StyledText>}
-    </StyledPressable>
+    <>
+      <StyledPressable
+        rootStyle={cardColors}
+        onPress={onPress}
+        onPressIn={handlePress}
+        onPressOut={handlePress}
+      >
+        {isLoading ? <UISkeleton /> : <StyledText rootStyle={textColors}>{title}</StyledText>}
+      </StyledPressable>
+    </>
   );
 }
 
@@ -61,13 +63,14 @@ const deskTextCardStyles = {
   `,
 } as Readonly<Record<DeskState, Interpolation<typeof DeskState>>>;
 
-const StyledPressable = styled.Pressable<{ rootStyle?: CSSProp }>`
+const StyledPressable = styled.Pressable<{ rootStyle?: CSSProp; isOpened?: boolean }>`
   width: 100%;
   max-width: 311px;
   height: 76px;
   border-radius: 24px;
   justify-content: center;
   align-items: start;
+  z-index: ${(props) => (props.isOpened ? 10 : 0)};
 
   ${(props) => `background-color: ${props.theme.colors.grayscale_100}`};
 

@@ -4,11 +4,10 @@ import styled from 'styled-components/native';
 interface Props {
   modalVisible: boolean;
   closeModal: () => void;
-  title: string;
   children?: React.ReactNode;
 }
 
-export const LayoutModal = ({ modalVisible, closeModal, title, children }: Props) => {
+export const LayoutModal = ({ modalVisible, closeModal, children }: Props) => {
   if (!modalVisible) {
     return null;
   }
