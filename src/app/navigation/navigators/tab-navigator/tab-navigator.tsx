@@ -4,7 +4,7 @@ import { DeskColumnsPage } from '@pages/desk-columns';
 import { PrayerPage } from '@pages/prayer';
 import { PrayersByColumnIdPage } from '@pages/prayers-by-column-id';
 import { SelfPrayersPage } from '@pages/self-prayers';
-import { TabBar } from '@pages/tab-bar/tab-bar';
+import { TabBar } from '@pages/tab-bar';
 
 const Stack = createNativeStackNavigator();
 

@@ -16,7 +16,7 @@ interface Props {
 
 export const InfoModalEntity = ({ title, text, isOpened, onClose }: Props) => {
   return (
-    <LayoutModal title={title} modalVisible={isOpened} closeModal={onClose}>
+    <LayoutModal modalVisible={isOpened} closeModal={onClose}>
       <StyledModalContainer>
         <StyledTitle>{title}</StyledTitle>
         <StyledText>{text}</StyledText>

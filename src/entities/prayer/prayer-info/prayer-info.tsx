@@ -22,10 +22,10 @@ export const PrayerInfoEntity = ({ prayerId }: Props) => {
   return (
     <PrayerInfo
       isLoading={isLoading}
-      date={dayjs(prayer.createdAt).format('DD.MM.YYYY')}
-      totalPrayers={prayer.completesCount}
-      otherPrayers={prayer.otherPrayCount}
-      myPrayers={prayer.myPrayCount}
+      date={dayjs(prayer?.createdAt).format('DD.MM.YYYY')}
+      totalPrayers={prayer?.completesCount}
+      otherPrayers={prayer?.otherPrayCount}
+      myPrayers={prayer?.myPrayCount}
     />
   );
 };

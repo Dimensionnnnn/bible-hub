@@ -5,7 +5,7 @@ import { Columns } from '@shared/api/generated';
 import { withNetworkState } from '@shared/helpers/with-network-state/with-network-state';
 
 import { ButtonSize, DeleteButton } from '../buttons/delete-button/delete-button';
-import { SelfListEmpty } from '../list-empty/self-list-empty';
+import { DataHandler } from '../data-handler';
 import { SelfDeskCard } from '../self-desk-card';
 
 const backgroundImageUrl = require('@shared/ui/assets/images/background-gradient-primary.png');
@@ -53,32 +53,34 @@ const ItemSwipe = ({ deskId, item, handleDeleteColumn, onColumnPress }: ItemSwip
 
 export const UISelfDeskColumnsList = withNetworkState(
   ({ deskId, data, fetchMore, onPress, onDeleteAction }: Props) => {
-    if (!data || data.length === 0) {
-      return <SelfListEmpty />;
-    }
-
     return (
-      <StyledBackgroudImage source={backgroundImageUrl} imageStyle={imageStyle} resizeMode="cover">
-        <StyledDesksContainer
-          contentContainerStyle={scrollViewStyle}
-          data={data}
-          renderItem={({ item }) => (
-            <ItemSwipe
-              deskId={deskId}
-              item={item}
-              handleDeleteColumn={() => {
-                onDeleteAction?.(item.id);
-              }}
-              onColumnPress={() => {
-                onPress?.(item.id, item.title);
-              }}
-            />
-          )}
-          keyExtractor={(item) => item.id}
-          onEndReached={() => fetchMore?.()}
-          onEndReachedThreshold={0.1}
-        />
-      </StyledBackgroudImage>
+      <DataHandler data={data} isSelf>
+        <StyledBackgroudImage
+          source={backgroundImageUrl}
+          imageStyle={imageStyle}
+          resizeMode="cover"
+        >
+          <StyledDesksContainer
+            contentContainerStyle={scrollViewStyle}
+            data={data}
+            renderItem={({ item }) => (
+              <ItemSwipe
+                deskId={deskId}
+                item={item}
+                handleDeleteColumn={() => {
+                  onDeleteAction?.(item.id);
+                }}
+                onColumnPress={() => {
+                  onPress?.(item.id, item.title);
+                }}
+              />
+            )}
+            keyExtractor={(item) => item.id}
+            onEndReached={() => fetchMore?.()}
+            onEndReachedThreshold={0.1}
+          />
+        </StyledBackgroudImage>
+      </DataHandler>
     );
   },
 );
