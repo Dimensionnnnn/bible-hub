@@ -1,0 +1,1 @@
+export { CommentsEntity } from './comments';
