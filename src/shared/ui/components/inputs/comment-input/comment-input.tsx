@@ -1,7 +1,6 @@
 import { ControllerFieldState, ControllerRenderProps } from 'react-hook-form';
 import { TextInputProps } from 'react-native';
 import styled, { css } from 'styled-components/native';
-import { CSSProp } from 'styled-components/native/dist/types';
 
 import {
   ButtonIconWithSize,
@@ -13,7 +12,6 @@ interface UICommentInputProps extends TextInputProps {
   fieldState: ControllerFieldState;
   field: ControllerRenderProps<any, any>;
   isDisabled?: boolean;
-  rootStyle?: CSSProp;
   onSubmitButtonPress: () => void;
 }
 
@@ -22,7 +20,6 @@ export function UICommentInput({
   field,
   isDisabled,
   onSubmitButtonPress,
-  rootStyle,
   ...props
 }: UICommentInputProps) {
   const { value, onChange, onBlur } = field;
@@ -87,7 +84,7 @@ const inputStyles = {
   `,
 };
 
-const StyledContainer = styled.View<{ rootStyle?: CSSProp }>`
+const StyledContainer = styled.View`
   width: 100%;
   max-width: 343px;
   height: 56px;
@@ -97,16 +94,12 @@ const StyledContainer = styled.View<{ rootStyle?: CSSProp }>`
   display: flex;
   flex-direction: row;
   align-items: center;
-
-  ${(props) => props.rootStyle};
 `;
 
-const StyledInput = styled.TextInput<{ rootStyle?: CSSProp }>`
+const StyledInput = styled.TextInput`
   ${(props) => props.theme.typography.bodyRegular_16};
 
   padding: 10px;
   width: 100%;
   flex: 1;
-
-  ${(props) => props.rootStyle};
 `;

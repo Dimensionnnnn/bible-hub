@@ -45,42 +45,38 @@ export function SelfDeskCard({ id, deskId, title, isLoading, isDisabled, onPress
 
   const onLayout = useOnLayout(ref, setCardLayout);
 
-  return (
-    <>
-      {isOpened ? (
-        <Portal name="card">
-          <StyledContainer>
-            <StyledWrapper x={cardLayout.pageX} y={cardLayout.pageY}>
-              <StyledPressable isOpened={isOpened} rootStyle={cardColors}>
-                <StyledInputContainer>
-                  <CardFormInput
-                    title={title}
-                    onCloseBackdrop={onCloseToggle}
-                    dispatchAction={(title: string) =>
-                      actions.editColumnTitle({ columnId: id, deskId, title })
-                    }
-                  />
-                </StyledInputContainer>
-              </StyledPressable>
-            </StyledWrapper>
-            <StyledBackdrop onTouchEnd={onCloseToggle} />
-          </StyledContainer>
-        </Portal>
-      ) : (
-        <StyledPressable
-          ref={ref}
-          onLayout={onLayout}
-          isOpened={isOpened}
-          rootStyle={cardColors}
-          onPress={onPress}
-          onPressIn={onPressToggle}
-          onPressOut={onPressToggle}
-          onLongPress={handleLongPress}
-        >
-          {isLoading ? <UISkeleton /> : <StyledText rootStyle={textColors}>{title}</StyledText>}
-        </StyledPressable>
-      )}
-    </>
+  return isOpened ? (
+    <Portal name="card">
+      <StyledContainer>
+        <StyledWrapper x={cardLayout.pageX} y={cardLayout.pageY}>
+          <StyledPressable isOpened={isOpened} rootStyle={cardColors}>
+            <StyledInputContainer>
+              <CardFormInput
+                title={title}
+                onCloseBackdrop={onCloseToggle}
+                dispatchAction={(title: string) =>
+                  actions.editColumnTitle({ columnId: id, deskId, title })
+                }
+              />
+            </StyledInputContainer>
+          </StyledPressable>
+        </StyledWrapper>
+        <StyledBackdrop onTouchEnd={onCloseToggle} />
+      </StyledContainer>
+    </Portal>
+  ) : (
+    <StyledPressable
+      ref={ref}
+      onLayout={onLayout}
+      isOpened={isOpened}
+      rootStyle={cardColors}
+      onPress={onPress}
+      onPressIn={onPressToggle}
+      onPressOut={onPressToggle}
+      onLongPress={handleLongPress}
+    >
+      {isLoading ? <UISkeleton /> : <StyledText rootStyle={textColors}>{title}</StyledText>}
+    </StyledPressable>
   );
 }
 

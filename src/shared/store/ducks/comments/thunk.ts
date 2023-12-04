@@ -15,9 +15,8 @@ export const fetchCommentsByPrayerIdThunk = createAsyncThunk(
     } catch (error: any) {
       if (error.response) {
         return thunkApi.rejectWithValue(error.response.data);
-      } else {
-        return thunkApi.rejectWithValue(error.message);
       }
+      return thunkApi.rejectWithValue(error.message);
     }
   },
 );
@@ -37,9 +36,8 @@ export const fetchMoreCommentsByPrayerIdThunk = createAsyncThunk(
     } catch (error: any) {
       if (error.response) {
         return thunkApi.rejectWithValue(error.response.data);
-      } else {
-        return thunkApi.rejectWithValue(error.message);
       }
+      return thunkApi.rejectWithValue(error.message);
     }
   },
 );
@@ -59,9 +57,8 @@ export const fetchCreateCommentByPrayerIdThunk = createAsyncThunk(
     } catch (error: any) {
       if (error.response) {
         return thunkApi.rejectWithValue(error.response.data);
-      } else {
-        return thunkApi.rejectWithValue(error.message);
       }
+      return thunkApi.rejectWithValue(error.message);
     }
   },
 );

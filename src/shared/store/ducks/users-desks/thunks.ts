@@ -12,9 +12,8 @@ export const fetchUsersDesksThunk = createAsyncThunk('desks', async (_, thunkApi
   } catch (error: any) {
     if (error.response) {
       return thunkApi.rejectWithValue(error.response.data);
-    } else {
-      return thunkApi.rejectWithValue(error.message);
     }
+    return thunkApi.rejectWithValue(error.message);
   }
 });
 
@@ -32,9 +31,8 @@ export const fetchMoreUsersDesksThunk = createAsyncThunk(
     } catch (error: any) {
       if (error.response) {
         return thunkApi.rejectWithValue(error.response.data);
-      } else {
-        return thunkApi.rejectWithValue(error.message);
       }
+      return thunkApi.rejectWithValue(error.message);
     }
   },
 );

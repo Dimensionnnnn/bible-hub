@@ -12,9 +12,8 @@ export const fetchAuthSignInThunk = createAsyncThunk(
     } catch (error: any) {
       if (error.response) {
         return thunkApi.rejectWithValue(error.response.data);
-      } else {
-        return thunkApi.rejectWithValue(error.message);
       }
+      return thunkApi.rejectWithValue(error.message);
     }
   },
 );
@@ -28,9 +27,8 @@ export const fetchAuthSignUpThunk = createAsyncThunk(
     } catch (error: any) {
       if (error.response) {
         return thunkApi.rejectWithValue(error.response.data);
-      } else {
-        return thunkApi.rejectWithValue(error.message);
       }
+      return thunkApi.rejectWithValue(error.message);
     }
   },
 );

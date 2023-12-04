@@ -63,7 +63,7 @@ export const PrayerPage = () => {
 
   const handleDoPrayer = async (prayerId: number) => {
     if (prayer) {
-      const columnId = prayer.columnId;
+      const { columnId } = prayer;
       const doPrayer = await dispatch(prayerActions.fetchPrayerDo({ columnId, prayerId }));
 
       if (prayerActions.fetchPrayerDo.rejected.match(doPrayer)) {
@@ -110,7 +110,7 @@ export const PrayerPage = () => {
             }}
           />
           <SubscribeButton
-            title={'Follow'}
+            title="Follow"
             isFollow={selfFollowed}
             onPress={selfFollowed ? () => handleUnfollow(prayerId) : () => handleFollow(prayerId)}
           />

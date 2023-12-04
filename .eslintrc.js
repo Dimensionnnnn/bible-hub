@@ -7,6 +7,8 @@ module.exports = {
   parser: '@typescript-eslint/parser',
   plugins: ['@typescript-eslint', 'unused-imports', 'react', 'react-native', 'react-hooks'],
   rules: {
+    'react/jsx-curly-newline': 'off',
+    'function-paren-newline': 'off',
     'react/prop-types': 'off',
     'no-nested-ternary': 'off',
     indent: 'off',
