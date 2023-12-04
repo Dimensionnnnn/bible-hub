@@ -3,15 +3,15 @@ import { ComponentType, FC, ReactNode } from 'react';
 
 import { NoNetwork } from '@shared/ui/components/list-empty/no-network';
 
-interface WithNoNetworkProps {
+interface WithNetworkStateProps {
   children?: ReactNode;
 }
 
-export function withNoNetwork<T>(Component: ComponentType<T>): FC<T & WithNoNetworkProps> {
-  const EmptyListComponent: FC<T & WithNoNetworkProps> = ({
+export function withNetworkState<T>(Component: ComponentType<T>): FC<T & WithNetworkStateProps> {
+  const NetworkStateComponent: FC<T & WithNetworkStateProps> = ({
     children,
     ...props
-  }: T & WithNoNetworkProps) => {
+  }: T & WithNetworkStateProps) => {
     const netInfo = useNetInfo();
     return netInfo.isConnected ? (
       <Component {...(props as T)}>{children}</Component>
@@ -19,8 +19,8 @@ export function withNoNetwork<T>(Component: ComponentType<T>): FC<T & WithNoNetw
       <NoNetwork />
     );
   };
-  EmptyListComponent.displayName = `WithEmptyList(${
+  NetworkStateComponent.displayName = `WithNetworkState(${
     Component.displayName || Component.name || 'Component'
   })`;
-  return EmptyListComponent;
+  return NetworkStateComponent;
 }

@@ -2,7 +2,7 @@ import { GestureHandlerRootView, Swipeable } from 'react-native-gesture-handler'
 import styled from 'styled-components/native';
 
 import { Columns } from '@shared/api/generated';
-import { withNoNetwork } from '@shared/helpers/with-no-network/with-no-network';
+import { withNetworkState } from '@shared/helpers/with-network-state/with-network-state';
 
 import { ButtonSize, DeleteButton } from '../buttons/delete-button/delete-button';
 import { UIDeskCard } from '../desk-card';
@@ -47,7 +47,7 @@ const ItemSwipe = ({ item, handleDeleteColumn, onColumnPress }: ItemSwipeProps) 
   );
 };
 
-export const UISelfDeskColumnsList = withNoNetwork(
+export const UISelfDeskColumnsList = withNetworkState(
   ({ data, fetchMore, onPress, onDeleteAction }: Props) => {
     if (!data || data.length === 0) {
       return <SelfListEmpty />;
