@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 import { Columns } from '@shared/api/generated';
 
@@ -16,10 +16,27 @@ const initialState: DeskColumnsStateType = {
   afterCursor: undefined,
 };
 
+type EditColumnPayload = {
+  columnId: number;
+  deskId: number;
+  title: string;
+};
+
 export const deskColumnsSlice = createSlice({
   name: 'desk-columns',
   initialState,
-  reducers: {},
+  reducers: {
+    editColumnTitle: (state, action: PayloadAction<EditColumnPayload>) => {
+      const { columnId, deskId, title } = action.payload;
+
+      state.entities[deskId] = state.entities[deskId].map((column) => {
+        if (column.id === columnId) {
+          return { ...column, title };
+        }
+        return column;
+      });
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(actions.fetchDeskColumns.pending, (state) => {

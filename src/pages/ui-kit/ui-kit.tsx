@@ -17,10 +17,10 @@ import { SecondaryButton } from '@shared/ui/components/buttons/secondary-button/
 import { SubscribeButton } from '@shared/ui/components/buttons/subscribe-button/subscribe-button';
 import { TextButton } from '@shared/ui/components/buttons/text-button/text-button';
 import { UIDeskCard } from '@shared/ui/components/desk-card';
+import { UICardInput } from '@shared/ui/components/inputs/card-input';
 import { UICommentInput } from '@shared/ui/components/inputs/comment-input';
 import { UIDefaultInput } from '@shared/ui/components/inputs/default-input';
 import { UILabelInput } from '@shared/ui/components/inputs/label-input';
-import { UILongTapEdit } from '@shared/ui/components/inputs/long-tap-edit';
 import { UIPrayerCard } from '@shared/ui/components/prayer-card';
 import { SvgAirplaneIcon } from '@shared/ui/icons/components/svg-airplane-icon';
 import { SvgArmsIcon } from '@shared/ui/icons/components/svg-arms-icon';
@@ -31,7 +31,7 @@ import { SvgPlusIcon } from '@shared/ui/icons/components/svg-plus-icon';
 export const UIKit = () => {
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <UILongTapEdit placeholder="Placeholder" />
+      <UICardInput placeholder="Placeholder" />
       <PrimaryButton title="Add" size={PrimaryButtonSize.large} onPress={() => {}} />
       <PrimaryButton title="Add" size={PrimaryButtonSize.large} isDisabled onPress={() => {}} />
       <PrimaryButton title="Add" size={PrimaryButtonSize.large} isLoading onPress={() => {}} />

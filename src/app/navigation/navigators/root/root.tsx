@@ -1,3 +1,4 @@
+import { PortalHost } from '@gorhom/portal';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { DeskColumnsPage } from '@pages/desk-columns';
@@ -46,34 +47,37 @@ export enum RootRouteNames {
 
 export const RootNavigator = () => {
   return (
-    <Stack.Navigator>
-      <Stack.Group>
-        <Stack.Screen
-          name={RootRouteNames.TAB_BAR}
-          component={TabBar}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name={RootRouteNames.DESK_COLUMNS}
-          component={DeskColumnsPage}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name={RootRouteNames.PRAYERS_BY_COLUMN_ID}
-          component={PrayersByColumnIdPage}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name={RootRouteNames.SELF_PRAYERS}
-          component={SelfPrayersPage}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name={RootRouteNames.PRAYER}
-          component={PrayerPage}
-          options={{ headerShown: false }}
-        />
-      </Stack.Group>
-    </Stack.Navigator>
+    <>
+      <Stack.Navigator>
+        <Stack.Group>
+          <Stack.Screen
+            name={RootRouteNames.TAB_BAR}
+            component={TabBar}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name={RootRouteNames.DESK_COLUMNS}
+            component={DeskColumnsPage}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name={RootRouteNames.PRAYERS_BY_COLUMN_ID}
+            component={PrayersByColumnIdPage}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name={RootRouteNames.SELF_PRAYERS}
+            component={SelfPrayersPage}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name={RootRouteNames.PRAYER}
+            component={PrayerPage}
+            options={{ headerShown: false }}
+          />
+        </Stack.Group>
+      </Stack.Navigator>
+      <PortalHost name="card" />
+    </>
   );
 };

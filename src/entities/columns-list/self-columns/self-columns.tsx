@@ -45,6 +45,7 @@ export const SelfColumnsEntity = ({ deskId }: Props) => {
 
   return (
     <UISelfDeskColumnsList
+      deskId={deskId}
       data={selfColumns}
       onPress={handleNavigate}
       fetchMore={() => {

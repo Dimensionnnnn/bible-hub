@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 import { Prayers } from '@shared/api/generated';
 
@@ -16,10 +16,26 @@ const initialState: PrayersByColumnIdStateType = {
   entities: {},
 };
 
+type EditPrayerTitlePayload = {
+  columnId: number;
+  prayerId: number;
+  title: string;
+};
+
 export const prayersByColumnIdSlice = createSlice({
   name: 'prayers-by-column-id',
   initialState,
-  reducers: {},
+  reducers: {
+    editPrayerTitle: (state, action: PayloadAction<EditPrayerTitlePayload>) => {
+      const { columnId, prayerId, title } = action.payload;
+      state.entities[columnId] = state.entities[columnId].map((prayer) => {
+        if (prayer.id === prayerId) {
+          return { ...prayer, title };
+        }
+        return prayer;
+      });
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(actions.fetchPrayersByColumnId.pending, (state) => {
